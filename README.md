@@ -60,6 +60,6 @@ I have a strong passion for learning and exploring various aspects of computer s
 
 <div align="center">
   
-  ![](https://github-profile-trophy.vercel.app/?username=adityasatuluri&no-frame=false&no-bg=false&margin-w=4)
+  ![](https://github-profile-trophy.vercel.app/?username=adityasatuluri&theme=darcul&no-frame=false&no-bg=false&margin-w=4)
   
   </div>
