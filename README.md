@@ -40,7 +40,9 @@ I have a strong passion for learning and exploring various aspects of computer s
 
 <h2 align="center">📊 Github Statistics </h2>
 <p align="center">
-<img src="https://github-readme-stats.vercel.app/api?username=adityasatuluri&count_private=true&layout=compact&hide=html&theme=yeblu" alt="Geekquad's Github Stats" />&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github-readme-stats.vercel.app/api?username=adityasatuluri&theme=darcula"/>&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<img src="https://github-readme-streak-stats.herokuapp.com/?user=adityasatuluri&theme=darcula&hide_border=false"/>&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=adityasatuluri&theme=darcula&hide_border=false&include_all_commits=false&count_private=false&layout=compact"/>&nbsp;&nbsp;&nbsp;&nbsp;
 </p>
 
 <!-- <p align="center"> <img src="https://github-readme-streak-stats.herokuapp.com/?user=geekquad" /> </p> -->
@@ -58,6 +60,6 @@ I have a strong passion for learning and exploring various aspects of computer s
 
 <div align="center">
   
-  ![](https://github-profile-trophy.vercel.app/?username=adityasatuluri&theme=nord&no-frame=false&no-bg=false&margin-w=4)
+  ![](https://github-profile-trophy.vercel.app/?username=adityasatuluri&no-frame=false&no-bg=false&margin-w=4)
   
   </div>
