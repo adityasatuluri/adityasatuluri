@@ -1,0 +1,762 @@
+1.	Write a high level program for the following:
+Suppose that the data for analysis includes the attribute age. The age values for the data tuples are (in increasing order)
+ .
+a.	What is the mean of the data? What is median?
+b.	What is the mode of the data? Comment on the data’s modality (bimodal, trimodal, etc..)
+c.	What is mid-range of the data?
+d.	Can you find the first quartile(Q1) and the third quartile (Q3) of the data?
+e.	Give the five number summary of the data.
+
+#include<stdio.h>
+void main()
+{
+    int mean,sum=0,n,m[30],p;
+    int a[]={13,15,16,16,19,20,20,21,22,22,25,25,25,25,30,33,33,35,35,35,35,36,40,45,52,70};
+    //printf("enter nyumber of elements");
+    //scanf("%d",&n);
+    //printf("enter elements");
+    //for(int i=0;i<n;i++)
+    //{
+        //scanf("%d",&a[i]);
+    //}
+    n=sizeof(a)/sizeof(a[1]);
+    for(int i=0;i<n;i++)
+    {
+        sum+=a[i];
+    }
+    mean=sum/n;
+    printf("the mean of the given data is %d",mean);
+    int temp,mid,max=0;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n-i-1;j++)
+        {
+            if(a[j]>a[j+1])
+            {
+                temp=a[j];
+                a[j]=a[j+1];
+                a[j+1]=temp;
+            }
+        }
+    }
+    int v=0,mode=0;
+    for(int i=0;i<n-1;i++)
+    {
+        int c=0;
+        for(int j=i+1;j<n;j++)
+        {
+            if(a[j]==a[i])
+               c++;
+            else
+                break;
+        }
+        if (c > max)
+        {
+         max = c;
+         mode = a[i];
+         v=0;
+        }
+        if(c==max)
+        {
+            m[v]=a[i];
+            v++;
+        }
+    }
+    if(v==1)
+        printf("\nsingle mode");
+    else if(v==2)
+        printf("\nbimodal");
+    else
+        printf("\ntrimodal");
+    for(int i=0;i<v;i++)
+        {
+            printf("\nthe mode of the given data is%d",m[i]);
+        }
+    int median(int k[],int l)
+    {
+        if(l%2!=0)
+        {
+            return mid=k[l/2];
+        }
+        else
+        {
+            return mid=(k[l/2]+k[(l/2)+1])/2;
+        }
+    }
+    printf("\nthe median of the given data is %d",median(a,n));
+    int range=a[n-1]-a[0];
+    printf("\nthe range of the given data is %d",range);
+    int q1=0,q3=0,q[20],r[20];
+    int qs=0.5*n;
+    for(int i=0;i<qs;i++)
+    {
+        q[i]=a[i];
+    }
+    int rs=0.5*n;
+    int j=0;
+    for(int i=rs;i<n;i++)
+    {
+        r[j]=a[i];
+        j++;
+        //printf("\n%d",r[i]);
+    }
+   
+    q1=median(q,qs);
+    q3=median(r,rs);
+    printf("\nq1=%d",q1);
+    printf("\nq3=%d",q3);
+    int q2=median(a,n);
+    int five[]={a[0],q1,q2,q3,a[n-1]};
+    printf("\nthe fivepoint summary is");
+    for(int t=0;t<5;t++)
+    {
+        printf("\n%d",five[t]);
+    }
+     
+}
+
+2.	Write a C program to calculate the correlation coefficient. Use the following data to check your code. 
+Suppose a hospital tested the age and body fat data for 18 randomly selected adults with the following result:
+ 
+Are these two variables positively or negatively correlated?
+//Corelation coefficient//
+#include<stdio.h>
+#include<math.h>
+void main()
+{
+    float x[]={23,23,27,27,39,41,47,49,50,52,54,54,56,57,58,58,60,61};
+    float y[]={9.5,26.5,7.8,17.8,31.4,25.9,27.4,27.2,31.2,34.6,42.5,28.8,33.4,30.2,34.1,32.9,41.2,35.7};
+    int n=sizeof(x)/sizeof(x[0]);
+    //printf("%d",n);
+    float xbar=0,ybar=0,xb,yb;
+    for(int i=0;i<n;i++)
+      {
+          xbar=x[i]+xbar;
+      }
+    for(int j=0;j<n;j++)
+    {
+      ybar=y[j]+ybar;
+    }
+    xb=xbar/n;
+    yb=ybar/n;
+    float sdx=0,sdy=0;
+    float s=0;
+    float t=0;
+    float sxy=0;
+    for(int i=0;i<18;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+                if(i==j)
+                {
+                    sxy=x[i]*y[j]+sxy;
+                }
+        }
+    }
+    for(int i=0;i<n;i++)
+    {
+        s=pow(x[i],2)+s;
+    }
+    sdx=s/n;
+    for(int i=0;i<n;i++)
+    {
+        t=pow(y[i],2)+t;
+    }
+    sdy=t/n;
+    float xyb=xb*yb;
+    float d=sxy/n;
+    float sx,sy;
+    sx=sqrt(sdx-xb*xb);
+    sy=sqrt(sdy-yb*yb);
+    float cov=d-xyb;
+    float r=cov/(sx*sy);
+    printf("\nsxy %f",sxy);
+    printf("\ncov %f",cov);
+   printf("\nxbar %f",xb);
+   printf("\nybar %f",yb);
+   printf("\nxyb %f",xyb);
+    printf("\nstandx %f",sx);
+    printf("\nstandy %f",sy);
+   printf("\nr= %f",r);
+}
+
+3.	Suppose that the data for analysis includes the attribute age. The age values for the data tuples are (in increasing order) 13, 15, 16, 16, 19, 20, 20, 21, 22, 22, 25, 25, 25, 25, 30, 33, 33, 35, 35, 35, 35, 36, 40, 45, 46, 52, 70. Write a C program to implement smoothing by bin means to smooth the data, using a bin depth of 3.
+3 Smoothing
+#include<stdio.h>
+int mean(int arr[],int n)
+{
+    int s=0,m=0;
+    for(int i=0;i<n;i++)
+    {
+        s=s+arr[i];
+    }
+    m=s/n;
+    return m;
+}
+void main(){
+    int n=27,bin,b[100],k=0,p=0;
+    int arr[27]={13, 15, 16, 16, 19, 20, 20, 21, 22, 22, 25, 25, 25, 25, 30, 33, 33, 35, 35, 35, 35, 36, 40, 45, 46, 52, 70};
+    printf("enter bin size:");
+    scanf("%d",&bin);
+    int h=n%bin;
+    if(h!=0)
+    {
+        for(int i=0;i<(bin-h);i++)
+        {
+            arr[n++]=0;
+        }
+    }
+    for(int i=0;i<n;i=i+bin)
+    {
+        k=0;
+        int cp=0;
+        for(int j=i;j<(i+bin);j++)
+        {
+            b[k]=arr[j];
+            k=k+1;
+        }
+        cp=mean(b,bin);
+        for(p=i;p<(i+bin);p++)
+        {
+            arr[p]=cp;
+        }
+    }
+    for(int i=0;i<n;i++)
+    {
+        printf("%d\t",arr[i]);
+    }
+}
+
+enter bin size:3
+14 14 14 18 18 18 21 21 21 24 24 24 26 26 26 33 33 33 35 35 35 40 40 40 56 56 56 
+
+4.	Write a C program to implement:
+(a) min-max normalization
+(b) z-score normalization
+(c) Normalization by decimal scaling.
+  
+4a
+#include<stdio.h>
+void main(){
+    int n,a[100],min,max,r;
+    printf("enter the size of an array:");
+    scanf("%d",&n);
+    printf("enter array elements:");
+    for(int i=0;i<n;i++){
+        scanf("%d",&a[i]);
+    }
+    min=a[0];
+    max=a[0];
+    for(int i=0;i<n;i++){
+        if(min>a[i]){
+            min=a[i];
+        }
+        if(max<a[i]){
+            max=a[i];
+        }
+    }
+    r=max-min;
+    for(int i=0;i<n;i++){
+        a[i]=(a[i]-min)/r;
+        printf("%d\n",a[i]);
+    }
+   
+}
+4b
+#include<math.h>
+float mean(int a[],int n)
+{
+    int s=0;
+    float m=0.0;
+    for(int i=0;i<n;i++)
+    {
+        s=s+a[i];
+    }
+    m=s/n;
+    return m;
+}
+float sigma(int a[],int n)
+{
+    float sig=0.0,v=0.0,m;
+    m=mean(a,n);
+    for(int i=0;i<n;i++)
+    {
+        sig=sig+((a[i]-m)*(a[i]-m));
+    }
+    v=sqrt(sig/n);
+    return v;
+}
+void main()
+{
+ int n,a[100],min,max,r;
+ printf("enter the size of an array:");
+ scanf("%d",&n);
+ printf("enter array elements:");
+ for(int i=0;i<n;i++)
+ {
+    scanf("%d",&a[i]);
+ }
+ 
+ for(int i=0;i<n;i++)
+ {
+    a[i]=(a[i]-(mean(a,n)))/sigma(a,n);
+    printf("%d\n",a[i]);
+ }
+}
+
+
+
+4c
+#include<stdio.h>
+#include<math.h>
+void main()
+{
+    int n,a[100],min,max,r,c=0,k=0;
+    float b[100];
+    printf("enter the size of an array:");
+    scanf("%d",&n);
+    printf("enter array elements:");
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&a[i]);
+    }
+    max=a[0];
+    for(int i=0;i<n;i++)
+    {
+        if(max<a[i])
+        {
+            max=a[i];
+        }
+    }
+    while(max>0)
+    {
+        r=max%10;
+        c=c+1;
+        max=max/10;
+    }
+    for(int i=0;i<n;i++)
+    {
+        b[k]=a[i]/pow(10,c);
+        k=k+1;
+    }
+    for(int i=0;i<n;i++)
+    {
+        printf("%f\n",b[i]);
+    }
+}
+
+5.	Write a program to find frequent item sets using apriori algorithm for the following transactional database. Let min sup = 60% and min conf = 80%
+ 
+#include<stdio.h>
+void main(){
+    int item_set[10]={1,2,3,4,5};
+    int n1=5;
+    int n2=9;
+    int sizes[10]={3,2,2,3,2,2,2,4,3};
+    int list_of_items[100][100]={{1,2,5},{2,4},{2,3},{1,2,4},{1,3},{2,3},{1,3},{1,2,3,5},{1,2,3}};
+    int c1[100],k=0;
+    for(int p=0;p<5;p++){
+        int c=0;
+for(int i=0;i<n2;i++){
+        for(int j=0;j<sizes[i];j++){
+         if(list_of_items[i][j]==item_set[p]){
+                    c++;
+                    break;
+                }
+            }
+}
+if(c>=2){
+    c1[k]=c;
+            k++;
+}
+
+}
+int c2[100],y=0,l2[100][100],z,f=0;
+for(int p=0;p<5;p++){
+    for(int q=p+1;q<5;q++){
+        int u=0;
+        for(int i=0;i<n2;i++){
+            for(int j=0;j<sizes[i];j++){
+                for(int r=j+1;r<sizes[i];r++){
+                   
+                if(list_of_items[i][j]==item_set[p]&&list_of_items[i][r]==item_set[q]){
+                    u++;
+                    //printf("%d\n",u);
+                   
+                    break;
+                }
+               
+                }
+               
+            }
+       
+       
+        }
+        //printf("%d\n",u);
+        if(u>=2){
+            c2[y]=u;
+            l2[f][0]=item_set[p];
+            l2[f][1]=item_set[q];
+            y++;
+            f++;
+           
+           
+        }
+    }
+   
+   
+}
+int c33[100][100],k3=0,k4=0,z1=0;
+for(int i=0;i<f;i++){
+    for(int j=i+1;j<f;j++){
+            if(l2[i][0]==l2[j][0]){
+                c33[k4][0]=l2[i][0];
+                c33[k4][1]=l2[i][1];
+                c33[k4][2]=l2[j][1];
+               
+               k4++;
+           
+        }
+     
+    }
+     
+   
+   
+}
+int l3[100][100],k33,c34[100],l33=0,l34=0;
+for(int a=0;a<k4;a++){
+    k33=0;
+    for(int i=0;i<n2;i++){
+       
+        if(sizes[i]>=3){
+           
+        for(int j=0;j<sizes[i];j++){
+           
+            for(int k=j+1;j<sizes[i];j++){
+                for(int l=j+2;l<sizes[i];l++){
+                    if(c33[a][0]==list_of_items[i][j]&&c33[a][1]==list_of_items[i][k]&&c33[a][2]==list_of_items[i][l]){
+                        k33++;
+                        //printf("%d",k33);
+                        break;
+                    }
+                }
+            }
+           
+        }
+       
+    }
+   
+}
+if(k33>=2){
+                l3[l34][0]=c33[a][0];
+                l3[l34][1]=c33[a][1];
+                l3[l34][2]=c33[a][2];
+                l34++;
+            }
+}
+for(int a=0;a<l34;a++){
+    for(int b=0;b<3;b++){
+        printf("%d\n",l3[a][b]);
+    }
+}
+6.	Write high level language programs to implement Naïve Bayesian classification for the given case study.
+
+The following table consists of training data from an employee database. The data have been generalized. For example, “31 : : : 35” for age represents the age range of 31 to 35. For a given row entry, count represents the number of data tuples having the values for department, status, age, and salary given in that row.
+
+ 
+Given a data tuple having the values “systems,” “26 . . . 30,” and “46–50K” for the
+attributes department, age, and salary, respectively, what would a naive Bayesian
+classification of the status for the tuple be?
+
+#include <stdio.h>
+#include<string.h>
+void  main()
+{
+ char age[50][50]={"youth","youth","mid","old","old","old","mid","youth","youth","old","youth","mid","mid","old"};
+ char income[50][50]={"high","high","high","medium","low","low","low","medium","low","medium","medium","medium","high","medium"};
+ char student[50][50]={"no","no","no","no","yes","yes","yes","no","yes","yes","yes","no","yes","no"};
+ char credit[50][50]={"fair","excellent","fair","fair","fair","excellent","excellent","fair","fair","fair","excellent","excellent","fair","excellent"};
+ char buys[50][50]={"no","no","yes","yes","yes","no","yes","no","yes","yes","yes","yes","yes","no"};
+ int by=0,bn=0;
+ for(int i=0;i<14;i++)
+ {
+     if(strcmp(buys[i],"yes")==0)
+        by++;
+    else
+        bn++;
+ }
+float pcy=by;
+float pcn=bn;
+float pc1=pcy/14;
+float pc2=pcn/14;
+ //p(x/ci)
+printf("enter age value,income,student,credit");
+char a[20],in[20],s[20],c[20];
+scanf("%s\n%s\n%s\n%s",a,in,s,c);
+int aby=0,abn=0;
+for(int i=0;i<14;i++)
+ {
+     if(strcmp(age[i],a)==0 && strcmp(buys[i],"yes")==0)
+         aby++;
+     if(strcmp(age[i],a)==0 && strcmp(buys[i],"no")==0)
+        abn++;
+ }
+float pac1=aby/pcy;
+float pac2=abn/pcn;
+//for income
+int iby=0,ibn=0;
+ for(int i=0;i<14;i++)
+ {
+     if(strcmp(income[i],in)==0 && strcmp(buys[i],"yes")==0)
+         iby++;
+     if(strcmp(income[i],in)==0 && strcmp(buys[i],"no")==0)
+        ibn++;
+}
+float pic1=iby/pcy;
+float pic2=ibn/pcn;
+//student=yes
+int sby=0,sbn=0;
+ for(int i=0;i<14;i++)
+ {
+     if(strcmp(student[i],s)==0 && strcmp(buys[i],"yes")==0)
+         sby++;
+     if(strcmp(student[i],s)==0 && strcmp(buys[i],"no")==0)
+        sbn++;
+}
+float psc1=sby/pcy;
+float psc2=sbn/pcn;
+//credit=fair
+int fby=0,fbn=0;
+ for(int i=0;i<14;i++)
+ {
+     if(strcmp(credit[i],c)==0 && strcmp(buys[i],"yes")==0)
+         fby++;
+     if(strcmp(credit[i],c)==0 && strcmp(buys[i],"no")==0)
+        fbn++;
+}
+float pfc1=fby/pcy;
+float pfc2=fbn/pcn;
+float pxcc1=pac1*pic1*psc1*pfc1;
+float pxcc2=pac2*pic2*psc2*pfc2;
+//posterior probability
+float ppx1=pxcc1*pc1;
+float ppx2=pxcc2*pc2;
+//printf("%f",ppx1);
+if(ppx1>ppx2)
+    printf("Buys_computer is yes");
+else
+    printf("Buys_computer is no");
+}
+
+
+enter age value,income,student,credityouth
+medium
+yes
+fair
+Buys_computer is yes
+
+8.	Write high level language programs to implement k-means clustering for the following case study.
+Suppose that the data mining task is to cluster points (with (x, y) representing location) into three clusters, where the points are
+A1(2,10), A2(2,5), A3(8,4), B1(5,8), B2(7,5), B3(6,4), C1(1,2), C2(4,9).
+The distance function is Euclidean distance. Suppose initially we assign A1, B1, and C1 as the center of each cluster, respectively. Use the k-means algorithm to show only
+(a) The three cluster centers after the first round of execution.
+(b) The final three clusters.
+
+#include<stdio.h>
+#include<math.h>
+#include<stdlib.h>
+float mean1(float a[],float n){
+    float s=0;
+    for(int i=0;i<n;i++){
+        s=s+a[i];
+    }
+    return s/n;
+}
+/**float mean2(int b[][],int n){
+    float s1=0,s2=0;
+    for(int i=0;i<n;i++){
+        s1=s1+b[0][i];
+        s2=s2+b[i][0];
+    }
+    s1=s1/n;
+    s2=s2/n;
+    float a[3]={s1,s2};
+    return a;
+}
+**/
+void main(){
+    float a[100],b[100][100],n,k,d1,d2,m11,m22;
+    int t,j1,k1;
+    printf("enter no. of elements type");
+    scanf("%d",&t);
+    printf("enter no. of elements");
+    scanf("%f",&n);
+    printf("enter no. of clusters to be formed");
+    scanf("%f",&k);
+    printf("enter data");
+    switch(t){
+        case 1:for(int i=0;i<n;i++){
+            scanf("%f",&a[i]);
+        }
+        float c1[100],c2[100],m1,m2;
+        int k,j;
+        for(int i=0;i<n;i++){
+            c1[i]=0;
+            c2[i]=0;
+        }
+        m1=a[0];
+        m2=a[1];
+        do{
+            int j=0,k=0;
+        for(int i=0;i<n;i++){
+            d1=abs(m1-a[i]);
+            d2=abs(m2-a[i]);
+            if(d1<d2){
+                c1[j]=a[i];
+                j++;
+            }
+            else{
+                c2[k]=a[i];
+                k++;
+            }
+        }
+        m11=m1;
+        m22=m2;
+        m1=mean1(c1,j+1);
+        m2=mean1(c2,k+1);
+        j1=j;
+        k1=k;
+        }while(m11!=m1 && m22!=m2);
+        for(int i=0;i<j1;i++){
+            printf("%f ",c1[i]);
+        }
+        printf("\n");
+        for(int i=0;i<k1;i++){
+            printf("%f ",c2[i]);
+        }
+        printf("\n");
+        /**case 2:for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                scanf("%d",&b[i][j]);
+            }
+        }
+        float c1[100][100],c2[100][100],m1[4],m2[4];
+       
+        **/
+    }
+}
+
+
+output:
+enter no. of elements type1
+enter no. of elements9
+enter no. of clusters to be formed2
+enter data2 3 4 10 11 12 20 25 30
+2.000000 3.000000 4.000000 10.000000 11.000000 12.000000
+20.000000 25.000000 30.000000 
+
+
+9.	Write high level language programs to implement k-medoids clustering for the following data points. assuming no of clusters=2.
+(2,10), (2,5), (8,4), (5,8), (7,5), (6,4),(1,2), (4,9).
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+#include<limits.h>
+void main(){
+    int a[100][100];//={{2,6},{3,4},{3,8},{4,7},{6,2},{6,4},{7,3},{7,4},{8,5},{7,6}};
+    int n,tc[50][50],d1,d2,min=INT_MAX,p1,p2;
+    printf("enter no. of data points");
+    scanf("%d",&n);
+    printf("enter data points");
+   
+    for(int i=0;i<n;i++){
+        for(int j=0;j<2;j++){
+            scanf("%d",&a[i][j]);
+        }
+    }
+   
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i+1;j<n;j++)
+        {
+            int t=0;
+            for(int p=0;p<n;p++)
+            {
+                d1=abs(a[i][0]-a[p][0])+abs(a[i][1]-a[p][1]);
+                d2=abs(a[j][0]-a[p][0])+abs(a[j][1]-a[p][1]);
+                if(d1<d2)
+                {
+                    t=t+d1;
+                }
+                else
+                {
+                    t=t+d2;
+                }
+            }
+            tc[i][j]=t;
+            if(t<min && t!=0)
+            {
+                min=t;
+                p1=i;
+                p2=j;
+            }
+        }
+    }
+    //printf("%d %d",p1,p2);   for the point which has minimum cost
+    /**for(int i=0;i<n;i++){
+        for(j=0;j<n;j++){              
+            printf("%d ",tc[i][j]);     to print all the cost values which are present in tc matrix
+        }
+        printf("\n");
+    }
+    **/
+    int c1[50][50],c2[50][50],c11=0,c22=0;
+    for(int i=0;i<n;i++)
+    {
+        d1=abs(a[p1][0]-a[i][0])+abs(a[p1][1]-a[i][1]);
+        d2=abs(a[p2][0]-a[i][0])+abs(a[p2][1]-a[i][1]);
+        if(d1<d2)
+        {
+            c1[c11][0]=a[i][0];
+            c1[c11][1]=a[i][1];
+            c11++;
+        }
+        else
+        {
+            c2[c22][0]=a[i][0];
+            c2[c22][1]=a[i][1];
+            c22++;
+        }
+    }
+    printf("1st cluster\n");
+    for(int i=0;i<c11;i++){
+        printf("(%d,%d) ",c1[i][0],c1[i][1]);
+    }
+    printf("\n2nd cluster\n");
+    for(int i=0;i<c22;i++){
+        printf("(%d,%d) ",c2[i][0],c2[i][1]);
+    }    
+   
+}
+
+
+
+output:
+
+enter no. of data points10
+enter data points
+2 6
+3 4
+3 8
+4 7
+6 2
+6 4
+7 3
+7 4
+8 5
+7 6
+1st cluster
+(2,6) (3,4) (3,8) (4,7)
+2nd cluster
+(6,2) (6,4) (7,3) (7,4) (8,5) (7,6)
