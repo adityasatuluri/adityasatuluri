@@ -10,7 +10,7 @@ I'm Aditya, and I have a deep fascination for all things related to computers.
   <br>
   <br>
   <samp>
-Iam pursuing 3rd year of undergraduate degree</a>. 
+Iam pursuing 4th year of undergraduate degree</a>. 
 <br><br>
 <samp>  
 I have a strong passion for learning and exploring various aspects of computer science. Additionally, I enjoy drawing, graphic design, and 3D art, which allow me to express my creativity.
