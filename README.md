@@ -62,7 +62,6 @@ I have a strong passion for learning and exploring various aspects of computer s
 <h2 align="left"> 🔗 Let's Connect </h2>
 <p align="left">
   <a target="_blank"href="https://www.linkedin.com/in/aditya-satuluri-a250a31a0/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>&nbsp;&nbsp;&nbsp;&nbsp;
-  <a target="_blank"href="https://twitter.com/dimensionz_fx/"><img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>&nbsp;&nbsp;&nbsp;&nbsp;
   <a href="https://www.instagram.com/aditya.satuluri/"><img src="https://img.shields.io/badge/instagram-%23D14836.svg?&style=for-the-badge&logo=instagram&logoColor=pink" /></a>&nbsp;&nbsp;&nbsp;&nbsp;
 
 </p>
