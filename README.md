@@ -10,10 +10,10 @@ I'm Aditya, and I have a deep fascination for all things related to computers.
   <br>
   <br>
   <samp>
-Iam pursuing 4th year of undergraduate degree</a>. 
+Iam recently grduated with a degree in Computer Science and Engineering (B. Tech)</a>. 
 <br><br>
 <samp>  
-I have a strong passion for learning and exploring various aspects of computer science. Additionally, I enjoy drawing, graphic design, and 3D art, which allow me to express my creativity.
+I have a strong passion for learning and exploring various aspects of computer science. Additionally, I enjoy drawing, graphic design, and 3D art in free time.
    </samp>
   <br> <br>
   <!-- <img src="https://komarev.com/ghpvc/?username=geekquad" alt="geekquad" />  -->
