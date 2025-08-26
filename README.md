@@ -10,7 +10,7 @@ I'm Aditya, and I have a deep fascination for all things related to computers.
   <br>
   <br>
   <samp>
-Iam recently grduated with a degree in Computer Science and Engineering (B. Tech)</a>. 
+Iam recently graduated with a degree in Computer Science and Engineering (B. Tech)</a>. 
 <br><br>
 <samp>  
 I have a strong passion for learning and exploring various aspects of computer science. Additionally, I enjoy drawing, graphic design, and 3D art in free time.
