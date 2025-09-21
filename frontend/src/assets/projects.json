@@ -1,0 +1,40 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "ELECTRIFIND",
+      "category": "UI/UX Design",
+      "description": "UI design for a EV charging station finder app",
+      "year": "2024",
+      "image": "projects/electrifind.jpg",
+      "skills": ["figma", "ui/ux"],
+      "repo_link": null,
+      "live_link": [
+        "https://www.behance.net/gallery/200227953/ElectriFind-EV-Charging-Station-Finder-UI-Design",
+        "Behance"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Obscura",
+      "category": "AI / Data Privacy",
+      "description": "AI tool that automatically detects and redacts PII in text.",
+      "year": "2025",
+      "skills": ["python", "ai/ml", "git"],
+      "image": "projects/obscura.png",
+      "repo_link": "https://github.com/adityasatuluri/Obscura",
+      "live_link": null
+    },
+    {
+      "id": 3,
+      "title": "Flex Chat",
+      "category": "Full Stack (MERN)",
+      "description": "Full-stack chat app with authentication, profiles, and real-time messaging.",
+      "year": "2024",
+      "skills": ["mern", "javascript", "git", "mongodb"],
+      "image": "projects/flexchat.png",
+      "repo_link": "https://github.com/adityasatuluri/flex-chat",
+      "live_link": null
+    }
+  ]
+}

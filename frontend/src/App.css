@@ -1,0 +1,289 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Jura:wght@700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Jura:wght@700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Jura:wght@700&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+/* App.css */
+
+@font-face {
+  font-family: "abnes";
+  src: url(fonts/abnes.ttf);
+}
+
+@font-face {
+  font-family: "echocore";
+  src: url(fonts/echocore.otf);
+}
+
+.abnes {
+  font-family: "abnes", sans-serif;
+}
+
+.echocore {
+  font-family: "echocore", sans-serif;
+}
+
+.orbitron-f {
+  font-family: "Orbitron", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+
+.jura-font {
+  font-family: "Jura", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.jura-light {
+  font-family: "Jura", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: light;
+}
+
+::-moz-selection {
+  /* Code for Firefox */
+  color: black;
+  background: #e1e1e1;
+  fontfamily: "poppins, sans-serif";
+}
+
+::selection {
+  color: black;
+  background: #e1e1e1;
+  font-weight: bold;
+}
+
+.custom-border::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(240, 240, 240, 0.1); /* light grey with 0.2 opacity */
+}
+
+.custom-border::after {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 3px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 0, 0, 0) 0%,
+    rgba(255, 0, 0, 0.5) 15%,
+    rgba(255, 0, 0, 0) 50%
+  );
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.custom-border:hover::after {
+  width: 90%; /* expand glowing effect */
+  opacity: 1; /* visible on hover */
+  height: 4px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 0, 0, 1) 0%,
+    rgba(255, 0, 0, 0.7) 20%,
+    rgba(255, 0, 0, 0) 85%
+  );
+}
+
+.grain {
+  position: relative;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Dissolve_Noise_Texture.png");
+  opacity: 0.05; /* slightly lighter */
+  animation: animateGrain 8s steps(10) infinite;
+  pointer-events: none;
+  z-index: 0; /* 👈 pushes noise behind content */
+}
+
+@keyframes animateGrain {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-5%, -10%);
+  }
+  20% {
+    transform: translate(-15%, -20%);
+  }
+  30% {
+    transform: translate(-5%, -10%);
+  }
+  40% {
+    transform: translate(-15%, -20%);
+  }
+  50% {
+    transform: translate(-5%, -10%);
+  }
+  60% {
+    transform: translate(-15%, -20%);
+  }
+  70% {
+    transform: translate(-5%, -10%);
+  }
+  80% {
+    transform: translate(-15%, -20%);
+  }
+  90% {
+    transform: translate(-5%, -10%);
+  }
+}
+
+.glitch-button span {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-button span::before,
+.glitch-button span::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.glitch-button span::before {
+  animation: glitchTop 2s infinite linear alternate-reverse;
+  color: #ff3b3b; /* red glitch layer */
+}
+
+.glitch-button span::after {
+  animation: glitchBottom 2s infinite linear alternate-reverse;
+  color: #00f6ff; /* cyan glitch layer */
+}
+
+@keyframes glitchTop {
+  0% {
+    clip: rect(0, 9999px, 0, 0);
+    transform: translate(0);
+  }
+  20% {
+    clip: rect(0, 9999px, 100%, 0);
+    transform: translate(-2px, -2px);
+  }
+  40% {
+    clip: rect(0, 9999px, 0, 0);
+    transform: translate(0);
+  }
+  60% {
+    clip: rect(0, 9999px, 100%, 0);
+    transform: translate(2px, 2px);
+  }
+  100% {
+    clip: rect(0, 9999px, 0, 0);
+    transform: translate(0);
+  }
+}
+
+@keyframes glitchBottom {
+  0% {
+    clip: rect(0, 9999px, 0, 0);
+    transform: translate(0);
+  }
+  20% {
+    clip: rect(0, 9999px, 100%, 0);
+    transform: translate(2px, 2px);
+  }
+  40% {
+    clip: rect(0, 9999px, 0, 0);
+    transform: translate(0);
+  }
+  60% {
+    clip: rect(0, 9999px, 100%, 0);
+    transform: translate(-2px, -2px);
+  }
+  100% {
+    clip: rect(0, 9999px, 0, 0);
+    transform: translate(0);
+  }
+}
+
+.stroke {
+  -webkit-text-stroke: 5px black;
+}
+
+/* For Chromium-based browsers (Chrome, Edge, Safari, Opera) */
+body {
+  /* Set default to transparent to hide scrollbar when not hovering */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Cyberpunk Red Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 0px;
+  background: #050505; /* dark cyber background */
+}
+
+::-webkit-scrollbar-track {
+  background: linear-gradient(180deg, #0a0a0a, #1a1a1a);
+  border-radius: 50px 0px 50px 0px;
+  box-shadow: inset 0 0 6px rgba(255, 0, 0, 0.4);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff0000, #990000);
+  /* border-radius: 10px; */
+  border-radius: 0px 50px 0px 50px;
+  box-shadow: 0 0 8px #ff1a1a, 0 0 15px #ff0000 inset;
+  border: 1px solid #ff3b3b;
+
+  transition: all 0.3s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: white;
+  box-shadow: 0 0 12px #ff1a1a, 0 0 25px #ff0000 inset, 0 0 8px #ff3333;
+  border: 5px solid white;
+  transition: all 0.3s ease-in-out;
+}
+
+::-webkit-scrollbar-corner {
+  background: #0a0a0a;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    scale: 0.85;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+.elements {
+  animation: appear linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 30%;
+}
