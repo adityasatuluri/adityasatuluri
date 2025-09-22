@@ -6,7 +6,7 @@
       "category": "UI/UX Design",
       "description": "UI design for a EV charging station finder app",
       "year": "2024",
-      "image": "projects/electrifind.jpg",
+      "image": "projects/electrifind.webp",
       "skills": ["figma", "ui/ux"],
       "repo_link": null,
       "live_link": [
@@ -21,7 +21,7 @@
       "description": "AI tool that automatically detects and redacts PII in text.",
       "year": "2025",
       "skills": ["python", "ai/ml", "git"],
-      "image": "projects/obscura.png",
+      "image": "projects/obscura.webp",
       "repo_link": "https://github.com/adityasatuluri/Obscura",
       "live_link": null
     },
@@ -32,7 +32,7 @@
       "description": "Full-stack chat app with authentication, profiles, and real-time messaging.",
       "year": "2024",
       "skills": ["mern", "javascript", "git", "mongodb"],
-      "image": "projects/flexchat.png",
+      "image": "projects/flexchat.webp",
       "repo_link": "https://github.com/adityasatuluri/flex-chat",
       "live_link": null
     }

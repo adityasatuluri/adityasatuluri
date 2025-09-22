@@ -6,7 +6,7 @@ import React, {
   lazy,
   Suspense,
 } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { motion, AnimatePresence, easeInOut } from "motion/react";
 
@@ -169,6 +169,50 @@ export default function Home() {
     );
   }, []);
 
+  const location = useLocation(); // Get URL info (including hash)
+  const featuredWorksRef = useRef(null); // Ref for the Featured Work section
+  const ArtworksRef = useRef(null); // Ref for the Artworks section
+  const HomeRef = useRef(null);
+  const SkillsRef = useRef(null);
+  const WorkRef = useRef(null);
+
+  // Scroll to section when hash is present
+  // In Home.jsx, replace the scroll useEffect
+  useEffect(() => {
+    if (location.hash === "#featured-works" && featuredWorksRef.current) {
+      featuredWorksRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start", // Changed to "start" to align top of section
+        inline: "nearest",
+      });
+    } else if (location.hash === "#artworks" && ArtworksRef.current) {
+      ArtworksRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "end",
+      });
+    } else if (location.hash === "#home" && HomeRef.current) {
+      HomeRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
+    } else if (location.hash === "#skills" && SkillsRef.current) {
+      SkillsRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
+    } else if (location.hash === "#career" && WorkRef.current) {
+      WorkRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
+    }
+  }, [location.hash]);
+  
+
   return (
     <div className="w-full bg-[#030303] relative">
       <ScrollToTop
@@ -186,7 +230,11 @@ export default function Home() {
         }}
       />
       {/* Hero Section */}
-      <div className="relative flex flex-col items-center justify-center text-center grain min-h-[50vh] sm:min-h-[90vh] md:min-h-[60vh] lg:min-h-[90vh]">
+      <div
+        id="home"
+        ref={HomeRef}
+        className="relative flex flex-col items-center justify-center text-center grain min-h-[50vh] sm:min-h-[90vh] md:min-h-[60vh] lg:min-h-[90vh]"
+      >
         <div className="absolute inset-0 z-0">
           {/* background at the very back */}
           <div
@@ -287,7 +335,7 @@ export default function Home() {
       </div>
 
       {/* Scrollable Content */}
-      <div className="flex flex-col lg:gap-30 mg:gap-25 sm:gap-20 gap-20">
+      <div className="flex flex-col ">
         {/* About me*/}
         <div
           className="w-full h-[50vh] lg:h-[100vh] flex items-center justify-center text-[#f0f0f0] text-2xl font-normal p-6 grain align-middle"
@@ -311,6 +359,11 @@ export default function Home() {
         </div>
 
         {/* Featured Work Section */}
+        <div
+          id="featured-works"
+          ref={featuredWorksRef}
+          className="lg:h-30 mg:h-25 sm:h-20 h-20"
+        ></div>
         <div className="flex flex-col w-full h-full lg:h-full lg:pr-10 lg:pl-10 p-0 m-0 items-center justify-center text-[#f0f0f0] bg-[#030303] text-2xl font-bold">
           <div className="flex flex-col lg:flex-col lg:justify-between justify-between align-middle items-center w-full gap-6">
             <div className="elements flex flex-col md:flex-row md:gap-5 lg:gap-5 lg:flex-row md:px-6 sm:px-6 px-6 lg:px-0 text-6xl lg:text-8xl w-full h-full justify-center align-middle items-center lg:items-center">
@@ -476,29 +529,42 @@ export default function Home() {
 
         {/* Filler Image Night City*/}
         {!isMobile ? (
-          <Suspense
-            fallback={
-              <div className="w-full h-full flex items-center justify-center">
-                <div>Loading...</div>
-              </div>
-            }
-          >
-            <div
-              ref={cityRef}
-              className="w-full  lg:h-[100vh] md:h-[50vh] flex items-center justify-center text-[#f0f0f0] text-2xl font-normal pb-6 grain transition-all duration-1000"
-              style={{
-                backgroundImage: `url(${cityBg})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundAttachment: "fixed",
-              }}
-            ></div>
-          </Suspense>
+          <>
+            <div className="lg:h-30 mg:h-25 sm:h-20 h-20"></div>
+            <Suspense
+              fallback={
+                <div className="w-full h-full flex items-center justify-center">
+                  <div>Loading...</div>
+                </div>
+              }
+            >
+              <div
+                ref={cityRef}
+                className="w-full  lg:h-[100vh] md:h-[50vh] flex items-center justify-center text-[#f0f0f0] text-2xl font-normal pb-6 grain transition-all duration-1000"
+                style={{
+                  backgroundImage: `url(${cityBg})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  backgroundAttachment: "fixed",
+                }}
+              ></div>
+            </Suspense>
+          </>
         ) : (
-          <Artworks />
+          <>
+            <div className="lg:h-30 mg:h-25 sm:h-20 h-20"></div>
+            <div id="artworks" ref={ArtworksRef}>
+              <Artworks />
+            </div>
+          </>
         )}
 
         {/* Skills Section */}
+        <div
+          className="lg:h-30 mg:h-25 sm:h-20 h-20"
+          id="skills"
+          ref={SkillsRef}
+        ></div>
         <div className="w-full  min-h-[80vh] flex flex-col md:flex-row justify-between px-4 sm:px-6 md:px-10  gap-6 md:gap-10 text-lg sm:text-xl jura-font bg-[#030303] text-[#f0f0f0] cursor-crosshair">
           <div className="flex flex-col space-y-4 md:w-1/3 lg:items-start md:items-start items-center">
             <div
@@ -542,11 +608,16 @@ export default function Home() {
           </div>
         </div>
 
-        {/* EXPERIENCE Section  SET GROUP HOVERED ON {divs} */}
+        {/* EXPERIENCE Section */}
+        <div
+          className="lg:h-30 mg:h-25 sm:h-20 h-20"
+          id="career"
+          ref={WorkRef}
+        ></div>
         <div className="w-full flex flex-col md:flex-row justify-between px-4 sm:px-6 md:px-10 gap-6 md:gap-10 text-lg sm:text-xl jura-font cursor-crosshair bg-[#030303] text-[#f0f0f0]">
           <div className="flex flex-col md:w-1/3 lg:w-1/3 w-full lg:items-start md:items-start items-center">
             <div className="text-[14vw] sm:text-5xl md:text-5xl lg:text-8xl  sticky top-20">
-              WORK
+              CAREER
             </div>
           </div>
           <div className="w-full md:w-2/3 md:pl-10 space-y-10">
@@ -587,9 +658,19 @@ export default function Home() {
           </div>
         </div>
 
-        {!isMobile ? <Artworks /> : <></>}
+        {!isMobile ? (
+          <>
+            <div className="lg:h-30 mg:h-25 sm:h-20 h-20"></div>
+            <div id="artworks" ref={ArtworksRef}>
+              <Artworks />
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
 
         {/* Contact Section */}
+        <div className="lg:h-30 mg:h-25 sm:h-20 h-20"></div>
         <div className="w-full h-full  flex items-center justify-center text-[#f0f0f0] text-lg sm:text-xl font-bold px-4 sm:px-6 md:px-10">
           <div className="flex flex-col justify-center space-y-6 w-full lg:max-w-[80vw]">
             <div className="elements flex flex-col items-center w-full text-[14vw] sm:text-5xl md:text-5xl lg:text-8xl leading-tight">
@@ -617,7 +698,9 @@ export default function Home() {
             </div>
           </div>
         </div>
+
         {/* FOOTER */}
+        <div className="lg:h-30 mg:h-25 sm:h-20 h-20"></div>
         <Footer />
       </div>
     </div>

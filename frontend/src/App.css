@@ -5,6 +5,10 @@
 
 /* App.css */
 
+html {
+  scroll-behavior: smooth;
+}
+
 @font-face {
   font-family: "abnes";
   src: url(fonts/abnes.ttf);
