@@ -5,13 +5,9 @@ import Footer from "../components/Footer";
 import { RiCloseLargeFill } from "react-icons/ri";
 import { FaFilter } from "react-icons/fa6";
 import bg from "../assets/h.jpg";
+import { MdArrowUpward } from "react-icons/md";
+import ScrollToTop from "react-scroll-to-top";
 
-import {
-  SiAdobephotoshop,
-  SiBlender,
-  SiUnrealengine,
-  SiAdobe,
-} from "react-icons/si";
 
 export default function Soft() {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -64,11 +60,25 @@ export default function Soft() {
 
   return (
     <div className="text-white flex flex-col gap-30 align-middle justify-center items-center">
+      {/* <ScrollToTop
+        smooth
+        component={<MdArrowUpward size={30} color="white" />}
+        style={{
+          backgroundColor: "red",
+          borderRadius: "50%",
+          padding: "9px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          boxShadow: "0 4px 6px rgba(0,0,0,0.2)",
+          zIndex: 900,
+        }}
+      /> */}
       <div className="flex flex-col w-full h-full gap-10 ">
         <motion.div
           className="text-white  h-full p-5 md:p-10 lg:p-10 border-1 border-red-600
                       flex flex-col justify-center items-center gap-5 abnes text-xl sm:text-3xl md:text-5xl lg:text-7xl
-                      grain elements mx-10"
+                      grain elements mx-10 mt-10"
           style={{ backgroundImage: `url(${bg})` }}
         >
           <motion.p

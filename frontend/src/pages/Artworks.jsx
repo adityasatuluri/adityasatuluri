@@ -8,6 +8,8 @@ import React, {
 } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { motion, AnimatePresence, easeInOut } from "motion/react";
+import { MdArrowUpward } from "react-icons/md";
+import ScrollToTop from "react-scroll-to-top";
 import Footer from "../components/Footer";
 import "../App.css";
 import bg from "../assets/h.jpg";
@@ -141,6 +143,20 @@ export default function Ux() {
 
   return (
     <div className="flex flex-col lg:gap-30 mg:gap-25 sm:gap-20 gap-20">
+      <ScrollToTop
+        smooth
+        component={<MdArrowUpward size={30} color="white" />}
+        style={{
+          backgroundColor: "red",
+          borderRadius: "50%",
+          padding: "8px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          boxShadow: "0 4px 6px rgba(0,0,0,0.2)",
+          zIndex: 900,
+        }}
+      />
       <div className="my-10 mx-10 flex flex-col gap-10">
         <motion.div
           className="text-white w-full h-full p-5 md:p-10 lg:p-10 border-1 border-red-600

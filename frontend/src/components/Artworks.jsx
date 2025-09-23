@@ -21,8 +21,9 @@ const Artworks = () => {
       setArtworkImages(filteredImages);
       let sequenceIndex = 0;
       const sequence = [
-        2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 2, 1, 1, 1,
-        1, 1, 2, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1,
+        2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 2, 1, 1, 2, 1, 2,
+        1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 2, 2, 2, 2, 1,
+        1, 1,
       ];
       const interval = setInterval(() => {
         if (!isButtonHovered) {
@@ -33,7 +34,7 @@ const Artworks = () => {
             return nextImage;
           });
         }
-      }, 100); // 0.15 seconds per step
+      }, 150); // 0.15 seconds per step
       return () => clearInterval(interval);
     } else {
       console.warn(

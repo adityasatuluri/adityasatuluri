@@ -7,6 +7,7 @@ import "./App.css";
 import Home from "./pages/Home.jsx";
 import Artworks from "./pages/Artworks.jsx";
 import Soft from "./pages/Soft.jsx";
+import Credits from "./components/Credits.jsx";
 
 // assets
 import cursorSvg from "./assets/cursor.svg";
@@ -22,60 +23,60 @@ import { CgMenuGridO } from "react-icons/cg";
 import V from "./assets/sound/v2.mp3";
 import { MdRestartAlt } from "react-icons/md";
 
-function Credits({ visible, onClose }) {
-  if (!visible) return null;
-  return (
-    <div className="fixed inset-0 z-[5000] flex items-center justify-center w-screen h-screen">
-      <div className="w-full max-w-4xl h-[80vh] max-h-[600px] sm:max-h-[700px] lg:max-h-[800px] rounded-2xl bg-black/80 backdrop-blur-lg p-4 sm:p-6 md:p-8 shadow-2xl overflow-y-auto">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
-          <h2 className="text-white text-2xl sm:text-3xl md:text-4xl font-bold">
-            Credits
-          </h2>
-          <button
-            onClick={onClose}
-            className="text-white text-xl sm:text-2xl md:text-3xl font-light hover:text-red-600 transition-colors duration-300 ease-in-out mt-2 sm:mt-0"
-          >
-            ✕
-          </button>
-        </div>
-        <div className="text-white text-base sm:text-lg md:text-xl space-y-4">
-          <div>
-            <h3 className="font-semibold">Images:</h3>
-            <ul className="list-disc list-inside">
-              <li>Image 1 - Source: [Artist Name/Link]</li>
-              <li>Image 2 - Source: [Artist Name/Link]</li>
-              {/* Add more image credits as needed */}
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-semibold">Music:</h3>
-            <ul className="list-disc list-inside">
-              <li className="pl-5">
-                V - Artist: Marcin Przybyłowicz (
-                <a
-                  href="https://open.spotify.com/track/2u1FWVxAb16qbgwPgygAdj?si=e6849a9411bc4214"
-                  target="_blank"
-                  className="underline hover:text-red-600"
-                >
-                  link
-                </a>
-                )
-              </li>
-              {/* Add more music credits as needed */}
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-semibold">Other Assets:</h3>
-            <ul className="list-disc list-inside">
-              <li>Asset 1 - Source: [Source Name/Link]</li>
-              {/* Add more asset credits as needed */}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+// function Credits({ visible, onClose }) {
+//   if (!visible) return null;
+//   return (
+//     <div className="fixed inset-0 z-[5000] flex items-center justify-center w-screen h-screen">
+//       <div className="w-full max-w-4xl h-[80vh] max-h-[600px] sm:max-h-[700px] lg:max-h-[800px] rounded-2xl bg-black/80 backdrop-blur-lg p-4 sm:p-6 md:p-8 shadow-2xl overflow-y-auto">
+//         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+//           <h2 className="text-white text-2xl sm:text-3xl md:text-4xl font-bold">
+//             Credits
+//           </h2>
+//           <button
+//             onClick={onClose}
+//             className="text-white text-xl sm:text-2xl md:text-3xl font-light hover:text-red-600 transition-colors duration-300 ease-in-out mt-2 sm:mt-0"
+//           >
+//             ✕
+//           </button>
+//         </div>
+//         <div className="text-white text-base sm:text-lg md:text-xl space-y-4">
+//           <div>
+//             <h3 className="font-semibold">Images:</h3>
+//             <ul className="list-disc list-inside">
+//               <li>Image 1 - Source: [Artist Name/Link]</li>
+//               <li>Image 2 - Source: [Artist Name/Link]</li>
+//               {/* Add more image credits as needed */}
+//             </ul>
+//           </div>
+//           <div>
+//             <h3 className="font-semibold">Music:</h3>
+//             <ul className="list-disc list-inside">
+//               <li className="pl-5">
+//                 V - Artist: Marcin Przybyłowicz (
+//                 <a
+//                   href="https://open.spotify.com/track/2u1FWVxAb16qbgwPgygAdj?si=e6849a9411bc4214"
+//                   target="_blank"
+//                   className="underline hover:text-red-600"
+//                 >
+//                   link
+//                 </a>
+//                 )
+//               </li>
+//               {/* Add more music credits as needed */}
+//             </ul>
+//           </div>
+//           <div>
+//             <h3 className="font-semibold">Other Assets:</h3>
+//             <ul className="list-disc list-inside">
+//               <li>Asset 1 - Source: [Source Name/Link]</li>
+//               {/* Add more asset credits as needed */}
+//             </ul>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 
 function App() {
   const location = useLocation();
@@ -427,12 +428,13 @@ function App() {
                   </a>
 
                   {/* Credits */}
-                  {/* <div
-                    className="opacity-50 hover:text-red-500 hover:opacity-100 cursor-target"
+                  <button
+                    className="opacity-50 hover:text-red-500 hover:opacity-100 cursor-pointer"
                     onClick={() => setCredits(true)}
+                    type="button"
                   >
                     Credits
-                  </div> */}
+                  </button>
                 </div>
               </header>
             ) : (
@@ -500,39 +502,11 @@ function App() {
                         }}
                         className={`hover:text-red-500 ${
                           menuItem === "Projects"
-                            ? "line-through decoration-red-500"
+                            ? "line-through decoration-black"
                             : ""
                         }`}
                       >
                         Projects
-                      </Link>
-                      <Link
-                        to="/#skills"
-                        onClick={() => {
-                          setMenuItem("Skills");
-                          setMobileMenuOpen(false);
-                        }}
-                        className={`hover:text-red-500 ${
-                          menuItem === "Skills"
-                            ? "line-through decoration-red-500"
-                            : ""
-                        }`}
-                      >
-                        Skills
-                      </Link>
-                      <Link
-                        to="/#career"
-                        onClick={() => {
-                          setMenuItem("Work");
-                          setMobileMenuOpen(false);
-                        }}
-                        className={`hover:text-red-500 ${
-                          menuItem === "Work"
-                            ? "line-through decoration-red-500"
-                            : ""
-                        }`}
-                      >
-                        Career
                       </Link>
                       <Link
                         to="/#artworks"
@@ -548,6 +522,35 @@ function App() {
                       >
                         Artworks
                       </Link>
+                      <Link
+                        to="/#skills"
+                        onClick={() => {
+                          setMenuItem("Skills");
+                          setMobileMenuOpen(false);
+                        }}
+                        className={`hover:text-red-500 ${
+                          menuItem === "Skills"
+                            ? "line-through decoration-black"
+                            : ""
+                        }`}
+                      >
+                        Skills
+                      </Link>
+                      <Link
+                        to="/#career"
+                        onClick={() => {
+                          setMenuItem("Work");
+                          setMobileMenuOpen(false);
+                        }}
+                        className={`hover:text-red-500 ${
+                          menuItem === "Work"
+                            ? "line-through decoration-black"
+                            : ""
+                        }`}
+                      >
+                        Career
+                      </Link>
+
                       <a
                         href={resume}
                         target="_blank"
@@ -560,12 +563,36 @@ function App() {
                       >
                         Resume
                       </a>
+                      <button
+                        className="opacity-50 hover:text-red-500 hover:opacity-100 cursor-pointer"
+                        onClick={() => {
+                          setCredits(true);
+                          setMobileMenuOpen(false);
+                        }}
+                        type="button"
+                      >
+                        Credits
+                      </button>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </header>
             )}
-            <Credits visible={credits} onClose={handleClose} />
+
+            <AnimatePresence>
+              {credits && (
+                <motion.div
+                  initial={{ scale: 1, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 1, opacity: 0 }} // Add exit animation
+                  transition={{ duration: 0.3, ease: "easeInOut" }} // Define transition
+                  className="fixed inset-0 z-50 flex items-center justify-center b backdrop-blur-sm" // Modal-like styling
+                >
+                  <Credits visible={credits} onClose={handleClose} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             <main className="flex-1 bg-black scrollbar-hide">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -576,7 +603,11 @@ function App() {
                   transition={{ duration: 0.5 }}
                 >
                   <Routes location={location} key={location.pathname}>
-                    <Route path="/" element={<Home />} />
+                    <Route
+                      path="/"
+                      element={<Home setMenuItem={setMenuItem} />}
+                    />
+
                     <Route path="/projects" element={<Soft />} />
                     <Route path="/artworks" element={<Artworks />} />
                   </Routes>

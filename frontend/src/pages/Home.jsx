@@ -12,25 +12,26 @@ import { motion, AnimatePresence, easeInOut } from "motion/react";
 
 import BlurText from "../components/Blurtext.jsx";
 
-import WhiteBg from "../assets/WhiteBg.webp";
-import WhiteBgM from "../assets/WhiteBgM.webp";
+const WhiteBg = new URL("../assets/WhiteBg.webp", import.meta.url).href;
+const WhiteBgM = new URL("../assets/WhiteBgM.webp", import.meta.url).href;
+const morning = new URL("../assets/cy-city-morning.webp", import.meta.url).href;
+const night = new URL("../assets/cy-city.webp", import.meta.url).href;
+
 import ShinyText from "../components/ShinyText.jsx";
 import item2077 from "../assets/item2077.png";
-import GlitchGif from "../assets/verticalglitchfinal.gif";
+import GlitchGif from "../assets/verticalglitch.gif";
 import { IoIosArrowDown } from "react-icons/io";
 import "../App.css";
 import Inspiration from "../assets/cy-bw.webp";
 import Inspiration2 from "../assets/bw2.webp";
 import Footer from "../components/Footer.jsx";
-import morning from "../assets/cy-city-morning.webp";
-import night from "../assets/cy-city.webp";
 import projectsData from "../assets/projects.json";
 import { MdArrowUpward } from "react-icons/md";
 import ScrollToTop from "react-scroll-to-top";
 import { RiCloseLargeFill } from "react-icons/ri";
 import Artworks from "../components/Artworks.jsx";
 
-export default function Home() {
+export default function Home({ setMenuItem }) {
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [hovering, setHovering] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -175,6 +176,7 @@ export default function Home() {
   const HomeRef = useRef(null);
   const SkillsRef = useRef(null);
   const WorkRef = useRef(null);
+  const OtherRef = useRef(null); //Dummy ref to de-highlight the menu item.
 
   // Scroll to section when hash is present
   // In Home.jsx, replace the scroll useEffect
@@ -211,9 +213,42 @@ export default function Home() {
       });
     }
   }, [location.hash]);
-  
+
+  useEffect(() => {
+    const sections = [
+      { ref: HomeRef, name: "Home" },
+      { ref: featuredWorksRef, name: "Projects" },
+      { ref: SkillsRef, name: "Skills" },
+      { ref: WorkRef, name: "Work" },
+      { ref: ArtworksRef, name: "Artworks" },
+      { ref: OtherRef, name: "Other" },
+    ];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const section = sections.find(
+              (s) => s.ref.current === entry.target
+            );
+            if (section && section.name != "Other") {
+              setMenuItem(section.name);
+            } else null;
+          }
+        });
+      },
+      { threshold: 0.8 } // adjust sensitivity (80% of section visible)
+    );
+
+    sections.forEach((s) => {
+      if (s.ref.current) observer.observe(s.ref.current);
+    });
+
+    return () => observer.disconnect();
+  }, [setMenuItem]);
 
   return (
+    // <MomentumScroll>
     <div className="w-full bg-[#030303] relative">
       <ScrollToTop
         smooth
@@ -226,7 +261,7 @@ export default function Home() {
           justifyContent: "center",
           alignItems: "center",
           boxShadow: "0 4px 6px rgba(0,0,0,0.2)",
-          zIndex: 1000,
+          zIndex: 900,
         }}
       />
       {/* Hero Section */}
@@ -237,12 +272,34 @@ export default function Home() {
       >
         <div className="absolute inset-0 z-0">
           {/* background at the very back */}
+          <Suspense
+            fallback={
+              <div
+                className="absolute inset-0 z-0 w-full h-full bg-red-600"
+                style={{
+                  backgroundSize: !isMobile ? "cover" : "cover",
+                  backgroundPosition: isMobile ? "bottom" : "bottom left",
+                  backgroundAttachment: isMobile ? "fixed" : "fixed",
+                }}
+              ></div>
+            }
+          >
+            <div
+              className="absolute inset-0 z-1 w-full h-full"
+              style={{
+                backgroundImage: !isMobile
+                  ? `url(${WhiteBg})`
+                  : `url(${WhiteBgM})`,
+                backgroundSize: !isMobile ? "cover" : "cover",
+                backgroundPosition: isMobile ? "bottom" : "bottom left",
+                backgroundAttachment: isMobile ? "fixed" : "fixed",
+              }}
+            ></div>
+          </Suspense>
+
           <div
-            className="absolute inset-0 z-0 w-full h-full"
+            className="absolute inset-0 z-0 w-full h-full bg-red-600"
             style={{
-              backgroundImage: !isMobile
-                ? `url(${WhiteBg})`
-                : `url(${WhiteBgM})`,
               backgroundSize: !isMobile ? "cover" : "cover",
               backgroundPosition: isMobile ? "bottom" : "bottom left",
               backgroundAttachment: isMobile ? "fixed" : "fixed",
@@ -392,7 +449,7 @@ export default function Home() {
               </div>
             }
           >
-            <div className="grid md:grid-cols-2 lg:grid-cols-2 w-full pt-20 md:px-5 lg:px-0 gap-[5vh] justify-center items-center align-middle">
+            <div className="grid md:grid-cols-2 lg:grid-cols-2 w-full pt-20 px-5 md:px-5 lg:px-0 gap-[5vh] justify-center items-center align-middle">
               {projects.slice(0, 4).map((p, i) => (
                 <div
                   key={p.id}
@@ -704,5 +761,6 @@ export default function Home() {
         <Footer />
       </div>
     </div>
+    // </MomentumScroll>
   );
 }

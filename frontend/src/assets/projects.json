@@ -6,7 +6,7 @@
       "category": "UI/UX Design",
       "description": "UI design for a EV charging station finder app",
       "year": "2024",
-      "image": "projects/electrifind.webp",
+      "image": "projects/electrifind2.webp",
       "skills": ["figma", "ui/ux"],
       "repo_link": null,
       "live_link": [
@@ -21,7 +21,7 @@
       "description": "AI tool that automatically detects and redacts PII in text.",
       "year": "2025",
       "skills": ["python", "ai/ml", "git"],
-      "image": "projects/obscura.webp",
+      "image": "projects/obscura2.webp",
       "repo_link": "https://github.com/adityasatuluri/Obscura",
       "live_link": null
     },
@@ -32,9 +32,23 @@
       "description": "Full-stack chat app with authentication, profiles, and real-time messaging.",
       "year": "2024",
       "skills": ["mern", "javascript", "git", "mongodb"],
-      "image": "projects/flexchat.webp",
+      "image": "projects/flexchat2.webp",
       "repo_link": "https://github.com/adityasatuluri/flex-chat",
       "live_link": null
+    },
+    {
+      "id": 4,
+      "title": "FILM HORIZON",
+      "category": "UI/UX Design",
+      "description": "UI design for a DVD selling platform.",
+      "year": "2024",
+      "image": "projects/filmhorizon.webp",
+      "skills": ["figma", "ui/ux"],
+      "repo_link": null,
+      "live_link": [
+        "https://www.behance.net/gallery/201346665/UI-Design-DVD-Selling-Platform-FILM-HORIZON",
+        "Behance"
+      ]
     }
   ]
 }

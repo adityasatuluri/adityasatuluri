@@ -1,521 +1,292 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable react/no-unknown-property */
-import { Suspense, useRef, useLayoutEffect, useEffect, useMemo } from "react";
-import {
-  Canvas,
-  useFrame,
-  useLoader,
-  useThree,
-  invalidate,
-} from "@react-three/fiber";
-import {
-  OrbitControls,
-  useGLTF,
-  useFBX,
-  useProgress,
-  Html,
-  Environment,
-  ContactShadows,
-} from "@react-three/drei";
-import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
-import * as THREE from "three";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 
-const isTouch =
-  typeof window !== "undefined" &&
-  ("ontouchstart" in window || navigator.maxTouchPoints > 0);
-const deg2rad = (d) => (d * Math.PI) / 180;
-const DECIDE = 8;
-const ROTATE_SPEED = 0.005;
-const INERTIA = 0.925;
-const PARALLAX_MAG = 0.05;
-const PARALLAX_EASE = 0.12;
-const HOVER_MAG = deg2rad(6);
-const HOVER_EASE = 0.15;
-
-const Loader = ({ placeholderSrc }) => {
-  const { progress, active } = useProgress();
-  if (!active && placeholderSrc) return null;
-  return (
-    <Html center>
-      {placeholderSrc ? (
-        <img
-          src={placeholderSrc}
-          width={128}
-          height={128}
-          className="blur-lg rounded-lg"
-        />
-      ) : (
-        `${Math.round(progress)} %`
-      )}
-    </Html>
-  );
-};
-
-const DesktopControls = ({ pivot, min, max, zoomEnabled }) => {
-  const ref = useRef(null);
-  useFrame(() => ref.current?.target.copy(pivot));
-  return (
-    <OrbitControls
-      ref={ref}
-      makeDefault
-      enablePan={false}
-      enableRotate={false}
-      enableZoom={zoomEnabled}
-      minDistance={min}
-      maxDistance={max}
-    />
-  );
-};
-
-const ModelInner = ({
-  url,
-  xOff,
-  yOff,
-  pivot,
-  initYaw,
-  initPitch,
-  minZoom,
-  maxZoom,
-  enableMouseParallax,
-  enableManualRotation,
-  enableHoverRotation,
-  enableManualZoom,
-  autoFrame,
-  fadeIn,
-  autoRotate,
-  autoRotateSpeed,
-  onLoaded,
+const MomentumScroll = ({
+  children,
+  ease = 0.08,
+  speed = 1.2,
+  touchSpeed = 1.8,
+  boundaryBounce = 0.1,
+  onScrollProgress,
 }) => {
-  const outer = useRef(null);
-  const inner = useRef(null);
-  const { camera, gl } = useThree();
-
-  const vel = useRef({ x: 0, y: 0 });
-  const tPar = useRef({ x: 0, y: 0 });
-  const cPar = useRef({ x: 0, y: 0 });
-  const tHov = useRef({ x: 0, y: 0 });
-  const cHov = useRef({ x: 0, y: 0 });
-
-  const ext = useMemo(() => url.split(".").pop().toLowerCase(), [url]);
-  const content = useMemo(() => {
-    if (ext === "glb" || ext === "gltf") return useGLTF(url).scene.clone();
-    if (ext === "fbx") return useFBX(url).clone();
-    if (ext === "obj") return useLoader(OBJLoader, url).clone();
-    console.error("Unsupported format:", ext);
-    return null;
-  }, [url, ext]);
-
-  const pivotW = useRef(new THREE.Vector3());
-  useLayoutEffect(() => {
-    if (!content) return;
-    const g = inner.current;
-    g.updateWorldMatrix(true, true);
-
-    const sphere = new THREE.Box3()
-      .setFromObject(g)
-      .getBoundingSphere(new THREE.Sphere());
-    const s = 1 / (sphere.radius * 2);
-    g.position.set(-sphere.center.x, -sphere.center.y, -sphere.center.z);
-    g.scale.setScalar(s * 13); // ⬅️ adjust factor until model fills hero
-
-    g.traverse((o) => {
-      if (o.isMesh) {
-        o.castShadow = true;
-        o.receiveShadow = true;
-        if (fadeIn) {
-          o.material.transparent = true;
-          o.material.opacity = 0;
-        }
-      }
-    });
-
-    g.getWorldPosition(pivotW.current);
-    pivot.copy(pivotW.current);
-    outer.current.rotation.set(initPitch, initYaw, 0);
-
-    if (autoFrame && camera.isPerspectiveCamera) {
-      const persp = camera;
-      const fitR = sphere.radius * s;
-      const d = (fitR * 1.2) / Math.sin((persp.fov * Math.PI) / 180 / 2);
-      persp.position.set(
-        pivotW.current.x,
-        pivotW.current.y,
-        pivotW.current.z + d
-      );
-      persp.near = d / 10;
-      persp.far = d * 10;
-      persp.updateProjectionMatrix();
-    }
-
-    if (fadeIn) {
-      let t = 0;
-      const id = setInterval(() => {
-        t += 0.05;
-        const v = Math.min(t, 1);
-        g.traverse((o) => {
-          if (o.isMesh) o.material.opacity = v;
-        });
-        invalidate();
-        if (v === 1) {
-          clearInterval(id);
-          onLoaded?.();
-        }
-      }, 16);
-      return () => clearInterval(id);
-    } else onLoaded?.();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [content]);
-
-  useEffect(() => {
-    if (!enableManualRotation || isTouch) return;
-    const el = gl.domElement;
-    let drag = false;
-    let lx = 0,
-      ly = 0;
-    const down = (e) => {
-      if (e.pointerType !== "mouse" && e.pointerType !== "pen") return;
-      drag = true;
-      lx = e.clientX;
-      ly = e.clientY;
-      window.addEventListener("pointerup", up);
-    };
-    const move = (e) => {
-      if (!drag) return;
-      const dx = e.clientX - lx;
-      const dy = e.clientY - ly;
-      lx = e.clientX;
-      ly = e.clientY;
-      outer.current.rotation.y += dx * ROTATE_SPEED;
-      outer.current.rotation.x += dy * ROTATE_SPEED;
-      vel.current = { x: dx * ROTATE_SPEED, y: dy * ROTATE_SPEED };
-      invalidate();
-    };
-    const up = () => (drag = false);
-    el.addEventListener("pointerdown", down);
-    el.addEventListener("pointermove", move);
-    return () => {
-      el.removeEventListener("pointerdown", down);
-      el.removeEventListener("pointermove", move);
-      window.removeEventListener("pointerup", up);
-    };
-  }, [gl, enableManualRotation]);
-
-  useEffect(() => {
-    if (!isTouch) return;
-    const el = gl.domElement;
-    const pts = new Map();
-
-    let mode = "idle";
-    let sx = 0,
-      sy = 0,
-      lx = 0,
-      ly = 0,
-      startDist = 0,
-      startZ = 0;
-
-    const down = (e) => {
-      if (e.pointerType !== "touch") return;
-      pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      if (pts.size === 1) {
-        mode = "decide";
-        sx = lx = e.clientX;
-        sy = ly = e.clientY;
-      } else if (pts.size === 2 && enableManualZoom) {
-        mode = "pinch";
-        const [p1, p2] = [...pts.values()];
-        startDist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
-        startZ = camera.position.z;
-        e.preventDefault();
-      }
-      invalidate();
-    };
-
-    const move = (e) => {
-      const p = pts.get(e.pointerId);
-      if (!p) return;
-      p.x = e.clientX;
-      p.y = e.clientY;
-
-      if (mode === "decide") {
-        const dx = e.clientX - sx;
-        const dy = e.clientY - sy;
-        if (Math.abs(dx) > DECIDE || Math.abs(dy) > DECIDE) {
-          if (enableManualRotation && Math.abs(dx) > Math.abs(dy)) {
-            mode = "rotate";
-            el.setPointerCapture(e.pointerId);
-          } else {
-            mode = "idle";
-            pts.clear();
-          }
-        }
-      }
-
-      if (mode === "rotate") {
-        e.preventDefault();
-        const dx = e.clientX - lx;
-        const dy = e.clientY - ly;
-        lx = e.clientX;
-        ly = e.clientY;
-        outer.current.rotation.y += dx * ROTATE_SPEED;
-        outer.current.rotation.x += dy * ROTATE_SPEED;
-        vel.current = { x: dx * ROTATE_SPEED, y: dy * ROTATE_SPEED };
-        invalidate();
-      } else if (mode === "pinch" && pts.size === 2) {
-        e.preventDefault();
-        const [p1, p2] = [...pts.values()];
-        const d = Math.hypot(p1.x - p2.x, p1.y - p2.y);
-        const ratio = startDist / d;
-        camera.position.z = THREE.MathUtils.clamp(
-          startZ * ratio,
-          minZoom,
-          maxZoom
-        );
-        invalidate();
-      }
-    };
-
-    const up = (e) => {
-      pts.delete(e.pointerId);
-      if (mode === "rotate" && pts.size === 0) mode = "idle";
-      if (mode === "pinch" && pts.size < 2) mode = "idle";
-    };
-
-    el.addEventListener("pointerdown", down, { passive: true });
-    window.addEventListener("pointermove", move, { passive: false });
-    window.addEventListener("pointerup", up, { passive: true });
-    window.addEventListener("pointercancel", up, { passive: true });
-    return () => {
-      el.removeEventListener("pointerdown", down);
-      window.removeEventListener("pointermove", move);
-      window.removeEventListener("pointerup", up);
-      window.removeEventListener("pointercancel", up);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gl, enableManualRotation, enableManualZoom, minZoom, maxZoom]);
-
-  useEffect(() => {
-    if (isTouch) return;
-    const mm = (e) => {
-      if (e.pointerType !== "mouse") return;
-      const nx = (e.clientX / window.innerWidth) * 2 - 1;
-      const ny = (e.clientY / window.innerHeight) * 2 - 1;
-      if (enableMouseParallax)
-        tPar.current = { x: -nx * PARALLAX_MAG, y: -ny * PARALLAX_MAG };
-      if (enableHoverRotation)
-        tHov.current = { x: ny * HOVER_MAG, y: nx * HOVER_MAG };
-      invalidate();
-    };
-    window.addEventListener("pointermove", mm);
-    return () => window.removeEventListener("pointermove", mm);
-  }, [enableMouseParallax, enableHoverRotation]);
-
-  useFrame((_, dt) => {
-    let need = false;
-    cPar.current.x += (tPar.current.x - cPar.current.x) * PARALLAX_EASE;
-    cPar.current.y += (tPar.current.y - cPar.current.y) * PARALLAX_EASE;
-    const phx = cHov.current.x,
-      phy = cHov.current.y;
-    cHov.current.x += (tHov.current.x - cHov.current.x) * HOVER_EASE;
-    cHov.current.y += (tHov.current.y - cHov.current.y) * HOVER_EASE;
-
-    const ndc = pivotW.current.clone().project(camera);
-    ndc.x += xOff + cPar.current.x;
-    ndc.y += yOff + cPar.current.y;
-    outer.current.position.copy(ndc.unproject(camera));
-
-    outer.current.rotation.x += cHov.current.x - phx;
-    outer.current.rotation.y += cHov.current.y - phy;
-
-    if (autoRotate) {
-      outer.current.rotation.y += autoRotateSpeed * dt;
-      need = true;
-    }
-
-    outer.current.rotation.y += vel.current.x;
-    outer.current.rotation.x += vel.current.y;
-    vel.current.x *= INERTIA;
-    vel.current.y *= INERTIA;
-    if (Math.abs(vel.current.x) > 1e-4 || Math.abs(vel.current.y) > 1e-4)
-      need = true;
-
-    if (
-      Math.abs(cPar.current.x - tPar.current.x) > 1e-4 ||
-      Math.abs(cPar.current.y - tPar.current.y) > 1e-4 ||
-      Math.abs(cHov.current.x - tHov.current.x) > 1e-4 ||
-      Math.abs(cHov.current.y - tHov.current.y) > 1e-4
-    )
-      need = true;
-
-    if (need) invalidate();
+  const containerRef = useRef(null);
+  const contentRef = useRef(null);
+  const scrollDataRef = useRef({
+    ease: ease,
+    current: 0,
+    target: 0,
+    velocity: 0,
+    touchStart: null,
+    touchCurrent: 0,
+    isTouch: false,
+    maxScroll: 0,
   });
+  const rafRef = useRef(null);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  if (!content) return null;
-  return (
-    <group ref={outer}>
-      <group ref={inner}>
-        <primitive object={content} />
-      </group>
-    </group>
-  );
-};
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || "ontouchstart" in window);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
-const ModelViewer = ({
-  url,
-  width = 400,
-  height = 400,
-  modelXOffset = 0,
-  modelYOffset = 0,
-  defaultRotationX = 0,
-  defaultRotationY = 30,
-  defaultZoom = 8,
-  minZoomDistance = 0.5,
-  maxZoomDistance = 10,
-  enableMouseParallax = true,
-  enableManualRotation = false,
-  enableHoverRotation = true,
-  enableManualZoom = false,
-  ambientIntensity = 0.3,
-  keyLightIntensity = 1,
-  fillLightIntensity = 0.5,
-  rimLightIntensity = 0.8,
-  environmentPreset = "city",
-  autoFrame = false,
-  placeholderSrc,
-  showScreenshotButton = false,
-  fadeIn = false,
-  autoRotate = false,
-  autoRotateSpeed = 0.35,
-  onModelLoaded,
-}) => {
-  useEffect(() => void useGLTF.preload(url), [url]);
-  const pivot = useRef(new THREE.Vector3()).current;
-  const contactRef = useRef(null);
-  const rendererRef = useRef(null);
-  const sceneRef = useRef(null);
-  const cameraRef = useRef(null);
+  const updateProgress = useCallback(() => {
+    if (onScrollProgress && scrollDataRef.current.maxScroll > 0) {
+      const progress =
+        scrollDataRef.current.current / scrollDataRef.current.maxScroll;
+      onScrollProgress(Math.max(0, Math.min(1, progress)));
+    }
+  }, [onScrollProgress]);
 
-  const initYaw = deg2rad(defaultRotationX);
-  const initPitch = deg2rad(defaultRotationY);
-  const camZ = Math.min(
-    Math.max(defaultZoom, minZoomDistance),
-    maxZoomDistance
-  );
+  const clampTarget = useCallback(() => {
+    const data = scrollDataRef.current;
+    const overshoot = boundaryBounce * window.innerHeight;
 
-  const capture = () => {
-    const g = rendererRef.current,
-      s = sceneRef.current,
-      c = cameraRef.current;
-    if (!g || !s || !c) return;
-    g.shadowMap.enabled = false;
-    const tmp = [];
-    s.traverse((o) => {
-      if (o.isLight && "castShadow" in o) {
-        tmp.push({ l: o, cast: o.castShadow });
-        o.castShadow = false;
+    if (data.target < -overshoot) {
+      data.target = -overshoot;
+    } else if (data.target > data.maxScroll + overshoot) {
+      data.target = data.maxScroll + overshoot;
+    }
+  }, [boundaryBounce]);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const content = contentRef.current;
+    if (!container || !content) return;
+
+    let scrollTimeout;
+    let isAnimating = false;
+
+    // Update container height and max scroll
+    const updateDimensions = () => {
+      const contentHeight = content.getBoundingClientRect().height;
+      const containerHeight = window.innerHeight;
+      scrollDataRef.current.maxScroll = Math.max(
+        0,
+        contentHeight - containerHeight
+      );
+
+      // Clamp current position if content changed
+      if (scrollDataRef.current.target > scrollDataRef.current.maxScroll) {
+        scrollDataRef.current.target = scrollDataRef.current.maxScroll;
       }
+    };
+
+    // ResizeObserver for content changes
+    const resizeObserver = new ResizeObserver(() => {
+      updateDimensions();
     });
-    if (contactRef.current) contactRef.current.visible = false;
-    g.render(s, c);
-    const urlPNG = g.domElement.toDataURL("image/png");
-    const a = document.createElement("a");
-    a.download = "model.png";
-    a.href = urlPNG;
-    a.click();
-    g.shadowMap.enabled = true;
-    tmp.forEach(({ l, cast }) => (l.castShadow = cast));
-    if (contactRef.current) contactRef.current.visible = true;
-    invalidate();
-  };
+    resizeObserver.observe(content);
+
+    // Initial setup
+    updateDimensions();
+
+    // Wheel event handler
+    const handleWheel = (e) => {
+      e.preventDefault();
+
+      const delta = e.deltaY * speed;
+      scrollDataRef.current.target += delta;
+      scrollDataRef.current.isTouch = false;
+
+      clampTarget();
+
+      setIsScrolling(true);
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => setIsScrolling(false), 200);
+    };
+
+    // Touch event handlers
+    const handleTouchStart = (e) => {
+      const data = scrollDataRef.current;
+      data.touchStart = e.touches[0].clientY;
+      data.touchCurrent = data.current;
+      data.isTouch = true;
+      data.velocity = 0;
+    };
+
+    const handleTouchMove = (e) => {
+      const data = scrollDataRef.current;
+      if (!data.touchStart) return;
+
+      e.preventDefault();
+
+      const touchY = e.touches[0].clientY;
+      const diff = (data.touchStart - touchY) * touchSpeed;
+
+      data.target = data.touchCurrent + diff;
+      clampTarget();
+
+      setIsScrolling(true);
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => setIsScrolling(false), 200);
+    };
+
+    const handleTouchEnd = () => {
+      scrollDataRef.current.touchStart = null;
+      scrollDataRef.current.isTouch = false;
+    };
+
+    // Smooth scroll animation
+    const smoothScroll = () => {
+      const data = scrollDataRef.current;
+
+      // Calculate velocity for momentum
+      const diff = data.target - data.current;
+      data.velocity = diff * data.ease;
+
+      // Apply momentum
+      data.current += data.velocity;
+
+      // Boundary bounce back
+      if (data.current < 0) {
+        data.target = 0;
+        data.current *= 0.95; // Bounce back effect
+      } else if (data.current > data.maxScroll) {
+        data.target = data.maxScroll;
+        data.current = data.maxScroll + (data.current - data.maxScroll) * 0.95;
+      }
+
+      // Round to avoid sub-pixel rendering
+      data.current = Math.round(data.current * 100) / 100;
+
+      // Apply transform with hardware acceleration
+      content.style.transform = `translate3d(0, ${-data.current}px, 0)`;
+
+      // Update scroll progress
+      updateProgress();
+
+      // Continue animation if there's movement
+      if (Math.abs(data.velocity) > 0.1 || Math.abs(diff) > 0.1) {
+        rafRef.current = requestAnimationFrame(smoothScroll);
+        isAnimating = true;
+      } else {
+        isAnimating = false;
+      }
+    };
+
+    // Start animation loop
+    const startLoop = () => {
+      if (!isAnimating) {
+        rafRef.current = requestAnimationFrame(smoothScroll);
+        isAnimating = true;
+      }
+    };
+
+    // Throttled scroll start
+    let wheelTimer;
+    const throttledWheel = (e) => {
+      handleWheel(e);
+      if (!isAnimating) startLoop();
+
+      clearTimeout(wheelTimer);
+      wheelTimer = setTimeout(() => {
+        if (!isAnimating) startLoop();
+      }, 16);
+    };
+
+    // Event listeners
+    if (!isMobile) {
+      container.addEventListener("wheel", throttledWheel, { passive: false });
+    }
+
+    container.addEventListener("touchstart", handleTouchStart, {
+      passive: true,
+    });
+    container.addEventListener("touchmove", handleTouchMove, {
+      passive: false,
+    });
+    container.addEventListener("touchend", handleTouchEnd, { passive: true });
+
+    // Start initial loop
+    startLoop();
+
+    // Handle window resize
+    const handleResize = () => {
+      updateDimensions();
+    };
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+      resizeObserver.disconnect();
+
+      if (!isMobile) {
+        container.removeEventListener("wheel", throttledWheel);
+      }
+      container.removeEventListener("touchstart", handleTouchStart);
+      container.removeEventListener("touchmove", handleTouchMove);
+      container.removeEventListener("touchend", handleTouchEnd);
+      window.removeEventListener("resize", handleResize);
+
+      clearTimeout(scrollTimeout);
+      clearTimeout(wheelTimer);
+    };
+  }, [speed, touchSpeed, ease, clampTarget, updateProgress, isMobile]);
+
+  // Scroll to function (can be exposed via ref)
+  const scrollTo = useCallback((target, duration = 1000) => {
+    const data = scrollDataRef.current;
+    const start = data.current;
+    const change = target - start;
+    const startTime = Date.now();
+
+    const animateScroll = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Easing function (ease-out)
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+
+      data.target = start + change * easeOut;
+
+      if (progress < 1) {
+        requestAnimationFrame(animateScroll);
+      }
+    };
+
+    animateScroll();
+  }, []);
 
   return (
     <div
+      ref={containerRef}
+      className="momentum-scroll-container"
       style={{
-        width,
-        height,
-        touchAction: "pan-y pinch-zoom",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100vh",
+        overflow: "hidden",
+        cursor: isScrolling ? "grabbing" : isMobile ? "default" : "grab",
+        userSelect: "none",
+        WebkitUserSelect: "none",
+        touchAction: "none",
       }}
-      className="relative"
     >
-      {showScreenshotButton && (
-        <button
-          onClick={capture}
-          className="absolute top-4 right-4 z-10 cursor-pointer px-4 py-2 border border-white rounded-xl bg-transparent text-white hover:bg-white hover:text-black transition-colors"
-        >
-          Take Screenshot
-        </button>
-      )}
-
-      <Canvas
-        shadows
-        frameloop="demand"
-        gl={{ preserveDrawingBuffer: true }}
-        onCreated={({ gl, scene, camera }) => {
-          rendererRef.current = gl;
-          sceneRef.current = scene;
-          cameraRef.current = camera;
-          gl.toneMapping = THREE.ACESFilmicToneMapping;
-          gl.outputColorSpace = THREE.SRGBColorSpace;
+      <div
+        ref={contentRef}
+        className="momentum-scroll-content"
+        style={{
+          willChange: "transform",
+          backfaceVisibility: "hidden",
+          perspective: "1000px",
+          width: "100%",
+          position: "relative",
         }}
-        camera={{ fov: 50, position: [0, 0, camZ], near: 0.01, far: 100 }}
-        style={{ touchAction: "pan-y pinch-zoom" }}
       >
-        {environmentPreset !== "none" && (
-          <Environment preset={environmentPreset} background={false} />
-        )}
-
-        <ambientLight intensity={ambientIntensity} />
-        <directionalLight
-          position={[5, 5, 5]}
-          intensity={keyLightIntensity}
-          castShadow
-        />
-        <directionalLight
-          position={[-5, 2, 5]}
-          intensity={fillLightIntensity}
-        />
-        <directionalLight position={[0, 4, -5]} intensity={rimLightIntensity} />
-
-        <ContactShadows
-          ref={contactRef}
-          position={[0, -0.5, 0]}
-          opacity={0.35}
-          scale={10}
-          blur={2}
-        />
-
-        <Suspense fallback={<Loader placeholderSrc={placeholderSrc} />}>
-          <ModelInner
-            url={url}
-            xOff={modelXOffset}
-            yOff={modelYOffset}
-            pivot={pivot}
-            initYaw={initYaw}
-            initPitch={initPitch}
-            minZoom={minZoomDistance}
-            maxZoom={maxZoomDistance}
-            enableMouseParallax={enableMouseParallax}
-            enableManualRotation={enableManualRotation}
-            enableHoverRotation={enableHoverRotation}
-            enableManualZoom={enableManualZoom}
-            autoFrame={autoFrame}
-            fadeIn={fadeIn}
-            autoRotate={autoRotate}
-            autoRotateSpeed={autoRotateSpeed}
-            onLoaded={onModelLoaded}
-          />
-        </Suspense>
-
-        {!isTouch && (
-          <DesktopControls
-            pivot={pivot}
-            min={minZoomDistance}
-            max={maxZoomDistance}
-            zoomEnabled={enableManualZoom}
-          />
-        )}
-      </Canvas>
+        {children}
+      </div>
     </div>
   );
 };
 
-export default ModelViewer;
+export default MomentumScroll;
