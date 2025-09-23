@@ -237,6 +237,9 @@ function App() {
         case "#artworks":
           setMenuItem("Artworks");
           break;
+        case "#contact":
+          setMenuItem("Contact");
+          break;
         default:
           setMenuItem("Home");
       }
@@ -417,6 +420,17 @@ function App() {
                   >
                     Artworks
                   </Link>
+                  <Link
+                    to="/#contact"
+                    onClick={() => setMenuItem("Contact")}
+                    className={`hover:text-red-500 cursor-target ${
+                      menuItem === "Contact"
+                        ? "line-through decoration-red-500 hover:decoration-white"
+                        : "text-[#f0f0f0]"
+                    }`}
+                  >
+                    Contact
+                  </Link>
                   <a
                     className="hover:text-red-500 cursor-target"
                     href={resume}
@@ -549,6 +563,20 @@ function App() {
                         }`}
                       >
                         Career
+                      </Link>
+                      <Link
+                        to="/#contact"
+                        onClick={() => {
+                          setMenuItem("Contact");
+                          setMobileMenuOpen(false);
+                        }}
+                        className={`hover:text-red-500 ${
+                          menuItem === "Work"
+                            ? "line-through decoration-black"
+                            : ""
+                        }`}
+                      >
+                        Contact
                       </Link>
 
                       <a

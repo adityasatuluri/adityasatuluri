@@ -3,6 +3,7 @@
     {
       "id": 1,
       "title": "ELECTRIFIND",
+      "featured": true,
       "category": "UI/UX Design",
       "description": "UI design for a EV charging station finder app",
       "year": "2024",
@@ -17,6 +18,7 @@
     {
       "id": 2,
       "title": "Obscura",
+      "featured": true,
       "category": "AI / Data Privacy",
       "description": "AI tool that automatically detects and redacts PII in text.",
       "year": "2025",
@@ -28,6 +30,7 @@
     {
       "id": 3,
       "title": "Flex Chat",
+      "featured": true,
       "category": "Full Stack (MERN)",
       "description": "Full-stack chat app with authentication, profiles, and real-time messaging.",
       "year": "2024",
@@ -39,6 +42,7 @@
     {
       "id": 4,
       "title": "FILM HORIZON",
+      "featured": true,
       "category": "UI/UX Design",
       "description": "UI design for a DVD selling platform.",
       "year": "2024",

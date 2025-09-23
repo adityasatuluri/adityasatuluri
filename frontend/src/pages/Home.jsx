@@ -30,6 +30,7 @@ import { MdArrowUpward } from "react-icons/md";
 import ScrollToTop from "react-scroll-to-top";
 import { RiCloseLargeFill } from "react-icons/ri";
 import Artworks from "../components/Artworks.jsx";
+import Contact from "../components/Contact.jsx";
 
 export default function Home({ setMenuItem }) {
   const [pos, setPos] = useState({ x: 0, y: 0 });
@@ -176,6 +177,7 @@ export default function Home({ setMenuItem }) {
   const HomeRef = useRef(null);
   const SkillsRef = useRef(null);
   const WorkRef = useRef(null);
+  const ContactRef = useRef(null);
   const OtherRef = useRef(null); //Dummy ref to de-highlight the menu item.
 
   // Scroll to section when hash is present
@@ -211,6 +213,12 @@ export default function Home({ setMenuItem }) {
         block: "start",
         inline: "nearest",
       });
+    } else if (location.hash === "#contact" && ContactRef.current) {
+      ContactRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
     }
   }, [location.hash]);
 
@@ -221,6 +229,7 @@ export default function Home({ setMenuItem }) {
       { ref: SkillsRef, name: "Skills" },
       { ref: WorkRef, name: "Work" },
       { ref: ArtworksRef, name: "Artworks" },
+      { ref: ContactRef, name: "Contact" },
       { ref: OtherRef, name: "Other" },
     ];
 
@@ -468,7 +477,7 @@ export default function Home({ setMenuItem }) {
                   >
                     {/* overlay - desktop hover only */}
                     {!isTouchDevice && (
-                      <div className="flex flex-col gap-5 w-full h-full bg-[#f0f0f0]/50 text-[#010101] transition-all duration-300 backdrop-blur-md items-center justify-center opacity-0 hover:opacity-100 rounded-t-2xl hover:rounded-none">
+                      <div className="flex flex-col gap-5 w-full h-full bg-[#f0f0f0]/60 text-[#010101] transition-all duration-300 backdrop-blur-lg items-center justify-center opacity-0 hover:opacity-100 rounded-t-2xl hover:rounded-none">
                         <div className="px-10 flex text-center">
                           {p.description}
                         </div>
@@ -727,8 +736,9 @@ export default function Home({ setMenuItem }) {
         )}
 
         {/* Contact Section */}
-        <div className="lg:h-30 mg:h-25 sm:h-20 h-20"></div>
-        <div className="w-full h-full  flex items-center justify-center text-[#f0f0f0] text-lg sm:text-xl font-bold px-4 sm:px-6 md:px-10">
+        <div className="lg:h-30 mg:h-25 sm:h-20 h-20" ref={ContactRef}></div>
+        <Contact />
+        {/* <div className="w-full h-full  flex items-center justify-center text-[#f0f0f0] text-lg sm:text-xl font-bold px-4 sm:px-6 md:px-10">
           <div className="flex flex-col justify-center space-y-6 w-full lg:max-w-[80vw]">
             <div className="elements flex flex-col items-center w-full text-[14vw] sm:text-5xl md:text-5xl lg:text-8xl leading-tight">
               <h1>LET'S WORK TOGETHER</h1>
@@ -754,7 +764,7 @@ export default function Home({ setMenuItem }) {
               </button>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* FOOTER */}
         <div className="lg:h-30 mg:h-25 sm:h-20 h-20"></div>
