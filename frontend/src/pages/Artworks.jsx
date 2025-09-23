@@ -171,6 +171,7 @@ export default function Ux() {
           >
             ARTWORKS
           </motion.p>
+
           <motion.a
             href="https://www.instagram.com/dimensionz.fx/"
             target="blank"
@@ -202,7 +203,33 @@ export default function Ux() {
         </ResponsiveMasonry>
       </div>
 
-      <Footer />
+      <div>
+        <div className="bg-neutral-950 h-10 grain lg:h-15 uppercase text-white flex justify-center align-middle items-center">
+          <motion.p
+            className="text-sm lg:text-lg flex flex-row tracking-widest"
+            initial={{ opacity: 0, filter: "blur(10px)" }}
+            animate={{ opacity: 1, filter: "blur(0px)" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+          >
+            Copyright &copy; {new Date().getFullYear()} &nbsp;
+            <motion.a
+              className="underline hover:text-red-500"
+              href="https://www.instagram.com/dimensionz.fx/"
+              target="blank"
+              animate={{ opacity: [1, 1, 0, 1] }} // fade in, fade out, fade in
+              transition={{
+                duration: 5, // total blink cycle
+                repeat: Infinity, // infinite looping
+                ease: "easeInOut",
+              }}
+            >
+              Dimensionz fx
+            </motion.a>
+          </motion.p>
+        </div>
+
+        <Footer />
+      </div>
 
       {/* Modal */}
       <ImageModal

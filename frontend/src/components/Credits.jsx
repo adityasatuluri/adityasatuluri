@@ -72,6 +72,7 @@ function Credits({ visible, onClose }) {
                 Screenshots captured from in-game footage of Cyberpunk 2077
               </p>
             </div>
+
             <div className="w-full border border-neutral-600 rounded-xl p-5 flex justify-center items-center">
               <p className="text-center text-sm sm:text-base md:text-lg opacity-80">
                 Glitch Animations from{" "}
@@ -91,6 +92,25 @@ function Credits({ visible, onClose }) {
                   <span className="text-red-500 hover:underline transition-all duration-300 ease-in-out">
                     Milan Matos
                   </span>
+                </a>
+              </p>
+            </div>
+
+            <div className="w-full border border-neutral-600 rounded-xl p-5 flex justify-center items-center">
+              <p className="text-center text-sm sm:text-base md:text-lg opacity-80">
+                Artworks by Aditya Satuluri - Copyright &copy; {new Date().getFullYear()} &nbsp;
+                <a
+                  className="underline hover:text-red-500"
+                  href="https://www.instagram.com/dimensionz.fx/"
+                  target="blank"
+                  animate={{ opacity: [1, 1, 0, 1] }} // fade in, fade out, fade in
+                  transition={{
+                    duration: 5, // total blink cycle
+                    repeat: Infinity, // infinite looping
+                    ease: "easeInOut",
+                  }}
+                >
+                  DimensionZ FX
                 </a>
               </p>
             </div>
