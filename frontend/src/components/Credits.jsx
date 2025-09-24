@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { GoDotFill } from "react-icons/go";
-const Inspiration = new URL("../assets/cy-bw.webp", import.meta.url).href;
-const WhiteBg = new URL("../assets/WhiteBg.webp", import.meta.url).href;
-const morning = new URL("../assets/cy-city-morning.webp", import.meta.url).href;
-const night = new URL("../assets/cy-city.webp", import.meta.url).href;
+import { Suspense, useState } from "react";
 const CyberpunkIcon = new URL("../assets/spotify2.png", import.meta.url).href;
 
 function Credits({ visible, onClose }) {
   if (!visible) return null;
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {}, [loaded]);
 
   return (
     <div className="fixed inset-0 z-1000 flex items-center justify-center w-screen h-screen  backdrop-blur-sm">
@@ -44,9 +44,12 @@ function Credits({ visible, onClose }) {
             <div className="w-full border border-neutral-600 rounded-xl p-5 flex flex-col sm:flex-row gap-6 sm:gap-10">
               <img
                 src={CyberpunkIcon}
-                className="w-32 h-32 sm:w-40 sm:h-40 object-contain mx-auto sm:mx-0"
+                className="w-32 h-32 sm:w-40 sm:h-40 object-contain mx-auto sm:mx-0 border-2 text-white border-neutral-800"
                 alt="Cyberpunk 2077 Icon"
+                loading="lazy"
+                onLoad={() => setLoaded(true)}
               />
+
               <div className="flex flex-col justify-between gap-4 sm:gap-6 w-full">
                 <p className="text-2xl sm:text-3xl md:text-4xl font-semibold">
                   V - Cyberpunk 2077
@@ -56,6 +59,7 @@ function Credits({ visible, onClose }) {
                   <GoDotFill className="h-4 w-4 opacity-50" />
                   <p>Marcin Przybyłowicz</p>
                 </div>
+
                 <a
                   href="https://open.spotify.com/track/2u1FWVxAb16qbgwPgygAdj?si=9597837991b341da"
                   target="_blank"

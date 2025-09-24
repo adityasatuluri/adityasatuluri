@@ -16,9 +16,10 @@ const WhiteBg = new URL("../assets/WhiteBg.webp", import.meta.url).href;
 const WhiteBgM = new URL("../assets/WhiteBgM.webp", import.meta.url).href;
 const morning = new URL("../assets/cy-city-morning.webp", import.meta.url).href;
 const night = new URL("../assets/cy-city.webp", import.meta.url).href;
+const item2077 = new URL("../assets/item2077.webp", import.meta.url).href;
 
 import ShinyText from "../components/ShinyText.jsx";
-import item2077 from "../assets/item2077.png";
+// import item2077 from "../assets/item2077.png";
 import GlitchGif from "../assets/verticalglitch.gif";
 import { IoIosArrowDown } from "react-icons/io";
 import "../App.css";
@@ -333,15 +334,17 @@ export default function Home({ setMenuItem }) {
             </motion.div>
           </Suspense> */}
 
-          <div
-            className="absolute inset-0 z-15 w-full h-full "
-            style={{
-              backgroundImage: `url(${item2077})`,
-              backgroundSize: "cover",
-              backgroundPosition: "bottom",
-              backgroundAttachment: "",
-            }}
-          ></div>
+          <Suspense fallback={<></>}>
+            <div
+              className="absolute inset-0 z-15 w-full h-full "
+              style={{
+                backgroundImage: `url(${item2077})`,
+                backgroundSize: "cover",
+                backgroundPosition: "bottom",
+                backgroundAttachment: "",
+              }}
+            ></div>
+          </Suspense>
 
           {/* Glitch overlay above everything */}
           <div
