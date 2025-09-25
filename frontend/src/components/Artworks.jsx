@@ -4,7 +4,7 @@ import "../App.css";
 import neogaze from "../../public/NEOGAZEDARK.webp";
 import neogazelit from "../../public/NEOGAZE.webp";
 
-const Artworks = () => {
+const Artworks = ({ Mobile }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [artworkImages, setArtworkImages] = useState([]);
   const [isButtonHovered, setIsButtonHovered] = useState(false); // New state for hover

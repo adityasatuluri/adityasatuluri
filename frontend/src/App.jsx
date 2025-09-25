@@ -237,6 +237,9 @@ function App() {
         case "#artworks":
           setMenuItem("Artworks");
           break;
+        case "#artworks-mobile":
+          setMenuItem("ArtworksMobile");
+          break;
         case "#contact":
           setMenuItem("Contact");
           break;
@@ -454,10 +457,10 @@ function App() {
             ) : (
               <header
                 id="navbar"
-                className="w-full flex items-center justify-between gap-6 p-4 text-white sticky top-0 z-50 bg-black/85 backdrop-blur-lg hover:bg-black/90 transition-colors duration-300 custom-border inset-shadow-sm"
+                className="w-full flex items-center justify-between gap-6 p-4 text-white sticky top-0 z-50 bg-black/85 backdrop-blur-lg hover:bg-black/90 transition-colors duration-300 inset-shadow-sm"
               >
                 <Link
-                  to="/"
+                  to="/#home"
                   onClick={() => setMenuItem("Home")}
                   className="hover:text-red-500 cursor-target"
                 >
@@ -522,20 +525,7 @@ function App() {
                       >
                         Projects
                       </Link>
-                      <Link
-                        to="/#artworks"
-                        onClick={() => {
-                          setMenuItem("Artworks");
-                          setMobileMenuOpen(false);
-                        }}
-                        className={`hover:text-red-500 ${
-                          menuItem === "Artworks"
-                            ? "line-through decoration-black"
-                            : ""
-                        }`}
-                      >
-                        Artworks
-                      </Link>
+
                       <Link
                         to="/#skills"
                         onClick={() => {
@@ -564,6 +554,22 @@ function App() {
                       >
                         Career
                       </Link>
+
+                      <Link
+                        to="/#artworks"
+                        onClick={() => {
+                          setMenuItem("Artworks");
+                          setMobileMenuOpen(false);
+                        }}
+                        className={`hover:text-red-500 ${
+                          menuItem === "Artworks"
+                            ? "line-through decoration-black"
+                            : ""
+                        }`}
+                      >
+                        Artworks
+                      </Link>
+
                       <Link
                         to="/#contact"
                         onClick={() => {
@@ -571,7 +577,7 @@ function App() {
                           setMobileMenuOpen(false);
                         }}
                         className={`hover:text-red-500 ${
-                          menuItem === "Work"
+                          menuItem === "Contact"
                             ? "line-through decoration-black"
                             : ""
                         }`}

@@ -175,6 +175,7 @@ export default function Home({ setMenuItem }) {
   const location = useLocation(); // Get URL info (including hash)
   const featuredWorksRef = useRef(null); // Ref for the Featured Work section
   const ArtworksRef = useRef(null); // Ref for the Artworks section
+  const ArtworksMobileRef = useRef(null);
   const HomeRef = useRef(null);
   const SkillsRef = useRef(null);
   const WorkRef = useRef(null);
@@ -192,6 +193,15 @@ export default function Home({ setMenuItem }) {
       });
     } else if (location.hash === "#artworks" && ArtworksRef.current) {
       ArtworksRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "end",
+      });
+    } else if (
+      location.hash === "#artworks-mobile" &&
+      ArtworksMobileRef.current
+    ) {
+      ArtworksMobileRef.current.scrollIntoView({
         behavior: "smooth",
         block: "center",
         inline: "end",
@@ -230,6 +240,7 @@ export default function Home({ setMenuItem }) {
       { ref: SkillsRef, name: "Skills" },
       { ref: WorkRef, name: "Work" },
       { ref: ArtworksRef, name: "Artworks" },
+      { ref: ArtworksMobileRef, name: "ArtworksMobile" },
       { ref: ContactRef, name: "Contact" },
       { ref: OtherRef, name: "Other" },
     ];
@@ -621,10 +632,10 @@ export default function Home({ setMenuItem }) {
           </>
         ) : (
           <>
-            <div className="lg:h-30 mg:h-25 sm:h-20 h-20"></div>
-            <div id="artworks" ref={ArtworksRef}>
-              <Artworks />
-            </div>
+            {/* <div className="lg:h-30 mg:h-25 sm:h-20 h-20"></div>
+            <div id="artworks-mobile" ref={ArtworksMobileRef}>
+              <Artworks Mobile={isMobile} />
+            </div> */}
           </>
         )}
 
@@ -727,16 +738,11 @@ export default function Home({ setMenuItem }) {
           </div>
         </div>
 
-        {!isMobile ? (
-          <>
-            <div className="lg:h-30 mg:h-25 sm:h-20 h-20"></div>
-            <div id="artworks" ref={ArtworksRef}>
-              <Artworks />
-            </div>
-          </>
-        ) : (
-          <></>
-        )}
+        {/* Artworks Section */}
+        <div className="lg:h-30 mg:h-25 sm:h-20 h-20"></div>
+        <div id="artworks" ref={ArtworksRef}>
+          <Artworks />
+        </div>
 
         {/* Contact Section */}
         <div className="lg:h-30 mg:h-25 sm:h-20 h-20" ref={ContactRef}></div>
