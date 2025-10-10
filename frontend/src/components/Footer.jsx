@@ -89,16 +89,6 @@ export default function Footer() {
                 <MdArrowOutward className="h-5 w-5" />
               </a>
             </div>
-            {/* {!isMobile ? (
-              <a
-                className="flex flex-row text-white hover:text-red-600 transition-colors duration-300 cursor-pointer"
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              >
-                <span className="hover:border-b">BACK TO TOP</span>
-              </a>
-            ) : (
-              <></>
-            )} */}
           </div>
         ) : (
           <div className="flex flex-row gap-8 justify-center items-center w-full z-90">

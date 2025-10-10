@@ -491,9 +491,19 @@ export default function Home({ setMenuItem }) {
                   >
                     {/* overlay - desktop hover only */}
                     {!isTouchDevice && (
-                      <div className="flex flex-col gap-5 w-full h-full bg-[#f0f0f0]/60 text-[#010101] transition-all duration-300 backdrop-blur-lg items-center justify-center opacity-0 hover:opacity-100 rounded-t-2xl hover:rounded-none">
+                      <div className="flex flex-col gap-8 w-full h-full bg-[#f0f0f0]/60 text-[#010101] transition-all duration-300 backdrop-blur-lg items-center justify-center opacity-0 hover:opacity-100 rounded-t-2xl hover:rounded-none">
                         <div className="px-10 flex text-center">
                           {p.description}
+                        </div>
+                        <div className="flex flex-row gap-4">
+                          {p.skills.map((skill, index) => (
+                            <span
+                              key={index}
+                              className="text-[20px] text-gray-800 italic font-semibold"
+                            >
+                              {skill}
+                            </span>
+                          ))}
                         </div>
                         <div className="flex flex-row gap-10">
                           {p.repo_link && (
@@ -552,7 +562,7 @@ export default function Home({ setMenuItem }) {
                       animate={{ scale: 1, opacity: 1 }}
                       exit={{ scale: 0.8, opacity: 0 }}
                       transition={{ duration: 0.3 }}
-                      className="bg-[#f0f0f0] text-black rounded-2xl p-6 max-w-3xl w-[90%] shadow-2xl relative"
+                      className="bg-[#f0f0f0] text-black rounded-2xl p-6 flex flex-col gap-6 max-w-3xl w-[90%] shadow-2xl relative"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <div className="flex flex-col space-y-4">
@@ -570,9 +580,20 @@ export default function Home({ setMenuItem }) {
                           </button>
                         </div>
 
-                        <p className="mb-6 text-xl font-normal">
+                        <p className="text-xl font-normal">
                           {selectedProject.description}
                         </p>
+                      </div>
+
+                      <div className="flex flex-row gap-4 space-y-0 flex-wrap">
+                        {selectedProject.skills.map((skill, index) => (
+                          <span
+                            key={index}
+                            className="text-[20px] text-gray-800 italic font-semibold"
+                          >
+                            {skill}
+                          </span>
+                        ))}
                       </div>
 
                       <div className="flex flex-col space-y-4">

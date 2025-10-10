@@ -8,7 +8,6 @@ import bg from "../assets/h.jpg";
 import { MdArrowUpward } from "react-icons/md";
 import ScrollToTop from "react-scroll-to-top";
 
-
 export default function Soft() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
@@ -215,9 +214,19 @@ export default function Soft() {
                 }}
               >
                 {!isTouchDevice && (
-                  <div className="flex flex-col gap-5 w-full h-full bg-[#f0f0f0]/50 text-[#010101] transition-all duration-300 backdrop-blur-md items-center justify-center opacity-0 hover:opacity-100 rounded-t-2xl hover:rounded-none">
+                  <div className="flex flex-col gap-8 w-full h-full bg-[#f0f0f0]/50 text-[#010101] transition-all duration-300 backdrop-blur-md items-center justify-center opacity-0 hover:opacity-100 rounded-t-2xl hover:rounded-none">
                     <div className="px-10 flex text-center  font-bold text-lg sm:text-lg md:text-lg lg:text-xl">
                       {p.description}
+                    </div>
+                    <div className="flex flex-row gap-4">
+                      {p.skills.map((skill, index) => (
+                        <span
+                          key={index}
+                          className="text-[20px] text-gray-800 italic font-semibold"
+                        >
+                          {skill}
+                        </span>
+                      ))}
                     </div>
                     <div className="flex flex-row gap-10 font-bold text-lg sm:text-lg md:text-lg lg:text-xl">
                       {p.repo_link && (
@@ -276,7 +285,7 @@ export default function Soft() {
                   animate={{ scale: 1, opacity: 1 }}
                   exit={{ scale: 0.8, opacity: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="bg-[#f0f0f0] text-black rounded-2xl p-6 max-w-3xl w-[90%] shadow-2xl relative"
+                  className="bg-[#f0f0f0] text-black rounded-2xl flex flex-col gap-6 p-6 max-w-3xl w-[90%] shadow-2xl relative"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="flex flex-col space-y-4">
@@ -294,9 +303,18 @@ export default function Soft() {
                       </button>
                     </div>
 
-                    <p className="mb-6 text-xl">
-                      {selectedProject.description}
-                    </p>
+                    <p className="text-xl">{selectedProject.description}</p>
+                  </div>
+
+                  <div className="flex flex-row gap-4 space-y-0 flex-wrap">
+                    {selectedProject.skills.map((skill, index) => (
+                      <span
+                        key={index}
+                        className="text-[20px] text-gray-800 italic font-semibold"
+                      >
+                        {skill}
+                      </span>
+                    ))}
                   </div>
 
                   <div className="flex flex-col space-y-4">

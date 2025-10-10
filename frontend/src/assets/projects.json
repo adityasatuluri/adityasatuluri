@@ -2,13 +2,25 @@
   "projects": [
     {
       "id": 1,
+      "title": "ATSuite",
+      "featured": true,
+      "category": "Web Development",
+      "description": "UI design for a EV charging station finder app.",
+      "year": "2025",
+      "image": "projects/atsuite.webp",
+      "skills": ["React", "Puter"],
+      "repo_link": "https://github.com/adityasatuluri/ATSuite/",
+      "live_link": ["https://atsuite.netlify.app/", "Demo"]
+    },
+    {
+      "id": 5,
       "title": "ELECTRIFIND",
       "featured": true,
       "category": "UI/UX Design",
       "description": "UI design for a EV charging station finder app.",
       "year": "2024",
       "image": "projects/electrifind2.webp",
-      "skills": ["figma", "ui/ux"],
+      "skills": ["Figma", "UI/UX"],
       "repo_link": null,
       "live_link": [
         "https://www.behance.net/gallery/200227953/ElectriFind-EV-Charging-Station-Finder-UI-Design",
@@ -22,7 +34,7 @@
       "category": "AI / Data Privacy",
       "description": "AI tool that automatically detects and redacts PII in text.",
       "year": "2025",
-      "skills": ["python", "ai/ml", "git"],
+      "skills": ["Python", "AI/ML", "Git"],
       "image": "projects/obscura2.webp",
       "repo_link": "https://github.com/adityasatuluri/Obscura",
       "live_link": null
@@ -31,23 +43,26 @@
       "id": 3,
       "title": "Flex Chat",
       "featured": true,
-      "category": "Full Stack (MERN)",
+      "category": "Web Development",
       "description": "Full-stack chat app with authentication, profiles, and real-time messaging.",
       "year": "2024",
-      "skills": ["mern", "javascript", "git", "mongodb"],
+      "skills": ["React", "Javascript", "Git", "Mongodb"],
       "image": "projects/flexchat2.webp",
       "repo_link": "https://github.com/adityasatuluri/flex-chat",
-      "live_link": ["https://drive.google.com/file/d/1dFPx2F3gqGGCKlA2nE9mILRfmIqpgqg8/view?usp=sharing", "Video Demo"]
+      "live_link": [
+        "https://drive.google.com/file/d/1dFPx2F3gqGGCKlA2nE9mILRfmIqpgqg8/view?usp=sharing",
+        "Video Demo"
+      ]
     },
     {
       "id": 4,
       "title": "FILM HORIZON",
-      "featured": true,
+      "featured": false,
       "category": "UI/UX Design",
       "description": "UI design for a DVD selling platform.",
       "year": "2024",
       "image": "projects/filmhorizon.webp",
-      "skills": ["figma", "ui/ux"],
+      "skills": ["Figma", "UI/UX"],
       "repo_link": null,
       "live_link": [
         "https://www.behance.net/gallery/201346665/UI-Design-DVD-Selling-Platform-FILM-HORIZON",
