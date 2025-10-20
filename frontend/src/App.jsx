@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { motion, AnimatePresence, easeInOut } from "framer-motion";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { Play, Pause, SkipForward, SkipBackIcon } from "lucide-react";
+// import usePreventZoom from "./hooks/usePreventZoom.jsx";
 
 import "./App.css";
 import Home from "./pages/Home.jsx";
@@ -20,7 +21,7 @@ import logo from "./assets/logo.png";
 import { CgMenuGridO } from "react-icons/cg";
 
 // songs
-import V from "./assets/sound/v2.mp3";
+import V from "./assets/sound/init.mp3";
 import { MdRestartAlt } from "react-icons/md";
 
 // function Credits({ visible, onClose }) {
@@ -79,6 +80,8 @@ import { MdRestartAlt } from "react-icons/md";
 // }
 
 function App() {
+  // usePreventZoom();
+
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   const [isPlayerOpen, setIsPlayerOpen] = useState(false);
