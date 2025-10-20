@@ -8,7 +8,7 @@
       "description": "AI powered ATS resume analyzer.",
       "year": "2025",
       "image": "projects/atsuite.webp",
-      "skills": ["React", "Puter"],
+      "skills": ["React", "Puter", "Javascript", "Git"],
       "repo_link": "https://github.com/adityasatuluri/ATSuite/",
       "live_link": ["https://atsuite.netlify.app/", "Demo"]
     },
@@ -46,7 +46,7 @@
       "category": "Web Development",
       "description": "Full-stack chat app with authentication, profiles, and real-time messaging.",
       "year": "2024",
-      "skills": ["React", "Javascript", "Git", "Mongodb"],
+      "skills": ["React", "Javascript", "Git", "Mongodb", "JWT", "Socket.io"],
       "image": "projects/flexchat2.webp",
       "repo_link": "https://github.com/adityasatuluri/flex-chat",
       "live_link": [
