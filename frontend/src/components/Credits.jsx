@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { GoDotFill } from "react-icons/go";
 import { Suspense, useState } from "react";
-const CyberpunkIcon = new URL("../assets/spotify2.png", import.meta.url).href;
+const CyberpunkIcon = new URL("../assets/init.jpg", import.meta.url).href;
 
 function Credits({ visible, onClose }) {
   if (!visible) return null;
@@ -52,16 +52,16 @@ function Credits({ visible, onClose }) {
 
               <div className="flex flex-col justify-between gap-4 sm:gap-6 w-full">
                 <p className="text-2xl sm:text-3xl md:text-4xl font-semibold">
-                  V - Cyberpunk 2077
+                  Init
                 </p>
                 <div className="flex items-center gap-2 text-sm sm:text-base md:text-lg">
                   <p className="opacity-50">Artist</p>
                   <GoDotFill className="h-4 w-4 opacity-50" />
-                  <p>Marcin Przybyłowicz</p>
+                  <p>Nine Inch Nails</p>
                 </div>
 
                 <a
-                  href="https://open.spotify.com/track/2u1FWVxAb16qbgwPgygAdj?si=9597837991b341da"
+                  href="https://open.spotify.com/track/29XfG8hFSaJuvnoWv6iS0B?si=d889e580f5cf4a17"
                   target="_blank"
                   className="py-2 sm:py-3 px-4 w-full sm:w-auto text-center bg-white text-black rounded-lg hover:bg-[#1DB954] hover:text-black transition-all duration-300 ease-in-out"
                 >
