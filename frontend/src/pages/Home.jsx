@@ -473,7 +473,7 @@ export default function Home({ setMenuItem }) {
             }
           >
             <div className="grid md:grid-cols-2 lg:grid-cols-2 w-full pt-20 px-5 md:px-5 lg:px-0 gap-[5vh] justify-center items-center align-middle">
-              {projects.slice(0, 4).map((p, i) => (
+              {projects.slice(0, 6).map((p, i) => (
                 <div
                   key={p.id}
                   className="elements h-[40vh] sm:h-[50vh] md:h-[40vh] lg:h-[75vh] w-full border border-neutral-800 rounded-2xl transition-all duration-300 ease-in-out hover:rounded-none cursor-pointer"

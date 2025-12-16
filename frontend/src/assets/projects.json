@@ -2,9 +2,24 @@
   "projects": [
     {
       "id": 1,
+      "title": "Ripple",
+      "featured": true,
+      "category": "UI/UX Design",
+      "description": "A Music Player with Frutiger Aero Aesthetic.",
+      "year": "2025",
+      "image": "projects/ripple.jpg",
+      "skills": ["Figma", "UI/UX", "Photoshop"],
+      "repo_link": null,
+      "live_link": [
+        "https://www.behance.net/gallery/240494453/Ripple-Frutiger-Aero-Music-Player",
+        "Behance"
+      ]
+    },
+    {
+      "id": 2,
       "title": "ATSuite",
       "featured": true,
-      "category": "Web Development",
+      "category": "AI / Web Dev",
       "description": "AI powered ATS resume analyzer.",
       "year": "2025",
       "image": "projects/atsuite.webp",
@@ -13,7 +28,7 @@
       "live_link": ["https://atsuite.netlify.app/", "Demo"]
     },
     {
-      "id": 5,
+      "id": 3,
       "title": "ELECTRIFIND",
       "featured": true,
       "category": "UI/UX Design",
@@ -28,22 +43,22 @@
       ]
     },
     {
-      "id": 2,
+      "id": 4,
       "title": "Obscura",
       "featured": true,
       "category": "AI / Data Privacy",
       "description": "AI tool that automatically detects and redacts PII in text.",
       "year": "2025",
-      "skills": ["Python", "AI/ML", "Git"],
+      "skills": ["Python", "AI/ML", "Git", "Streamlit"],
       "image": "projects/obscura2.webp",
       "repo_link": "https://github.com/adityasatuluri/Obscura",
       "live_link": null
     },
     {
-      "id": 3,
+      "id": 5,
       "title": "Flex Chat",
       "featured": true,
-      "category": "Web Development",
+      "category": "Web Dev",
       "description": "Full-stack chat app with authentication, profiles, and real-time messaging.",
       "year": "2024",
       "skills": ["React", "Javascript", "Git", "Mongodb", "JWT", "Socket.io"],
@@ -55,7 +70,7 @@
       ]
     },
     {
-      "id": 4,
+      "id": 6,
       "title": "FILM HORIZON",
       "featured": false,
       "category": "UI/UX Design",
