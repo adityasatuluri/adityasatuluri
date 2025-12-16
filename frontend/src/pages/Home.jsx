@@ -15,7 +15,7 @@ import BlurText from "../components/Blurtext.jsx";
 const WhiteBg = new URL("../assets/WhiteBg.webp", import.meta.url).href;
 const WhiteBgM = new URL("../assets/WhiteBgM.webp", import.meta.url).href;
 import morning from "../assets/cy-city-morning.webp";
-const night = new URL("../assets/cy-city.webp", import.meta.url).href;
+import night from "../assets/cy-city.webp";
 const item2077 = new URL("../assets/item2077.webp", import.meta.url).href;
 
 import ShinyText from "../components/ShinyText.jsx";
