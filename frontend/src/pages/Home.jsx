@@ -371,7 +371,7 @@ export default function Home({ setMenuItem }) {
           <div
             className="absolute inset-0 z-10 w-full h-full mix-blend-screen"
             style={{
-              backgroundImage: `url(${GlitchGif})`,
+              backgroundImage: `url(${isMobile ? Inspiration : GlitchGif})`,
               backgroundSize: "cover",
               backgroundPosition: "bottom left",
               backgroundAttachment: "fixed",
@@ -380,7 +380,7 @@ export default function Home({ setMenuItem }) {
           <div
             className="absolute inset-0 z-10 w-full h-full mix-blend-color-dodge"
             style={{
-              backgroundImage: `url(${GlitchGif})`,
+              backgroundImage: `url(${isMobile ? Inspiration : GlitchGif})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundAttachment: "fixed",
@@ -629,63 +629,68 @@ export default function Home({ setMenuItem }) {
                       animate={{ scale: 1, opacity: 1 }}
                       exit={{ scale: 0.8, opacity: 0 }}
                       transition={{ duration: 0.3 }}
-                      className="bg-[#f0f0f0] text-black rounded-2xl p-6 flex flex-col gap-6 max-w-3xl w-[90%] shadow-2xl relative"
+                      className="w-[90%] max-w-3xl"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <div className="flex flex-col space-y-4">
-                        {/* Header with close button */}
-                        <div className="flex items-center justify-between ">
-                          <h2 className="text-2xl font-bold ">
+                      <div className="w-full bg-[#D90908] cyber-box p-[2px] shadow-[0_0_30px_rgba(217,9,8,0.3)]">
+                        <div className="flex flex-col w-full h-full bg-black relative text-[#f0f0f0]" style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%)" }}>
+                          <div className="bg-[#D90908]/10 border-b border-[#D90908]/30 px-4 py-2 flex justify-between items-center mb-4 relative z-10">
+                        <h2 className="text-sm font-bold font-mono text-[#D90908]">>_ SYS.DAT // {selectedProject.category.toUpperCase()}</h2>
+                        <button
+                          className="text-white hover:text-red-500"
+                          onClick={() => setSelectedProject(null)}
+                        >
+                          <RiCloseLargeFill size={20} />
+                        </button>
+                      </div>
+                      
+                      <div className="p-4 flex flex-col gap-6">
+                        <div className="flex flex-col space-y-4">
+                          <h2 className="text-3xl font-bold futuristic-armour text-white tracking-widest">
                             {selectedProject.title}
                           </h2>
-                          {/* Close button */}
-                          <button
-                            className=" text-black hover:text-red-600 text-xl cursor-pointer"
-                            onClick={() => setSelectedProject(null)}
-                          >
-                            <RiCloseLargeFill />
-                          </button>
+                          <p className="text-sm font-mono text-gray-300">{selectedProject.description}</p>
                         </div>
 
-                        <p className="text-xl font-normal">
-                          {selectedProject.description}
-                        </p>
-                      </div>
+                        <div className="flex flex-row gap-2 flex-wrap">
+                          {selectedProject.skills.map((skill, index) => (
+                            <div
+                              key={index}
+                              className="p-[1px] bg-[#D90908]/50 cyber-button inline-block"
+                            >
+                              <span className="block w-full h-full text-xs bg-black text-[#D90908] px-2 py-1 font-mono cyber-button">
+                                {skill}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
 
-                      <div className="flex flex-row gap-4 space-y-0 flex-wrap">
-                        {selectedProject.skills.map((skill, index) => (
-                          <span
-                            key={index}
-                            className="text-[20px] text-gray-800 italic font-semibold"
-                          >
-                            {skill}
-                          </span>
-                        ))}
+                        <div className="flex flex-col space-y-3 mt-4">
+                          {selectedProject.repo_link && (
+                            <a
+                              className="w-full text-center cyber-button px-4 py-3 bg-[#D90908] text-black font-bold font-mono hover:bg-white transition-colors"
+                              href={selectedProject.repo_link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              [ SRC_CODE ]
+                            </a>
+                          )}
+                          {selectedProject.live_link && (
+                            <div className="w-full bg-[#D90908] cyber-button p-[1px] shadow-[0_0_10px_rgba(217,9,8,0.2)]">
+                              <a
+                                className="block w-full text-center cyber-button px-4 py-3 bg-black text-[#D90908] font-bold font-mono hover:bg-[#D90908] hover:text-black transition-colors"
+                                href={selectedProject.live_link[0]}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                [ {selectedProject.live_link[1] ? selectedProject.live_link[1] : "INIT_PREVIEW"} ]
+                              </a>
+                            </div>
+                          )}
+                        </div>
                       </div>
-
-                      <div className="flex flex-col space-y-4">
-                        {selectedProject.repo_link && (
-                          <a
-                            className="px-4 py-2 bg-black text-white rounded-xl hover:bg-gray-900 transition flex items-center justify-center"
-                            href={selectedProject.repo_link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            Github
-                          </a>
-                        )}
-                        {selectedProject.live_link && (
-                          <a
-                            className="px-4 py-2 bg-black text-white rounded-xl hover:bg-gray-900 transition flex items-center justify-center"
-                            href={selectedProject.live_link[0]}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {selectedProject.live_link[1]
-                              ? selectedProject.live_link[1]
-                              : "Preview"}
-                          </a>
-                        )}
+                      </div>
                       </div>
                     </motion.div>
                   </motion.div>

@@ -335,15 +335,17 @@ export default function Soft() {
               <div className="flex flex-col w-full h-full bg-black relative" style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%)" }}>
                 {/* Thumbnail */}
                 <div
-                  className="relative flex items-center justify-center h-[75%] lg:h-[80%] transition-all duration-300 ease-in-out"
-                  style={{
-                    backgroundImage: `url(/${p.image})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                  }}
+                  className="relative flex items-center justify-center h-[75%] lg:h-[80%] transition-all duration-300 ease-in-out overflow-hidden"
                 >
+                  <img
+                    src={`/${p.image}`}
+                    alt={p.title || "Project Thumbnail"}
+                    loading="lazy"
+                    decoding="async"
+                    className="absolute inset-0 w-full h-full object-cover z-0"
+                  />
                   {!isTouchDevice && (
-                    <div className="flex flex-col gap-6 w-full h-full bg-black/80 text-[#f0f0f0] transition-all duration-300 backdrop-blur-md items-center justify-center opacity-0 group-hover:opacity-100 p-6 text-center">
+                    <div className="flex flex-col gap-6 w-full h-full relative z-10 bg-black/80 text-[#f0f0f0] transition-all duration-300 backdrop-blur-md items-center justify-center opacity-0 group-hover:opacity-100 p-6 text-center">
                       <div className="font-bold text-sm sm:text-base lg:text-lg hover-glitch">
                         {p.description}
                       </div>

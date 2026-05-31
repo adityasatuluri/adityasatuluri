@@ -118,7 +118,12 @@ function App() {
   const playlist = [{ src: V, name: "V" }];
 
   // audio ref
-  const audioRef = useRef(new Audio(playlist[0].src));
+  const audioRef = useRef();
+  if (!audioRef.current) {
+    const audio = new Audio(playlist[0].src);
+    audio.preload = "none";
+    audioRef.current = audio;
+  }
 
   useEffect(() => {
     if (audioRef.current) {
@@ -375,7 +380,7 @@ function App() {
             transition={{ duration: 0.5 }}
             className="absolute inset-0 z-11 w-[100vw] h-[100vh] mix-blend-lighten"
             style={{
-              backgroundImage: `url(${Glitch1})`,
+              backgroundImage: `url(${isMobile ? LoadingBg : Glitch1})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundAttachment: "fixed",
@@ -396,7 +401,7 @@ function App() {
                   onClick={() => setMenuItem("Home")}
                   className="cursor-target flex items-center"
                 >
-                  <img src={logo} alt="Logo" className="h-10 object-contain" />
+                  <img src={logo} alt="Logo" loading="lazy" decoding="async" className="h-10 object-contain" />
                 </Link>
 
                 {/*MENU*/}
@@ -525,6 +530,8 @@ function App() {
                   <img
                     src={logo}
                     alt="Logo"
+                    loading="lazy"
+                    decoding="async"
                     className="h-8 w-8 object-contain"
                   />
                 </Link>
