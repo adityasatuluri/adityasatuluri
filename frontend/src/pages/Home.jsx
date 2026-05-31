@@ -127,6 +127,7 @@ export default function Home({ setMenuItem }) {
   const [currentSkills, setCurrentSkills] = React.useState("");
 
   const projects = projectsData.projects;
+  const NN = morning;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -143,7 +144,7 @@ export default function Home({ setMenuItem }) {
 
       // thresholds for swapping backgrounds
       if (progress <= 0.55) setCityBg(night);
-      else if (progress > 0.55) setCityBg(morning);
+      else if (progress > 0.55) setCityBg(NN);
     };
 
     window.addEventListener("scroll", handleScroll);

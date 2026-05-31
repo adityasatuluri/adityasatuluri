@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { motion, AnimatePresence, easeInOut } from "framer-motion";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { Play, Pause, SkipForward, SkipBackIcon } from "lucide-react";
+// import { Lenis } from "@studio-freight/lenis";
 // import usePreventZoom from "./hooks/usePreventZoom.jsx";
 
 import "./App.css";
@@ -81,6 +82,15 @@ import { MdRestartAlt } from "react-icons/md";
 
 function App() {
   // usePreventZoom();
+
+  // useEffect(() => {
+  //   const lenis = new Lenis();
+  //   function raf(time) {
+  //     lenis.raf(time);
+  //     requestAnimationFrame(raf);
+  //   }
+  //   requestAnimationFrame(raf);
+  // });
 
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);

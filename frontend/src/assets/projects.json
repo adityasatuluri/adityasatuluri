@@ -2,6 +2,18 @@
   "projects": [
     {
       "id": 1,
+      "title": "WanderAI",
+      "featured": true,
+      "category": "AI / Full Stack",
+      "description": "An agentic AI travel planner utilizing multi-agent LangGraph workflows, real-time geographic API integrations, and a dynamic weather simulation engine.",
+      "year": "2026",
+      "image": "projects/wanderai.jpg",
+      "skills": ["LangGraph", "LangChain", "Flask", "Python", "JavaScript"],
+      "repo_link": "https://github.com/adityasatuluri/Travel-Partner",
+      "live_link": null
+    },
+    {
+      "id": 2,
       "title": "Ripple",
       "featured": true,
       "category": "UI/UX Design",
@@ -16,19 +28,19 @@
       ]
     },
     {
-      "id": 2,
+      "id": 3,
       "title": "ATSuite",
       "featured": true,
       "category": "AI / Web Dev",
       "description": "AI powered ATS resume analyzer.",
       "year": "2025",
-      "image": "projects/atsuite.webp",
+      "image": "projects/ATSuite.jpg",
       "skills": ["React", "Puter", "Javascript", "Git"],
       "repo_link": "https://github.com/adityasatuluri/ATSuite/",
       "live_link": ["https://atsuite.netlify.app/", "Demo"]
     },
     {
-      "id": 3,
+      "id": 4,
       "title": "ELECTRIFIND",
       "featured": true,
       "category": "UI/UX Design",
@@ -43,7 +55,7 @@
       ]
     },
     {
-      "id": 4,
+      "id": 5,
       "title": "Obscura",
       "featured": true,
       "category": "AI / Data Privacy",
@@ -55,9 +67,9 @@
       "live_link": null
     },
     {
-      "id": 5,
+      "id": 6,
       "title": "Flex Chat",
-      "featured": true,
+      "featured": false,
       "category": "Web Dev",
       "description": "Full-stack chat app with authentication, profiles, and real-time messaging.",
       "year": "2024",
@@ -70,7 +82,7 @@
       ]
     },
     {
-      "id": 6,
+      "id": 7,
       "title": "FILM HORIZON",
       "featured": false,
       "category": "UI/UX Design",
