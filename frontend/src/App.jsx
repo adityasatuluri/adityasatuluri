@@ -243,13 +243,15 @@ function App() {
           }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
     );
 
     const observeElements = () => {
-      document.querySelectorAll(".elements:not(.show-element)").forEach((el) => {
-        observer.observe(el);
-      });
+      document
+        .querySelectorAll(".elements:not(.show-element)")
+        .forEach((el) => {
+          observer.observe(el);
+        });
     };
 
     observeElements();
@@ -384,8 +386,17 @@ function App() {
             {!isMobile ? (
               <header
                 id="navbar"
-                className="w-full uppercase flex items-center justify-center gap-6 p-4 text-white sticky top-0 z-50 bg-black/75 backdrop-blur-lg hover:bg-black/90 transition-colors duration-300 custom-border inset-shadow-sm"
+                className="w-full uppercase flex items-center justify-between gap-6 px-10 py-4 text-white sticky top-0 z-50 bg-[#000000] custom-border inset-shadow-sm"
               >
+                {/* LOGO */}
+                <Link
+                  to="/#home"
+                  onClick={() => setMenuItem("Home")}
+                  className="cursor-target flex items-center"
+                >
+                  <img src={logo} alt="Logo" className="h-10 object-contain" />
+                </Link>
+
                 {/*MENU*/}
                 <div className="flex items-center gap-6 text-sm md:text-base tracking-widest">
                   <Link
@@ -480,7 +491,7 @@ function App() {
                     Contact
                   </Link>
                   <a
-                    className="hover:text-red-500 cursor-target"
+                    className="cyber-nav-button text-black bg-[#D90908] font-bold px-6 py-2 hover:bg-white hover:text-black transition-colors duration-300 cursor-target z-10"
                     href={resume}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -502,7 +513,7 @@ function App() {
             ) : (
               <header
                 id="navbar"
-                className="w-full flex items-center justify-between gap-6 p-4 text-white sticky top-0 z-50 bg-black/85 backdrop-blur-lg hover:bg-black/90 transition-colors duration-300 inset-shadow-sm"
+                className="w-full flex items-center justify-between gap-6 p-4 text-white sticky top-0 z-50 bg-[#000000] custom-border inset-shadow-sm"
               >
                 <Link
                   to="/#home"
@@ -530,10 +541,11 @@ function App() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -20 }}
                       transition={{ duration: 0.3 }}
-                      className="fixed inset-0 h-[100vh] bg-[#060606] backdrop-blur-xl flex flex-col items-center justify-center space-y-8 text-2xl font-bold"
+                      className="fixed inset-0 h-[100vh] bg-[#000000] flex flex-col items-center justify-center space-y-8 text-2xl font-bold"
                       style={{
                         backgroundImage: `url(${WhiteBg})`,
                         backgroundSize: "cover",
+                        backgroundBlendMode: "multiply",
                       }}
                     >
                       <button
@@ -638,7 +650,7 @@ function App() {
                           setMenuItem("Resume");
                           setMobileMenuOpen(false);
                         }}
-                        className="hover:text-red-500"
+                        className="cyber-nav-button text-white bg-[#D90908] font-bold px-8 py-3 hover:bg-white hover:text-black transition-colors duration-300 z-10"
                       >
                         Resume
                       </a>

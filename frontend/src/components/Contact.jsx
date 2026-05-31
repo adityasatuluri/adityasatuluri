@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const web3Key = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
@@ -27,10 +28,11 @@ export default function Contact() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+    const form = event.target;
     setResult("");
     setButtonStatus("sending");
 
-    const formData = new FormData(event.target);
+    const formData = new FormData(form);
     formData.append("access_key", web3Key);
 
     // validate before sending
@@ -54,7 +56,7 @@ export default function Contact() {
       setResult("Form Submitted Successfully ✅");
       setButtonStatus("success");
       showToast("Form submitted successfully 🎉", "success");
-      event.target.reset();
+      form.reset();
 
       // revert back after 3s
       setTimeout(() => setButtonStatus("idle"), 3000);
@@ -67,78 +69,110 @@ export default function Contact() {
   };
 
   return (
-    <div className="w-full h-full flex items-center justify-center text-[#f0f0f0] text-lg sm:text-xl font-bold px-4 sm:px-6 md:px-10 relative">
-      <div className="flex flex-col justify-center space-y-6 w-full lg:max-w-[80vw]">
-        <div className="elements flex flex-col items-center w-full text-[14vw] sm:text-5xl md:text-5xl lg:text-8xl leading-tight">
-          <h1>LET'S WORK TOGETHER</h1>
-        </div>
-        <div className="elements w-full flex flex-col space-y-5">
-          <form onSubmit={onSubmit} className="flex flex-col space-y-4">
-            <input type="hidden" name="access_key" value={web3Key} />
+    <div className="w-full h-full flex flex-col items-center justify-center text-[#f0f0f0] text-lg sm:text-xl font-bold px-4 sm:px-6 md:px-10 pb-20">
+      {/* <div className="elements flex flex-col items-center w-full text-[10vw] sm:text-5xl md:text-5xl lg:text-7xl leading-tight mb-10 text-white tracking-widest abnes">
+        <h1>LET'S WORK TOGETHER</h1>
+      </div> */}
 
-            {/* Name */}
+      <div className="w-full lg:max-w-[60vw] bg-[#D90908] cyber-box p-[2px] relative z-10 mt-4">
+        <div 
+          className="flex flex-col w-full h-full bg-black relative"
+          style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%)" }}
+        >
+          {/* Terminal Header */}
+          <div className="bg-[#D90908] text-black font-mono text-sm sm:text-base px-4 py-2 flex justify-between items-center shrink-0">
+            <span className="font-bold">>_ INITIATE_CONTACT.EXE</span>
+            <span className="animate-pulse font-bold">_</span>
+          </div>
+
+          <AnimatePresence>
+            {buttonStatus === "success" && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/95 backdrop-blur-sm"
+              >
+                <div className="text-[#D90908] text-5xl sm:text-6xl mb-4 animate-bounce">
+                  <span className="block border-2 border-[#D90908] p-4 rounded-full">
+                    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                </div>
+                <h2 className="text-[#D90908] font-mono text-xl sm:text-2xl tracking-widest text-center">
+                  >_ DATA_TRANSMITTED
+                </h2>
+                <p className="text-gray-500 font-mono mt-2 text-sm sm:text-base text-center px-4">
+                  Connection securely closed.
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+        <form onSubmit={onSubmit} className="flex flex-col gap-6 p-6 sm:p-10">
+          <input type="hidden" name="access_key" value={web3Key} />
+
+          {/* Name */}
+          <div className={`relative cyber-input cyber-border-red z-10 ${errors.name ? "animate-shake border-white" : ""}`}>
             <input
               type="text"
               name="name"
               placeholder="Name"
-              className={`bg-white w-full text-black h-12 sm:h-14 px-4 placeholder:tracking-widest placeholder:font-sans rounded transition-all duration-300 ${
-                errors.name ? "border-2 border-red-500 animate-shake" : "border"
-              }`}
+              className="bg-black w-full text-[#D90908] font-bold h-12 sm:h-14 px-4 placeholder:tracking-widest placeholder:text-[#D90908]/50 placeholder:font-sans outline-none"
             />
-            {errors.name && (
-              <span className="text-red-500 text-sm">{errors.name}</span>
-            )}
+          </div>
+          {errors.name && (
+            <span className="text-red-500 text-sm">{errors.name}</span>
+          )}
 
-            {/* Email */}
+          {/* Email */}
+          <div className={`relative cyber-input cyber-border-red z-10 ${errors.email ? "animate-shake border-white" : ""}`}>
             <input
               type="email"
               name="email"
               placeholder="Email"
-              className={`bg-white w-full text-black h-12 sm:h-14 px-4 placeholder:tracking-widest placeholder:font-sans rounded transition-all duration-300 ${
-                errors.email
-                  ? "border-2 border-red-500 animate-shake"
-                  : "border"
-              }`}
+              className="bg-black w-full text-[#D90908] font-bold h-12 sm:h-14 px-4 placeholder:tracking-widest placeholder:text-[#D90908]/50 placeholder:font-sans outline-none"
             />
-            {errors.email && (
-              <span className="text-red-500 text-sm">{errors.email}</span>
-            )}
+          </div>
+          {errors.email && (
+            <span className="text-red-500 text-sm">{errors.email}</span>
+          )}
 
-            {/* Message */}
+          {/* Message */}
+          <div className={`relative cyber-box cyber-border-red z-10 ${errors.message ? "animate-shake border-white" : ""}`}>
             <textarea
               name="message"
               rows="6"
               placeholder="Message"
-              className={`bg-white w-full text-black px-4 py-2 outline-none resize-none placeholder:tracking-widest placeholder:font-sans rounded transition-all duration-300 ${
-                errors.message
-                  ? "border-2 border-red-500 animate-shake"
-                  : "border"
-              }`}
+              className="bg-black w-full text-[#D90908] font-bold px-4 py-2 outline-none resize-none placeholder:tracking-widest placeholder:text-[#D90908]/50 placeholder:font-sans"
             />
-            {errors.message && (
-              <span className="text-red-500 text-sm">{errors.message}</span>
-            )}
+          </div>
+          {errors.message && (
+            <span className="text-red-500 text-sm">{errors.message}</span>
+          )}
 
-            {/* Button */}
-            <button
-              type="submit"
-              className={`w-full h-12 sm:h-14 border jura-font text-base sm:text-lg cursor-pointer transition-all duration-500 rounded shadow-md
-                ${
-                  buttonStatus === "success"
-                    ? "bg-green-600 text-white border-green-700 animate-pulse"
-                    : buttonStatus === "sending"
-                    ? "bg-gray-500 text-white border-gray-600 cursor-not-allowed"
-                    : "bg-[#090909] text-white hover:bg-red-600 hover:font-bold hover:border-black border-neutral-400"
-                }`}
-              disabled={buttonStatus === "sending"}
-            >
-              {buttonStatus === "success"
-                ? "Sent ✅"
-                : buttonStatus === "sending"
-                ? "Sending..."
-                : "SEND"}
-            </button>
-          </form>
+          {/* Button */}
+          <button
+            type="submit"
+            className={`cyber-button cyber-border-red cyber-hover-fill w-full h-12 sm:h-14 font-bold text-base sm:text-lg cursor-pointer transition-all duration-500 z-10 flex items-center justify-center
+              ${
+                buttonStatus === "success"
+                  ? "bg-[#D90908] text-black border-green-500 animate-pulse"
+                  : buttonStatus === "sending"
+                  ? "bg-transparent text-gray-500 border-gray-600 cursor-not-allowed"
+                  : "bg-black text-[#D90908] hover:bg-[#D90908] hover:text-black"
+              }`}
+            disabled={buttonStatus === "sending"}
+          >
+            {buttonStatus === "success"
+              ? "Sent ✅"
+              : buttonStatus === "sending"
+              ? "Sending..."
+              : "SEND"}
+          </button>
+        </form>
         </div>
       </div>
     </div>

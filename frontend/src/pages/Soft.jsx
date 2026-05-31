@@ -7,6 +7,7 @@ import { FaFilter } from "react-icons/fa6";
 import bg from "../assets/h.jpg";
 import { MdArrowUpward } from "react-icons/md";
 import ScrollToTop from "react-scroll-to-top";
+import { useLocation } from "react-router-dom";
 
 export default function Soft() {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -25,6 +26,20 @@ export default function Soft() {
 
   // ✅ Multi-select states
   const [selectedSkills, setSelectedSkills] = useState([]);
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const skillParam = params.get("skill");
+    if (skillParam) {
+      setSelectedSkills((prev) => {
+        if (!prev.includes(skillParam)) {
+          return [...prev, skillParam];
+        }
+        return prev;
+      });
+    }
+  }, [location.search]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });

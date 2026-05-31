@@ -1,139 +1,104 @@
 import React from "react";
 import "../App.css";
-import { MdArrowOutward } from "react-icons/md";
 import { FaInstagram, FaLinkedinIn, FaBehance, FaGithub } from "react-icons/fa";
 import { TbBrandGmail } from "react-icons/tb";
-
-import LogoBg from "../assets/logo_bg.svg";
-import RedBg from "../assets/red-bg.webp";
-import { useEffect, useState } from "react";
+import GlitchGif from "../assets/verticalglitch.gif";
 
 export default function Footer() {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    // ✅ check screen size
-    const checkMobile = () => setIsMobile(window.innerWidth < 768); // md breakpoint
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
   return (
-    <div
-      className="w-full h-[50vh] flex flex-col items-center justify-center custom-border text-[#f0f0f0] jura-font font-bold bg-cover bg-center bg-no-repeat relative z-0"
-      style={{
-        backgroundImage: `url(${RedBg})`,
-      }}
-    >
-      <div className="relative flex flex-col items-center justify-center text-center gap-3 grain w-full h-[90vh]">
-        {/* Image in background */}
-        <img
-          src={LogoBg}
-          alt="Filler"
-          className="absolute inset-0 w-[40vh] h-[40vh] m-auto opacity-20 z-0"
-        />
+    <div className="w-full bg-[#D90908] border-t-2 border-[#D90908] text-white font-bold py-10 px-6 sm:px-12 md:px-20 relative z-10 flex flex-col gap-10 overflow-hidden">
+      
+      {/* Glitch overlays */}
+      <div
+        className="absolute inset-0 z-0 w-full h-full mix-blend-screen opacity-50"
+        style={{
+          backgroundImage: `url(${GlitchGif})`,
+          backgroundSize: "cover",
+          backgroundPosition: "bottom left",
+        }}
+      ></div>
+      <div
+        className="absolute inset-0 z-0 w-full h-full mix-blend-color-dodge opacity-50"
+        style={{
+          backgroundImage: `url(${GlitchGif})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      ></div>
 
-        {/* Text in front */}
-        <div className="flex items-center justify-center text-6xl sm:text-5xl md:text-7xl lg:text-9xl tracking-wide relative z-10 lg:mb-0 mb-8">
-          ADITYA SATULURI
+      {/* Top Section */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 relative z-10">
+        
+        {/* Brand / Logo Area */}
+        <div className="flex flex-col gap-2">
+          <div className="text-3xl tracking-[0.2em] border-2 border-white px-6 py-2 inline-block z-10 text-white font-bold bg-black/20 backdrop-blur-sm">
+            ADITYA SATULURI
+          </div>
+          <div className="text-sm tracking-widest opacity-90 mt-2 text-white">
+            WEB & AI DEVELOPER _ DESIGNER
+          </div>
         </div>
 
-        {!isMobile ? (
-          <div className="w-full pl-43 pr-46 pt-4 flex flex-row lg:flex-row justify-center items-center z-90">
-            <div className="flex flex-row lg:gap-15 md:gap-6 sm:gap-4  mb-4 lg:mb-0">
-              <a
-                className="flex flex-row text-white hover:text-red-600 transition-colors duration-300 cursor-pointer"
-                href="https://www.linkedin.com/in/aditya-satuluri-a250a31a0/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="hover:border-b">LINKEDIN</span>
-                <MdArrowOutward className="h-5 w-5" />
-              </a>
-              <a
-                className="flex flex-row text-white hover:text-red-600 transition-colors duration-300 cursor-pointer"
-                href="https://www.behance.net/adityasatuluri"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="hover:border-b">BEHANCE</span>
-                <MdArrowOutward className="h-5 w-5" />
-              </a>
+        {/* Social Links */}
+        <div className="flex flex-row flex-wrap gap-4 sm:gap-6 z-10">
+          <a
+            className="border-2 border-white p-4 text-white hover:bg-white hover:text-[#D90908] transition-colors duration-300 cursor-pointer flex items-center justify-center z-10 bg-black/20 backdrop-blur-sm"
+            href="https://www.linkedin.com/in/aditya-satuluri-a250a31a0/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+          >
+            <FaLinkedinIn className="h-6 w-6" />
+          </a>
+          <a
+            className="border-2 border-white p-4 text-white hover:bg-white hover:text-[#D90908] transition-colors duration-300 cursor-pointer flex items-center justify-center z-10 bg-black/20 backdrop-blur-sm"
+            href="https://www.behance.net/adityasatuluri"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Behance"
+          >
+            <FaBehance className="h-6 w-6" />
+          </a>
+          <a
+            className="border-2 border-white p-4 text-white hover:bg-white hover:text-[#D90908] transition-colors duration-300 cursor-pointer flex items-center justify-center z-10 bg-black/20 backdrop-blur-sm"
+            href="https://www.instagram.com/aditya.satuluri/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+          >
+            <FaInstagram className="h-6 w-6" />
+          </a>
+          <a
+            className="border-2 border-white p-4 text-white hover:bg-white hover:text-[#D90908] transition-colors duration-300 cursor-pointer flex items-center justify-center z-10 bg-black/20 backdrop-blur-sm"
+            href="https://www.github.com/adityasatuluri"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+          >
+            <FaGithub className="h-6 w-6" />
+          </a>
+          <a
+            className="border-2 border-white p-4 text-white hover:bg-white hover:text-[#D90908] transition-colors duration-300 cursor-pointer flex items-center justify-center z-10 bg-black/20 backdrop-blur-sm"
+            href="mailto:s.aditya.in@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Email"
+          >
+            <TbBrandGmail className="h-6 w-6" />
+          </a>
+        </div>
+      </div>
 
-              <a
-                className="flex flex-row text-white hover:text-red-600 transition-colors duration-300 cursor-pointer"
-                href="https://www.instagram.com/aditya.satuluri/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="hover:border-b">INSTAGRAM</span>
-                <MdArrowOutward className="h-5 w-5" />
-              </a>
-              <a
-                className="flex flex-row text-white hover:text-red-600 transition-colors duration-300 cursor-pointer"
-                href="https://www.github.com/adityasatuluri"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="hover:border-b">GITHUB</span>
-                <MdArrowOutward className="h-5 w-5" />
-              </a>
-              <a
-                className="flex flex-row text-white hover:text-red-600 transition-colors duration-300 cursor-pointer"
-                href="mailto:s.aditya.in@gmail.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="hover:border-b">EMAIL</span>
-                <MdArrowOutward className="h-5 w-5" />
-              </a>
-            </div>
-          </div>
-        ) : (
-          <div className="flex flex-row gap-8 justify-center items-center w-full z-90">
-            <a
-              className="flex flex-row text-white hover:text-red-600 transition-colors duration-300 cursor-pointer"
-              href="https://www.linkedin.com/in/aditya-satuluri-a250a31a0/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaLinkedinIn className="h-8 w-8 object-contain" />
-            </a>{" "}
-            <a
-              className="flex flex-row text-white hover:text-red-600 transition-colors duration-300 cursor-pointer"
-              href="https://www.behance.net/adityasatuluri"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaBehance className="h-8 w-8 object-contain" />
-            </a>{" "}
-            <a
-              className="flex flex-row text-white hover:text-red-600 transition-colors duration-300 cursor-pointer"
-              href="https://www.instagram.com/aditya.satuluri/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaInstagram className="h-8 w-8 object-contain" />
-            </a>
-            <a
-              className="flex flex-row text-white hover:text-red-600 transition-colors duration-300 cursor-pointer"
-              href="https://www.github.com/adityasatuluri"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaGithub className="h-8 w-8 object-contain" />
-            </a>
-            <a
-              className="flex flex-row text-white hover:text-red-600 transition-colors duration-300 cursor-pointer"
-              href="mailto:s.aditya.in@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <TbBrandGmail className="h-8 w-8 object-contain" />
-            </a>
-          </div>
-        )}
+      {/* Divider */}
+      <hr className="border-t border-white/50 relative z-10" />
+
+      {/* Bottom Section */}
+      <div className="flex flex-col sm:flex-row justify-between items-center text-xs tracking-widest gap-4 relative z-10 text-white">
+        <div>&copy; {new Date().getFullYear()} ADITYA SATULURI. ALL RIGHTS RESERVED.</div>
+        <div className="flex gap-4">
+          <span>SYS.STATUS: <span className="animate-pulse font-bold">ONLINE</span></span>
+          <span>VER: <span className="font-bold">2.0.77</span></span>
+        </div>
       </div>
     </div>
   );

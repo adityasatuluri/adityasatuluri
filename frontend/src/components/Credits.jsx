@@ -10,102 +10,97 @@ function Credits({ visible, onClose }) {
   useEffect(() => {}, [loaded]);
 
   return (
-    <div className="fixed inset-0 z-1000 flex items-center justify-center w-screen h-screen  backdrop-blur-sm">
+    <div className="fixed inset-0 z-[1000] flex items-center justify-center w-screen h-screen backdrop-blur-sm bg-black/80">
       <div
-        className="lg:w-[90vw] lg:h-[90vh] lg:bg-black/90 w-full  h-full 
-        rounded-2xl bg-black/90 backdrop-blur-lg 
-        p-4 sm:p-6 md:p-8 shadow-2xl overflow-y-auto"
+        className="w-full h-full lg:w-[60vw] lg:h-auto lg:max-h-[85vh] bg-black border border-[#D90908]/50 shadow-[0_0_30px_rgba(217,9,8,0.3)] cyber-box flex flex-col p-1 relative overflow-hidden"
       >
-        {/* HEADER */}
-        <div className="flex justify-end mb-6">
+        {/* Terminal Header */}
+        <div className="bg-[#D90908] text-black font-mono text-sm sm:text-base px-4 py-2 flex justify-between items-center shrink-0">
+          <span className="font-bold">>_ SYS.CREDITS.DAT</span>
           <button
             onClick={onClose}
-            className="text-white text-2xl md:text-3xl font-light hover:text-red-600 transition-colors duration-300"
+            className="hover:text-white transition-colors duration-300 font-bold"
           >
-            ✕
+            [X]
           </button>
         </div>
 
         {/* BODY */}
-        <div className=" flex justify-center items-center">
-          <div className="flex flex-col gap-8 w-[90vw] md:w-[60vw] lg:w-[50vw] align-middle text-white text-base sm:text-lg md:text-xl">
-            {/* Cyberpunk Card */}
-            {/* <iframe
-              data-testid="embed-iframe"
-              style={{ borderRadius: "12px" }}
-              src="https://open.spotify.com/embed/track/2u1FWVxAb16qbgwPgygAdj?utm_source=generator&theme=0"
-              width="100%"
-              height="152"
-              frameBorder="0"
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              loading="lazy"
-            /> */}
-
-            <div className="w-full border border-neutral-600 rounded-xl p-5 flex flex-col sm:flex-row gap-6 sm:gap-10">
+        <div className="flex-1 overflow-y-auto p-6 sm:p-8 flex flex-col gap-8 scrollbar-hide bg-black/90">
+          <h2 className="abnes text-white text-3xl sm:text-4xl lg:text-5xl tracking-widest">
+            CREDITS
+          </h2>
+          
+          <div className="flex flex-col gap-6 text-white text-base sm:text-lg font-mono">
+            
+            {/* Music Card */}
+            <div className="w-full border border-[#D90908]/30 border-l-4 border-l-[#D90908] bg-black/50 p-5 flex flex-col sm:flex-row gap-6 sm:gap-8 relative group hover:bg-[#D90908]/10 transition-colors">
               <img
                 src={CyberpunkIcon}
-                className="w-32 h-32 sm:w-40 sm:h-40 object-contain mx-auto sm:mx-0 border-2 text-white border-neutral-800"
-                alt="Cyberpunk 2077 Icon"
+                className="w-32 h-32 sm:w-40 sm:h-40 object-cover border border-[#D90908]/50 shrink-0"
+                alt="Track Cover"
                 loading="lazy"
                 onLoad={() => setLoaded(true)}
               />
 
-              <div className="flex flex-col justify-between gap-4 sm:gap-6 w-full">
-                <p className="text-2xl sm:text-3xl md:text-4xl font-semibold">
+              <div className="flex flex-col justify-between w-full py-1">
+                <p className="text-2xl sm:text-3xl font-bold uppercase tracking-widest text-[#D90908] leading-none">
                   Init
                 </p>
-                <div className="flex items-center gap-2 text-sm sm:text-base md:text-lg">
-                  <p className="opacity-50">Artist</p>
-                  <GoDotFill className="h-4 w-4 opacity-50" />
+                <div className="flex items-center gap-2 text-sm sm:text-base text-gray-400">
+                  <p>ARTIST</p>
+                  <span className="text-[#D90908]">//</span>
                   <p>Nine Inch Nails</p>
                 </div>
 
                 <a
                   href="https://open.spotify.com/track/29XfG8hFSaJuvnoWv6iS0B?si=d889e580f5cf4a17"
                   target="_blank"
-                  className="py-2 sm:py-3 px-4 w-full sm:w-auto text-center bg-white text-black rounded-lg hover:bg-[#1DB954] hover:text-black transition-all duration-300 ease-in-out"
+                  className="py-2 px-6 w-full sm:w-auto text-center border border-[#D90908] text-[#D90908] hover:bg-[#D90908] hover:text-black transition-all duration-300 font-bold tracking-widest uppercase"
                 >
-                  Play
+                  EXECUTE_PLAY
                 </a>
               </div>
             </div>
 
-            {/* Credits Note */}
-            <div className="w-full border border-neutral-600 rounded-xl p-5 flex justify-center items-center">
-              <p className="text-center text-sm sm:text-base md:text-lg opacity-80">
-                Screenshots captured from in-game footage of Cyberpunk 2077
+            {/* Note 1 */}
+            <div className="w-full border-b border-[#D90908]/30 pb-4">
+              <div className="text-xs text-[#D90908]/60 mb-1">>_ LOG.ENTRY: 01</div>
+              <p className="text-sm sm:text-base text-gray-300">
+                Screenshots captured from in-game footage of Cyberpunk 2077.
               </p>
             </div>
 
-            <div className="w-full border border-neutral-600 rounded-xl p-5 flex justify-center items-center">
-              <p className="text-center text-sm sm:text-base md:text-lg opacity-80">
-                Glitch Animations from{" "}
+            {/* Note 2 */}
+            <div className="w-full border-b border-[#D90908]/30 pb-4">
+              <div className="text-xs text-[#D90908]/60 mb-1">>_ LOG.ENTRY: 02</div>
+              <p className="text-sm sm:text-base text-gray-300">
+                Glitch Animations by{" "}
                 <a
                   href="https://pixabay.com/users/ceos_stock-13890949/"
                   target="_blank"
+                  className="text-[#D90908] hover:text-white transition-colors underline decoration-[#D90908]/50"
                 >
-                  <span className="text-red-500 hover:underline transition-all duration-300 ease-in-out">
-                    Ceos_Stock
-                  </span>
+                  Ceos_Stock
                 </a>{" "}
                 &{" "}
                 <a
                   href="https://www.pexels.com/@milan-matos-10954071/"
                   target="_blank"
+                  className="text-[#D90908] hover:text-white transition-colors underline decoration-[#D90908]/50"
                 >
-                  <span className="text-red-500 hover:underline transition-all duration-300 ease-in-out">
-                    Milan Matos
-                  </span>
-                </a>
+                  Milan Matos
+                </a>.
               </p>
             </div>
 
-            <div className="w-full border border-neutral-600 rounded-xl p-5 flex justify-center items-center">
-              <p className="text-center text-sm sm:text-base md:text-lg opacity-80">
-                Artworks by Aditya Satuluri - Copyright &copy;{" "}
-                {new Date().getFullYear()} &nbsp;
+            {/* Note 3 */}
+            <div className="w-full pb-4">
+              <div className="text-xs text-[#D90908]/60 mb-1">>_ LOG.ENTRY: 03</div>
+              <p className="text-sm sm:text-base text-gray-300">
+                Artworks by Aditya Satuluri // Copyright &copy; {new Date().getFullYear()} //{" "}
                 <a
-                  className="hover:underline text-red-500 transition-all duration-300 ease-in-out"
+                  className="text-[#D90908] hover:text-white transition-colors underline decoration-[#D90908]/50"
                   href="https://www.instagram.com/dimensionz.fx/"
                   target="blank"
                 >
@@ -113,6 +108,7 @@ function Credits({ visible, onClose }) {
                 </a>
               </p>
             </div>
+
           </div>
         </div>
       </div>

@@ -64,8 +64,8 @@ const Artworks = ({ Mobile }) => {
         backgroundAttachment: "fixed",
       }}
     >
-      <div className="bg-black/60 grain font-bold flex flex-col items-center justify-center gap-6 px-4 sm:px-6 md:px-12 lg:px-0 text-4xl sm:text-5xl lg:text-8xl w-full h-full relative z-10">
-        <h1 className="elements text-white text-center leading-tight tracking-wide elements">
+      <div className="bg-black/70 font-bold flex flex-col items-center justify-center gap-6 px-4 sm:px-6 md:px-12 lg:px-0 text-4xl sm:text-5xl lg:text-8xl w-full h-full relative z-10 border-t border-b border-[#D90908]/30">
+        <h1 className="elements text-white text-center leading-tight tracking-widest abnes">
           ARTWORKS
         </h1>
         <Link
@@ -75,9 +75,9 @@ const Artworks = ({ Mobile }) => {
           }}
           onMouseEnter={() => setIsButtonHovered(true)} // Set hover state
           onMouseLeave={() => setIsButtonHovered(false)} // Reset hover state
-          className="elements text-lg sm:text-xl px-6 py-2 sm:px-8 sm:py-3 rounded-xl hover:shadow-lg bg-white/40 hover:bg-white hover:text-black transition-all duration-500 ease-in-out text-center"
+          className="elements text-lg sm:text-xl px-8 py-3 border border-[#D90908] text-[#D90908] font-bold tracking-widest hover:bg-[#D90908] hover:text-black transition-all duration-500 ease-in-out text-center"
         >
-          Explore the Collection
+          EXPLORE_COLLECTION.EXE
         </Link>
       </div>
     </div>

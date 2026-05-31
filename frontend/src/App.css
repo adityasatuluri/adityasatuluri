@@ -285,3 +285,66 @@ body {
   opacity: 1;
   transform: scale(1);
 }
+
+/* CYBERPUNK THEME UTILITIES */
+.cyber-box {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%);
+}
+
+.cyber-button {
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.cyber-nav-button {
+  clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+}
+
+.cyber-input {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 0);
+}
+
+.cyber-border-red {
+  position: relative;
+}
+
+.cyber-border-red::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #D90908;
+  z-index: -2;
+}
+
+.cyber-border-red::after {
+  content: "";
+  position: absolute;
+  top: 2px; left: 2px; right: 2px; bottom: 2px;
+  background-color: #000;
+  z-index: -1;
+}
+
+.cyber-box.cyber-border-red::after {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%);
+}
+.cyber-button.cyber-border-red::after {
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 10px);
+}
+.cyber-input.cyber-border-red::after {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 13px), calc(100% - 13px) 100%, 0 100%, 0 0);
+}
+
+.cyber-text {
+  color: #D90908;
+}
+
+.cyber-bg {
+  background-color: #D90908;
+}
+
+.cyber-hover-fill:hover::after {
+  background-color: transparent;
+}
+
+.cyber-hover-fill:hover {
+  color: black;
+}
