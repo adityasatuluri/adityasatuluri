@@ -81,7 +81,7 @@ export default function Home({ setMenuItem }) {
 
   const experience = [
     {
-      date: "JAN 2025 - PRESENT",
+      date: "JAN 2026 - PRESENT",
       place: "TCS, IN",
       title: "SYSTEMS ENGINEER",
       description:
