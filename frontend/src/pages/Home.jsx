@@ -428,7 +428,7 @@ export default function Home({ setMenuItem }) {
       <div className="flex flex-col bg-black ">
         {/* About me */}
         <div
-          className="w-full min-h-[70vh] lg:min-h-[90vh] flex items-center justify-center text-[#f0f0f0] text-2xl font-normal p-6 lg:p-10 align-middle relative overflow-hidden"
+          className="w-full grain min-h-[70vh] lg:min-h-[90vh] flex items-center justify-center text-[#f0f0f0] text-2xl font-normal p-6 lg:p-10 align-middle relative overflow-hidden"
           style={{
             backgroundImage: !isMobile
               ? `url(${Inspiration})`
@@ -439,22 +439,22 @@ export default function Home({ setMenuItem }) {
           }}
         >
           {/* Dark Overlay */}
-          <div className="absolute inset-0 bg-black/70 z-0"></div>
+          {/* <div className="absolute inset-0 bg-black/70 z-0"></div> */}
 
           {/* Grid Overlay */}
-          <div 
+          {/* <div 
             className="absolute inset-0 z-0 opacity-20 pointer-events-none" 
             style={{ 
-              backgroundImage: 'linear-gradient(rgba(217, 9, 8, 0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(217, 9, 8, 0.2) 1px, transparent 1px)', 
+              backgroundImage: 'linear-gradient(rgba(217, 9, 8, 0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(217, 9, 8, 0.8) 1px, transparent 1px)', 
               backgroundSize: '40px 40px' 
             }}
-          ></div>
+          ></div> */}
 
           {/* Full Section Grain Overlay */}
           <div className="absolute inset-0 z-50 pointer-events-none grain mix-blend-overlay"></div>
 
           {/* Terminal Box */}
-          <div className="relative z-10 w-full sm:max-w-[80vw] lg:max-w-[45vw] bg-[#D90908] cyber-box p-[2px] shadow-[0_0_30px_rgba(217,9,8,0.2)]">
+          <div className="elements  relative z-10 w-full sm:max-w-[80vw] lg:max-w-[45vw] bg-[#D90908] cyber-box p-[2px] shadow-[0_0_30px_rgba(217,9,8,0.2)]">
             <div 
               className="flex flex-col w-full h-full bg-black/90 backdrop-blur-md relative"
               style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%)" }}
@@ -473,7 +473,7 @@ export default function Home({ setMenuItem }) {
                   AUTH: ADMYT
                 </div>
                 
-                <h2 className="abnes text-[#D90908] text-2xl sm:text-3xl tracking-widest uppercase mb-2">
+                <h2 className="elements cyber-glitch futuristic-armour text-[#D90908] text-2xl sm:text-3xl tracking-widest uppercase mb-2">
                   CORE DIRECTIVE
                 </h2>
                 
@@ -498,7 +498,7 @@ export default function Home({ setMenuItem }) {
         ></div>
         <div className="flex flex-col w-full h-full lg:h-full lg:pr-10 lg:pl-10 p-0 m-0 items-center justify-center text-[#f0f0f0] bg-[#030303] text-2xl font-bold">
           <div className="flex flex-col lg:flex-col lg:justify-between justify-between align-middle items-center w-full gap-6">
-            <div className="elements flex flex-col md:flex-row md:gap-5 lg:gap-5 lg:flex-row md:px-6 sm:px-6 px-6 lg:px-0 text-6xl lg:text-8xl w-full h-full justify-center align-middle items-center lg:items-center tracking-widest">
+            <div className="elements futuristic-armour flex flex-col md:flex-row md:gap-5 lg:gap-5 lg:flex-row md:px-6 sm:px-6 px-6 lg:px-0 text-6xl lg:text-8xl w-full h-full justify-center align-middle items-center lg:items-center tracking-widest">
               <div>FEATURED</div> <div>WORK</div>
             </div>
             {/* <a
@@ -563,9 +563,10 @@ export default function Home({ setMenuItem }) {
                       <div className="flex flex-wrap gap-3 mt-4">
                         {p.skills.map((skill, index) => (
                           <Link
-                            key={index}
+                            key={skill}
                             to={`/projects?skill=${encodeURIComponent(skill)}`}
-                            className="text-xs sm:text-sm bg-transparent text-[#D90908] border border-[#D90908] px-3 py-1 hover:bg-[#D90908] hover:text-black transition-colors font-mono"
+                            className="elements cyber-glitch text-xs sm:text-sm bg-transparent text-[#D90908] border border-[#D90908] px-3 py-1 hover:bg-[#D90908] hover:text-black transition-colors font-mono"
+                            style={{ animationDelay: `${index * 0.1}s` }}
                           >
                             {skill}
                           </Link>
@@ -723,7 +724,7 @@ export default function Home({ setMenuItem }) {
           <div className="flex flex-col space-y-4 md:w-1/3 lg:items-start md:items-start items-center">
             <div
               ref={skillsTitleRef}
-              className="text-[14vw] sm:text-5xl md:text-5xl lg:text-7xl font-bold text-white sticky top-20 tracking-widest"
+              className="futuristic-armour text-[14vw] sm:text-5xl md:text-5xl lg:text-7xl font-bold text-white sticky top-20 tracking-widest"
             >
               SKILLS
             </div>
@@ -746,11 +747,12 @@ export default function Home({ setMenuItem }) {
                 {/* Panel Body */}
                 <div className="p-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 font-normal relative">
                   
-                  {skills.map((skill) => (
+                  {skills.map((skill, index) => (
                     <Link
                       key={skill}
                       to={`/projects?skill=${encodeURIComponent(skill)}`}
-                      className="elements cyber-button cyber-border-red cyber-hover-fill h-12 sm:h-14 w-full text-[#D90908] font-bold flex items-center justify-center gap-2 hover:bg-[#D90908] hover:text-black transition-all duration-300 ease-in-out text-sm md:text-base z-10 bg-black"
+                      className="elements cyber-glitch cyber-button cyber-border-red cyber-hover-fill h-12 sm:h-14 w-full text-[#D90908] font-bold flex items-center justify-center gap-2 hover:bg-[#D90908] hover:text-black transition-all duration-300 ease-in-out text-sm md:text-base z-10 bg-black"
+                      style={{ animationDelay: `${index * 0.05}s` }}
                     >
                       {skill}
                     </Link>
@@ -769,7 +771,7 @@ export default function Home({ setMenuItem }) {
         ></div>
         <div className="w-full flex flex-col md:flex-row justify-between px-4 sm:px-6 md:px-10 gap-6 md:gap-10 text-lg sm:text-xl jura-font cursor-crosshair bg-black text-[#f0f0f0] mb-20">
           <div className="flex flex-col md:w-1/3 lg:w-1/3 w-full lg:items-start md:items-start items-center">
-            <div className="text-[14vw] sm:text-5xl md:text-5xl lg:text-7xl font-bold text-white sticky top-20 tracking-widest">
+            <div className="futuristic-armour text-[14vw] sm:text-5xl md:text-5xl lg:text-7xl font-bold text-white sticky top-20 tracking-widest">
               CAREER
             </div>
           </div>

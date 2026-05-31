@@ -40,7 +40,7 @@ function getFileName(path) {
 // Shimmer loader component
 function Shimmer() {
   return (
-    <div className="w-full h-full bg-gray-800 animate-pulse rounded-lg"></div>
+    <div className="w-full h-full bg-neutral-900 animate-pulse border border-neutral-800"></div>
   );
 }
 
@@ -50,7 +50,7 @@ function LazyImage({ src, alt, onClick }) {
 
   return (
     <div
-      className="relative w-full group overflow-hidden rounded-lg cursor-pointer"
+      className="relative w-full group overflow-hidden cursor-pointer border border-transparent hover:border-[#D90908] transition-colors duration-300 shadow-md hover:shadow-[0_0_15px_rgba(217,9,8,0.5)]"
       onClick={onClick}
     >
       {!loaded && (
@@ -67,19 +67,21 @@ function LazyImage({ src, alt, onClick }) {
           setTimeout(() => setLoaded(true), 400);
         }}
         onError={() => setLoaded(true)}
-        className={`w-full h-full object-cover block rounded-lg transition-opacity duration-500 ${
+        className={`w-full h-full object-cover block transition-opacity duration-500 ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
         style={{ minHeight: "16rem" }} // matches shimmer height
       />
 
-      {/* Hover overlay with gradient */}
+      {/* Hover overlay with glitch */}
       <div
-        className="absolute bottom-0 left-0 w-full px-3 py-3 text-white text-lg uppercase tracking-widest 
-                bg-gradient-to-t from-black/80 via-black/40 to-transparent
-                opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        className="absolute inset-0 flex items-center justify-center text-white text-lg sm:text-xl uppercase tracking-widest 
+                bg-black/80 backdrop-blur-sm
+                opacity-0 group-hover:opacity-100 transition-all duration-300"
       >
-        {getFileName(src)}
+        <span className="hover-glitch font-mono font-bold text-[#D90908]">
+          {getFileName(src)}
+        </span>
       </div>
     </div>
   );
@@ -90,38 +92,48 @@ function ImageModal({ images, selectedIndex, onClose, onPrev, onNext }) {
   if (selectedIndex === null) return null;
 
   return (
-    <motion.div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md">
-      <button
-        onClick={onClose}
-        className="absolute top-5 right-5 text-white text-4xl font-light hover:text-red-600 duration-300 transition-all ease-in-out"
-      >
-        ✕
-      </button>
+    <motion.div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md">
+      <div className="absolute top-5 right-5 z-50 bg-[#D90908]/50 cyber-button p-[1px] shadow-[0_0_10px_rgba(217,9,8,0.2)]">
+        <button
+          onClick={onClose}
+          className="text-[#D90908] hover:text-white font-mono font-bold text-sm tracking-widest cyber-button px-4 py-2 hover:bg-[#D90908] transition-colors bg-black"
+        >
+          [ X ] EXEC_CLOSE
+        </button>
+      </div>
 
-      <button
-        onClick={onPrev}
-        className="absolute left-5 text-white text-7xl font-light hover:text-red-600 duration-300 transition-all ease-in-out"
-      >
-        ‹
-      </button>
+      <div className="absolute left-2 sm:left-5 z-50 bg-[#D90908]/50 cyber-button p-[1px] shadow-[0_0_10px_rgba(217,9,8,0.2)]">
+        <button
+          onClick={onPrev}
+          className="text-[#D90908] hover:text-black font-mono font-bold text-sm sm:text-base tracking-widest cyber-button px-3 sm:px-6 py-10 hover:bg-[#D90908] transition-colors bg-black/50"
+        >
+          [ PREV ]
+        </button>
+      </div>
 
-      <motion.img
-        key={selectedIndex} // ensures animation runs on index change
-        initial={{ opacity: 0, x: 0, scale: 0.95 }}
-        animate={{ opacity: 1, x: 0, scale: 1 }}
-        exit={{ opacity: 0, x: 0, scale: 0.95 }}
-        transition={{ duration: 0.4, ease: easeInOut }}
-        src={images[selectedIndex]}
-        alt="expanded"
-        className="max-h-[90vh] max-w-[70vw] rounded-lg shadow-lg"
-      />
+      <div className="cyber-box bg-[#D90908] p-[2px] relative shadow-[0_0_30px_rgba(217,9,8,0.3)] z-40">
+        <div className="bg-black relative h-full w-full" style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%)" }}>
+          <motion.img
+            key={selectedIndex} // ensures animation runs on index change
+            initial={{ opacity: 0, x: 0, scale: 0.95 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, x: 0, scale: 0.95 }}
+            transition={{ duration: 0.4, ease: easeInOut }}
+            src={images[selectedIndex]}
+            alt="expanded"
+            className="max-h-[85vh] max-w-[85vw] sm:max-w-[70vw] object-contain"
+          />
+        </div>
+      </div>
 
-      <button
-        onClick={onNext}
-        className="absolute right-5 text-white text-7xl font-light hover:text-red-600 duration-300 transition-all ease-in-out"
-      >
-        ›
-      </button>
+      <div className="absolute right-2 sm:right-5 z-50 bg-[#D90908]/50 cyber-button p-[1px] shadow-[0_0_10px_rgba(217,9,8,0.2)]">
+        <button
+          onClick={onNext}
+          className="text-[#D90908] hover:text-black font-mono font-bold text-sm sm:text-base tracking-widest cyber-button px-3 sm:px-6 py-10 hover:bg-[#D90908] transition-colors bg-black/50"
+        >
+          [ NEXT ]
+        </button>
+      </div>
     </motion.div>
   );
 }
@@ -157,38 +169,58 @@ export default function Ux() {
           zIndex: 900,
         }}
       />
-      <div className="my-10 mx-10 flex flex-col gap-10">
-        <motion.div
-          className="text-white w-full h-full p-5 md:p-10 lg:p-10 border-1 border-red-600
-                      flex flex-col justify-center items-center gap-5 abnes text-xl sm:text-3xl md:text-5xl lg:text-7xl
-                      grain elements"
-          style={{ backgroundImage: `url(${bg})` }}
-        >
-          <motion.p
-            initial={{ opacity: 0, filter: "blur(10px)" }}
-            animate={{ opacity: 1, filter: "blur(0px)" }}
-            transition={{ duration: 1, ease: easeInOut }}
-          >
-            ARTWORKS
-          </motion.p>
+      <div className="flex flex-col w-full h-full gap-10">
+        <div className="elements mx-4 sm:mx-10 mt-10 relative z-10 bg-[#D90908] cyber-box p-[2px] shadow-[0_0_30px_rgba(217,9,8,0.2)]">
+          <div className="flex flex-col w-full h-full bg-black/90 relative" style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%)" }}>
+            {/* Header Data Bar */}
+            <div className="bg-[#D90908] text-black font-mono text-xs px-4 py-2 flex justify-between items-center shrink-0">
+              <span className="font-bold">>_ SYS.GALLERY.DAT</span>
+              <span className="font-bold animate-pulse">RENDERING: ONLINE</span>
+            </div>
 
-          <motion.a
-            href="https://www.instagram.com/dimensionz.fx/"
-            target="blank"
-            className="text-lg flex flex-row gap-10"
-            initial={{ opacity: 0, filter: "blur(10px)" }}
-            animate={{ opacity: 1, filter: "blur(0px)" }}
-            transition={{ duration: 1.5, ease: easeInOut }}
+            {/* Body */}
+            <motion.div
+              className="text-white h-full p-10 md:p-20 flex flex-col justify-center items-center gap-6 futuristic-armour text-4xl sm:text-5xl md:text-7xl lg:text-8xl grain relative overflow-hidden"
+              style={{ backgroundImage: `url(${bg})`, backgroundSize: "cover", backgroundPosition: "center" }}
+            >
+              <div className="absolute inset-0 bg-black/50 z-0"></div>
+              <div 
+                className="absolute inset-0 z-0 opacity-30 pointer-events-none" 
+                style={{ 
+                  backgroundImage: 'linear-gradient(rgba(217, 9, 8, 0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(217, 9, 8, 0.2) 1px, transparent 1px)', 
+                  backgroundSize: '40px 40px' 
+                }}
+              ></div>
+              
+              <motion.p
+                className="relative z-10 tracking-widest text-shadow-md text-[#f0f0f0]"
+                initial={{ opacity: 0, filter: "blur(10px)" }}
+                animate={{ opacity: 1, filter: "blur(0px)" }}
+                transition={{ duration: 1, ease: easeInOut }}
+              >
+                ARTWORKS
+              </motion.p>
+
+              <motion.a
+                href="https://www.instagram.com/dimensionz.fx/"
+                target="_blank"
+                className="relative z-10 text-lg flex flex-row gap-10 mt-4 text-[#D90908]"
+                initial={{ opacity: 0, filter: "blur(10px)" }}
+                animate={{ opacity: 1, filter: "blur(0px)" }}
+                transition={{ duration: 1.5, ease: easeInOut }}
+              >
+                <SiAdobe className="h-6 w-6 md:w-7 md:h-7 lg:w-8 lg:h-8 hover:text-white transition-colors" />
+                <SiBlender className="h-6 w-6 md:w-7 md:h-7 lg:w-8 lg:h-8 hover:text-white transition-colors" />
+                <SiUnrealengine className="h-6 w-6 md:w-7 md:h-7 lg:w-8 lg:h-8 hover:text-white transition-colors" />
+              </motion.a>
+            </motion.div>
+          </div>
+        </div>
+        <div className="mx-4 sm:mx-10">
+          <ResponsiveMasonry
+            columnsCountBreakPoints={{ 350: 1, 450: 2, 650: 3, 900: 4 }}
           >
-            <SiAdobe className="h-6 w-6 md:w-7 md:h-7 lg:w-8 lg:h-8" />
-            <SiBlender className="h-6 w-6 md:w-7 md:h-7 lg:w-8 lg:h-8" />
-            <SiUnrealengine className="h-6 w-6 md:w-7 md:h-7 lg:w-8 lg:h-8" />
-          </motion.a>
-        </motion.div>
-        <ResponsiveMasonry
-          columnsCountBreakPoints={{ 350: 1, 450: 2, 650: 3, 900: 4 }}
-        >
-          <Masonry gutter="20px">
+            <Masonry gutter="20px">
             {images.map((image, i) => (
               <motion.div className="elements">
                 <LazyImage
@@ -199,23 +231,25 @@ export default function Ux() {
                 />
               </motion.div>
             ))}
-          </Masonry>
-        </ResponsiveMasonry>
+            </Masonry>
+          </ResponsiveMasonry>
+        </div>
       </div>
 
-      <div>
-        <div className="bg-neutral-950 h-10 grain lg:h-15 uppercase text-white flex justify-center align-middle items-center">
+      <div className="mt-20">
+        <div className="bg-[#D90908] border-y border-black h-12 lg:h-16 uppercase text-black font-mono font-bold flex justify-between items-center px-6 sm:px-12 md:px-20 shadow-[0_0_20px_rgba(217,9,8,0.3)] z-20 relative">
+          <div className="hidden sm:block">>_ SYS.COPYRIGHT // AUTHENTICATED</div>
           <motion.p
-            className="text-sm lg:text-lg flex flex-row tracking-widest"
+            className="text-xs sm:text-sm lg:text-base flex flex-row tracking-widest items-center"
             initial={{ opacity: 0, filter: "blur(10px)" }}
             animate={{ opacity: 1, filter: "blur(0px)" }}
             transition={{ duration: 1.5, ease: "easeInOut" }}
           >
-            Copyright &copy; {new Date().getFullYear()} &nbsp;
+            &copy; {new Date().getFullYear()} &nbsp; // &nbsp;
             <motion.a
-              className="underline hover:text-red-500"
+              className="hover:text-white transition-colors ml-2"
               href="https://www.instagram.com/dimensionz.fx/"
-              target="blank"
+              target="_blank"
               animate={{ opacity: [1, 1, 0, 1] }} // fade in, fade out, fade in
               transition={{
                 duration: 5, // total blink cycle
@@ -223,7 +257,7 @@ export default function Ux() {
                 ease: "easeInOut",
               }}
             >
-              Dimensionz fx
+              DIMENSIONZ FX
             </motion.a>
           </motion.p>
         </div>

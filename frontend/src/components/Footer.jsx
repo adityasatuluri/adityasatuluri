@@ -6,7 +6,7 @@ import GlitchGif from "../assets/verticalglitch.gif";
 
 export default function Footer() {
   return (
-    <div className="w-full bg-[#D90908] border-t-2 border-[#D90908] text-white font-bold py-10 px-6 sm:px-12 md:px-20 relative z-10 flex flex-col gap-10 overflow-hidden">
+    <div className="futuristic-armour w-full bg-[#D90908] border-t-2 border-[#D90908] text-white font-bold py-10 px-6 sm:px-12 md:px-20 relative z-10 flex flex-col gap-10 overflow-hidden">
       
       {/* Glitch overlays */}
       <div

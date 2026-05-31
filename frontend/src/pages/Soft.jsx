@@ -55,22 +55,23 @@ export default function Soft() {
   }, []);
 
   // ✅ Toggle helper
-  const toggleFilter = (value, setFn, stateArr) => {
-    if (stateArr.includes(value)) {
-      setFn(stateArr.filter((v) => v !== value)); // remove
-    } else {
-      setFn([...stateArr, value]); // add
-    }
+  const toggleFilter = (value, setFn) => {
+    setFn((prev) => {
+      if (prev.includes(value)) {
+        return prev.filter((v) => v !== value);
+      }
+      return [...prev, value];
+    });
   };
 
   // ✅ Apply filters and sort by year DESC
-  const filteredProjects = projects
+  const filteredProjects = [...projects]
     .filter(
       (p) =>
         selectedSkills.length === 0 ||
         (p.skills && p.skills.some((s) => selectedSkills.includes(s)))
     )
-    .sort((a, b) => Number(b.year) - Number(a.year));
+    .sort((a, b) => Number(b.year || 0) - Number(a.year || 0));
 
   return (
     <div className="text-white flex flex-col gap-30 align-middle justify-center items-center">
@@ -89,20 +90,38 @@ export default function Soft() {
         }}
       /> */}
       <div className="flex flex-col w-full h-full gap-10 ">
-        <motion.div
-          className="text-white  h-full p-5 md:p-10 lg:p-10 border-1 border-red-600
-                      flex flex-col justify-center items-center gap-5 abnes text-xl sm:text-3xl md:text-5xl lg:text-7xl
-                      grain elements mx-10 mt-10"
-          style={{ backgroundImage: `url(${bg})` }}
-        >
-          <motion.p
-            initial={{ opacity: 0, filter: "blur(10px)" }}
-            animate={{ opacity: 1, filter: "blur(0px)" }}
-            transition={{ duration: 1, ease: easeInOut }}
-          >
-            PROJECTS
-          </motion.p>
-        </motion.div>
+        <div className="elements mx-4 sm:mx-10 mt-10 relative z-10 bg-[#D90908] cyber-box p-[2px] shadow-[0_0_30px_rgba(217,9,8,0.2)]">
+          <div className="flex flex-col w-full h-full bg-black/90 relative" style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%)" }}>
+            {/* Header */}
+            <div className="bg-[#D90908] text-black font-mono text-xs px-4 py-2 flex justify-between items-center shrink-0">
+              <span className="font-bold">>_ SYS.ARCHIVE.DAT</span>
+              <span className="font-bold animate-pulse">STATUS: ONLINE</span>
+            </div>
+
+            {/* Body */}
+            <motion.div
+              className="text-white h-full p-10 md:p-20 flex flex-col justify-center items-center gap-5 futuristic-armour text-4xl sm:text-5xl md:text-7xl lg:text-8xl grain relative overflow-hidden"
+              style={{ backgroundImage: `url(${bg})`, backgroundSize: "cover", backgroundPosition: "center" }}
+            >
+              <div className="absolute inset-0 bg-black/50 z-0"></div>
+              <div 
+                className="absolute inset-0 z-0 opacity-30 pointer-events-none" 
+                style={{ 
+                  backgroundImage: 'linear-gradient(rgba(217, 9, 8, 0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(217, 9, 8, 0.2) 1px, transparent 1px)', 
+                  backgroundSize: '40px 40px' 
+                }}
+              ></div>
+              <motion.p
+                className="relative z-10 tracking-widest text-shadow-md text-[#f0f0f0]"
+                initial={{ opacity: 0, filter: "blur(10px)" }}
+                animate={{ opacity: 1, filter: "blur(0px)" }}
+                transition={{ duration: 1, ease: easeInOut }}
+              >
+                PROJECTS
+              </motion.p>
+            </motion.div>
+          </div>
+        </div>
 
         {/* ================= Filter Section ================= */}
         {!isMobile ? (
@@ -110,10 +129,10 @@ export default function Soft() {
             {/* Desktop: Floating Filter Button */}
             {!desktopFilterOpen && (
               <button
-                className="fixed bottom-5 right-5 z-50 p-4 bg-red-600 text-white rounded-full shadow-lg flex items-center justify-center"
+                className="fixed bottom-5 right-5 z-50 p-3 px-4 bg-[#D90908] text-black cyber-nav-button font-bold text-sm tracking-widest hover:bg-white hover:text-black transition-colors"
                 onClick={() => setDesktopFilterOpen(true)}
               >
-                <FaFilter size={20} />
+                [ FILTER.EXE ]
               </button>
             )}
 
@@ -124,10 +143,12 @@ export default function Soft() {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.8, y: 20 }}
                   transition={{ duration: 0.25 }}
-                  className="fixed bottom-16 right-5 z-50 w-80 bg-black/90 backdrop-blur-lg p-5 rounded-2xl shadow-xl"
+                  className="fixed bottom-16 right-5 z-50 w-80"
                 >
-                  <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-base font-bold">Filter by Skills</h2>
+                  <div className="w-full bg-[#D90908] cyber-box p-[2px] shadow-[0_0_20px_rgba(217,9,8,0.2)]">
+                    <div className="w-full h-full bg-black/95 backdrop-blur-lg relative" style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%)" }}>
+                      <div className="bg-[#D90908]/10 border-b border-[#D90908]/30 px-4 py-3 flex justify-between items-center relative z-10">
+                    <h2 className="text-sm font-bold font-mono text-[#D90908]">>_ SYS.FILTER</h2>
                     <button
                       className="text-white hover:text-red-500"
                       onClick={() => setDesktopFilterOpen(false)}
@@ -136,22 +157,24 @@ export default function Soft() {
                     </button>
                   </div>
 
-                  <div className="flex gap-2 flex-wrap">
+                  <div className="flex gap-2 flex-wrap p-5">
                     {skills.map((s) => (
                       <button
                         key={s}
-                        className={`px-3 py-1 text-sm rounded-lg ${
+                        className={`px-3 py-1 text-sm font-mono transition-all duration-300 cyber-button ${
                           selectedSkills.includes(s)
-                            ? "bg-red-600"
-                            : "bg-gray-700"
+                            ? "bg-[#D90908] text-black font-bold"
+                            : "bg-black text-[#D90908] border border-[#D90908]/50 hover:border-[#D90908]"
                         }`}
                         onClick={() =>
-                          toggleFilter(s, setSelectedSkills, selectedSkills)
+                          toggleFilter(s, setSelectedSkills)
                         }
                       >
                         {s}
                       </button>
                     ))}
+                    </div>
+                  </div>
                   </div>
                 </motion.div>
               )}
@@ -161,10 +184,10 @@ export default function Soft() {
           <>
             {/* Mobile: Floating Filter Button */}
             <button
-              className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 px-6 py-2 bg-red-600 text-white rounded-full shadow-lg"
+              className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 px-6 py-3 bg-[#D90908] text-black cyber-nav-button font-bold text-sm tracking-widest hover:bg-white hover:text-black transition-colors"
               onClick={() => setMobileFilterOpen(true)}
             >
-              Filters
+              [ FILTER.EXE ]
             </button>
 
             {/* Mobile: Slide-in Dock */}
@@ -175,10 +198,12 @@ export default function Soft() {
                   animate={{ y: 0 }}
                   exit={{ y: "100%" }}
                   transition={{ duration: 0.3 }}
-                  className="fixed bottom-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-lg p-5 rounded-t-2xl shadow-lg"
+                  className="fixed bottom-0 left-0 right-0 z-50"
                 >
-                  <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-lg font-bold">Filter by Skills</h2>
+                  <div className="w-full bg-[#D90908] cyber-box p-[2px] shadow-[0_0_20px_rgba(217,9,8,0.2)]">
+                    <div className="w-full h-full bg-black/95 backdrop-blur-lg relative" style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%)" }}>
+                      <div className="bg-[#D90908]/10 border-b border-[#D90908]/30 px-5 py-4 flex justify-between items-center relative z-10">
+                    <h2 className="text-sm font-bold font-mono text-[#D90908]">>_ SYS.FILTER</h2>
                     <button
                       className="text-white hover:text-red-500"
                       onClick={() => setMobileFilterOpen(false)}
@@ -186,22 +211,24 @@ export default function Soft() {
                       <RiCloseLargeFill size={20} />
                     </button>
                   </div>
-                  <div className="flex gap-3 flex-wrap justify-center">
+                  <div className="flex gap-3 flex-wrap justify-center p-6">
                     {skills.map((s) => (
                       <button
                         key={s}
-                        className={`px-3 py-1 rounded-lg ${
+                        className={`px-3 py-1 text-sm font-mono transition-all duration-300 cyber-button ${
                           selectedSkills.includes(s)
-                            ? "bg-red-600"
-                            : "bg-gray-700"
+                            ? "bg-[#D90908] text-black font-bold"
+                            : "bg-black text-[#D90908] border border-[#D90908]/50 hover:border-[#D90908]"
                         }`}
                         onClick={() =>
-                          toggleFilter(s, setSelectedSkills, selectedSkills)
+                          toggleFilter(s, setSelectedSkills)
                         }
                       >
                         {s}
                       </button>
                     ))}
+                  </div>
+                    </div>
                   </div>
                 </motion.div>
               )}
@@ -211,80 +238,84 @@ export default function Soft() {
 
         {/* ================= Project Grid ================= */}
         <div className="grid md:grid-cols-2 lg:grid-cols-2 w-full px-5 sm:px-5 md:px-10 lg:px-10 gap-[5vh] justify-center items-center">
-          {filteredProjects.map((p) => (
-            <div
-              key={p.id}
-              className="elements h-[40vh] sm:h-[50vh] md:h-[40vh] lg:h-[75vh] w-full border border-neutral-800 rounded-2xl transition-all duration-300 ease-in-out hover:rounded-none cursor-pointer"
-              onClick={() => {
-                if (isTouchDevice) setSelectedProject(p);
-              }}
-            >
-              {/* Thumbnail */}
+            {filteredProjects.map((p) => (
               <div
-                className="relative flex items-center justify-center h-7/10 lg:h-8/10 rounded-t-2xl transition-all duration-300 ease-in-out hover:rounded-t-none"
-                style={{
-                  backgroundImage: `url(${p.image})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
+                key={p.id}
+                className="h-[40vh] sm:h-[50vh] md:h-[40vh] lg:h-[75vh] w-full bg-[#D90908] cyber-box p-[2px] transition-all duration-300 ease-in-out cursor-pointer relative z-10 shadow-[0_0_15px_rgba(217,9,8,0.1)] group"
+                onClick={() => {
+                  if (isTouchDevice) setSelectedProject(p);
                 }}
               >
-                {!isTouchDevice && (
-                  <div className="flex flex-col gap-8 w-full h-full bg-[#f0f0f0]/50 text-[#010101] transition-all duration-300 backdrop-blur-md items-center justify-center opacity-0 hover:opacity-100 rounded-t-2xl hover:rounded-none">
-                    <div className="px-10 flex text-center  font-bold text-lg sm:text-lg md:text-lg lg:text-xl">
-                      {p.description}
+              <div className="flex flex-col w-full h-full bg-black relative" style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%)" }}>
+                {/* Thumbnail */}
+                <div
+                  className="relative flex items-center justify-center h-[75%] lg:h-[80%] transition-all duration-300 ease-in-out"
+                  style={{
+                    backgroundImage: `url(/${p.image})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                >
+                  {!isTouchDevice && (
+                    <div className="flex flex-col gap-6 w-full h-full bg-black/80 text-[#f0f0f0] transition-all duration-300 backdrop-blur-md items-center justify-center opacity-0 group-hover:opacity-100 p-6 text-center">
+                      <div className="font-bold text-sm sm:text-base lg:text-lg hover-glitch">
+                        {p.description}
+                      </div>
+                      <div className="flex flex-row gap-3 flex-wrap justify-center mt-2">
+                        {p.skills.map((skill, index) => (
+                          <span
+                            key={index}
+                            className="hover-glitch text-[10px] sm:text-xs bg-transparent text-[#D90908] border border-[#D90908] px-2 py-1 font-mono tracking-widest"
+                            style={{ animationDelay: `${index * 0.05}s` }}
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="flex flex-row gap-6 font-bold text-xs sm:text-sm font-mono mt-4">
+                        {p.repo_link && (
+                          <div className="bg-[#D90908] cyber-button p-[1px] shadow-[0_0_10px_rgba(217,9,8,0.2)] hover-glitch" style={{ animationDelay: `0.2s` }}>
+                            <a
+                              className="block cyber-button px-4 py-2 bg-black text-[#D90908] hover:bg-[#D90908] hover:text-black transition-colors"
+                              href={p.repo_link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              [ SRC_CODE ]
+                            </a>
+                          </div>
+                        )}
+                        {p.live_link && (
+                          <div className="bg-[#D90908] cyber-button p-[1px] shadow-[0_0_10px_rgba(217,9,8,0.2)] hover-glitch" style={{ animationDelay: `0.3s` }}>
+                            <a
+                              className="block cyber-button px-4 py-2 bg-black text-[#D90908] hover:bg-[#D90908] hover:text-black transition-colors"
+                              href={p.live_link[0]}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              [ {p.live_link[1] ? p.live_link[1] : "INIT_PREVIEW"} ]
+                            </a>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    <div className="flex flex-row gap-4">
-                      {p.skills.map((skill, index) => (
-                        <span
-                          key={index}
-                          className="text-[20px] text-gray-800 italic font-semibold"
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="flex flex-row gap-10 font-bold text-lg sm:text-lg md:text-lg lg:text-xl">
-                      {p.repo_link && (
-                        <a
-                          className="px-3 py-3 bg-[#040404] hover:bg-[#0f0f0f] hover:shadow-xl/30 hover:shadow-black text-[#f0f0f0] font-light rounded-xl cursor-pointer transition-all duration-300 ease-in-out"
-                          href={p.repo_link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Github
-                        </a>
-                      )}
-                      {p.live_link && (
-                        <a
-                          className="px-3 py-3 bg-[#040404] hover:bg-[#0f0f0f] hover:shadow-xl/30 hover:shadow-black text-[#f0f0f0] font-light rounded-xl cursor-pointer transition-all duration-300 ease-in-out"
-                          href={p.live_link[0]}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {p.live_link[1] ? p.live_link[1] : "Preview"}
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
+                  )}
+                </div>
 
-              {/* Footer */}
-              <div className="flex flex-row gap-5 items-center justify-between lg:px-6 px-4 bg-[#0c0c0c] h-3/10 lg:h-2/10 rounded-b-2xl">
-                <div className="flex flex-col items-start justify-center">
-                  <div className="text-[#f1f1f1] text-lg lg:text-xl">
+                {/* Footer Data Readout */}
+                <div className="flex flex-col justify-center px-4 sm:px-6 bg-[#0c0c0c] h-[25%] lg:h-[20%] border-t border-[#D90908]/30">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-[#D90908] font-mono text-[10px] sm:text-xs font-bold">>_ SYS.DAT // {p.category.toUpperCase()}</span>
+                    <span className="text-gray-500 font-mono text-[10px] sm:text-xs border border-gray-800 px-2">VER {p.year}</span>
+                  </div>
+                  <div className="futuristic-armour text-[#f0f0f0] text-xl sm:text-2xl tracking-widest">
                     {p.title}
                   </div>
-                  <div className="text-[#8c8c8c] text-sm lg:text-xl">
-                    {p.category}
-                  </div>
-                </div>
-                <div className="border border-[#454545] px-4 py-1 text-[#f1f1f1] text-lg rounded-full">
-                  {p.year}
                 </div>
               </div>
             </div>
           ))}
+        </div>
           {/* Mobile Modal */}
           <AnimatePresence>
             {isTouchDevice && selectedProject && (
@@ -300,69 +331,72 @@ export default function Soft() {
                   animate={{ scale: 1, opacity: 1 }}
                   exit={{ scale: 0.8, opacity: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="bg-[#f0f0f0] text-black rounded-2xl flex flex-col gap-6 p-6 max-w-3xl w-[90%] shadow-2xl relative"
+                  className="w-[90%] max-w-3xl"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <div className="flex flex-col space-y-4">
-                    {/* Header with close button */}
-                    <div className="flex items-center justify-between ">
-                      <h2 className="text-2xl font-bold ">
+                  <div className="w-full bg-[#D90908] cyber-box p-[2px] shadow-[0_0_30px_rgba(217,9,8,0.3)]">
+                    <div className="flex flex-col w-full h-full bg-black relative text-[#f0f0f0]" style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%)" }}>
+                      <div className="bg-[#D90908]/10 border-b border-[#D90908]/30 px-4 py-2 flex justify-between items-center mb-4 relative z-10">
+                    <h2 className="text-sm font-bold font-mono text-[#D90908]">>_ SYS.DAT // {selectedProject.category.toUpperCase()}</h2>
+                    <button
+                      className="text-white hover:text-red-500"
+                      onClick={() => setSelectedProject(null)}
+                    >
+                      <RiCloseLargeFill size={20} />
+                    </button>
+                  </div>
+                  
+                  <div className="p-4 flex flex-col gap-6">
+                    <div className="flex flex-col space-y-4">
+                      <h2 className="text-3xl font-bold futuristic-armour text-white tracking-widest">
                         {selectedProject.title}
                       </h2>
-                      {/* Close button */}
-                      <button
-                        className=" text-black hover:text-red-600 text-xl cursor-pointer"
-                        onClick={() => setSelectedProject(null)}
-                      >
-                        <RiCloseLargeFill />
-                      </button>
+                      <p className="text-sm font-mono text-gray-300">{selectedProject.description}</p>
                     </div>
 
-                    <p className="text-xl">{selectedProject.description}</p>
-                  </div>
+                    <div className="flex flex-row gap-2 flex-wrap">
+                      {selectedProject.skills.map((skill, index) => (
+                        <span
+                          key={index}
+                          className="text-xs bg-black text-[#D90908] border border-[#D90908]/50 px-2 py-1 font-mono cyber-button"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
 
-                  <div className="flex flex-row gap-4 space-y-0 flex-wrap">
-                    {selectedProject.skills.map((skill, index) => (
-                      <span
-                        key={index}
-                        className="text-[20px] text-gray-800 italic font-semibold"
-                      >
-                        {skill}
-                      </span>
-                    ))}
+                    <div className="flex flex-col space-y-3 mt-4">
+                      {selectedProject.repo_link && (
+                        <a
+                          className="w-full text-center cyber-button px-4 py-3 bg-[#D90908] text-black font-bold font-mono hover:bg-white transition-colors"
+                          href={selectedProject.repo_link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          [ SRC_CODE ]
+                        </a>
+                      )}
+                      {selectedProject.live_link && (
+                        <div className="w-full bg-[#D90908] cyber-button p-[1px] shadow-[0_0_10px_rgba(217,9,8,0.2)]">
+                          <a
+                            className="block w-full text-center cyber-button px-4 py-3 bg-black text-[#D90908] font-bold font-mono hover:bg-[#D90908] hover:text-black transition-colors"
+                            href={selectedProject.live_link[0]}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            [ {selectedProject.live_link[1] ? selectedProject.live_link[1] : "INIT_PREVIEW"} ]
+                          </a>
+                        </div>
+                      )}
+                    </div>
                   </div>
-
-                  <div className="flex flex-col space-y-4">
-                    {selectedProject.repo_link && (
-                      <a
-                        className="px-4 py-2 bg-black text-white rounded-xl hover:bg-gray-900 transition flex items-center justify-center"
-                        href={selectedProject.repo_link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Github
-                      </a>
-                    )}
-                    {selectedProject.live_link && (
-                      <a
-                        className="px-4 py-2 bg-black text-white rounded-xl hover:bg-gray-900 transition flex items-center justify-center"
-                        href={selectedProject.live_link[0]}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {selectedProject.live_link[1]
-                          ? selectedProject.live_link[1]
-                          : "Preview"}
-                      </a>
-                    )}
-                  </div>
-                </motion.div>
+                </div>
+              </div>
+            </motion.div>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
-      </div>
-
       <Footer />
     </div>
   );

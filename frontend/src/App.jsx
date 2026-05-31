@@ -386,7 +386,7 @@ function App() {
             {!isMobile ? (
               <header
                 id="navbar"
-                className="w-full uppercase flex items-center justify-between gap-6 px-10 py-4 text-white sticky top-0 z-50 bg-[#000000] custom-border inset-shadow-sm"
+                className="futuristic-armour w-full uppercase flex items-center justify-between gap-6 px-10 py-4 text-white sticky top-0 z-50 bg-[#000000] custom-border inset-shadow-sm"
               >
                 {/* LOGO */}
                 <Link
@@ -513,7 +513,7 @@ function App() {
             ) : (
               <header
                 id="navbar"
-                className="w-full flex items-center justify-between gap-6 p-4 text-white sticky top-0 z-50 bg-[#000000] custom-border inset-shadow-sm"
+                className="futuristic-armour w-full flex items-center justify-between gap-6 p-4 text-white sticky top-0 z-50 bg-[#000000] custom-border inset-shadow-sm"
               >
                 <Link
                   to="/#home"
@@ -541,7 +541,7 @@ function App() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -20 }}
                       transition={{ duration: 0.3 }}
-                      className="fixed inset-0 h-[100vh] bg-[#000000] flex flex-col items-center justify-center space-y-8 text-2xl font-bold"
+                      className="futuristic-armour fixed inset-0 h-[100vh] bg-[#000000] flex flex-col items-center justify-center space-y-8 text-2xl font-bold"
                       style={{
                         backgroundImage: `url(${WhiteBg})`,
                         backgroundSize: "cover",

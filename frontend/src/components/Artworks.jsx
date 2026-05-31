@@ -75,7 +75,7 @@ const Artworks = ({ Mobile }) => {
           }}
           onMouseEnter={() => setIsButtonHovered(true)} // Set hover state
           onMouseLeave={() => setIsButtonHovered(false)} // Reset hover state
-          className="elements text-lg sm:text-xl px-8 py-3 border border-[#D90908] text-[#D90908] font-bold tracking-widest hover:bg-[#D90908] hover:text-black transition-all duration-500 ease-in-out text-center"
+          className="elements futuristic-armour cyber-button cyber-border-red cyber-hover-fill bg-black text-lg sm:text-xl px-8 py-3 text-[#D90908] font-bold tracking-widest transition-all duration-500 ease-in-out text-center"
         >
           EXPLORE_COLLECTION.EXE
         </Link>

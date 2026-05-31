@@ -57,7 +57,7 @@
     {
       "id": 5,
       "title": "Obscura",
-      "featured": true,
+      "featured": false,
       "category": "AI / Data Privacy",
       "description": "AI tool that automatically detects and redacts PII in text.",
       "year": "2025",
