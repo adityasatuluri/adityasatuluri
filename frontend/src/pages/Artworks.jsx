@@ -159,8 +159,9 @@ export default function Ux() {
         smooth
         component={<MdArrowUpward size={30} color="white" />}
         style={{
-          backgroundColor: "red",
-          borderRadius: "50%",
+          backgroundColor: "#D90908",
+          borderRadius: "0",
+          clipPath: "polygon(25% 0, 100% 0, 100% 75%, 75% 100%, 0 100%, 0 25%)",
           padding: "8px",
           display: "flex",
           justifyContent: "center",
