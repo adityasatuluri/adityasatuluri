@@ -45,26 +45,35 @@ export default function Contact() {
     }
     setErrors({});
 
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: formData,
-    });
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (data.success) {
-      setResult("Form Submitted Successfully ✅");
-      setButtonStatus("success");
-      showToast("Form submitted successfully 🎉", "success");
-      form.reset();
+      if (data.success) {
+        setResult("Form Submitted Successfully ✅");
+        setButtonStatus("success");
+        showToast("Form submitted successfully 🎉", "success");
+        form.reset();
 
-      // revert back after 3s
-      setTimeout(() => setButtonStatus("idle"), 3000);
-    } else {
-      console.log("Error", data);
-      setResult(data.message);
+        // revert back after 3s
+        setTimeout(() => setButtonStatus("idle"), 3000);
+      } else {
+        console.log("Error", data);
+        setResult(data.message);
+        setButtonStatus("error");
+        showToast(data.message || "Submission failed ❌", "error");
+        setTimeout(() => setButtonStatus("idle"), 3000);
+      }
+    } catch (error) {
+      console.error("Fetch Error:", error);
+      setResult("Network error");
       setButtonStatus("error");
-      showToast("Submission failed ❌", "error");
+      showToast("Failed to connect to server ❌", "error");
+      setTimeout(() => setButtonStatus("idle"), 3000);
     }
   };
 
@@ -112,7 +121,6 @@ export default function Contact() {
           </AnimatePresence>
 
         <form onSubmit={onSubmit} className="flex flex-col gap-6 p-6 sm:p-10">
-          <input type="hidden" name="access_key" value={web3Key} />
 
           {/* Name */}
           <div className={`relative cyber-input cyber-border-red z-10 ${errors.name ? "animate-shake border-white" : ""}`}>
