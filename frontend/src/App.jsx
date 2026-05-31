@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { motion, AnimatePresence, easeInOut } from "framer-motion";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { Play, Pause, SkipForward, SkipBackIcon } from "lucide-react";
-// import { Lenis } from "@studio-freight/lenis";
+import Lenis from "lenis";
 // import usePreventZoom from "./hooks/usePreventZoom.jsx";
 
 import "./App.css";
@@ -83,14 +83,17 @@ import { MdRestartAlt } from "react-icons/md";
 function App() {
   // usePreventZoom();
 
-  // useEffect(() => {
-  //   const lenis = new Lenis();
-  //   function raf(time) {
-  //     lenis.raf(time);
-  //     requestAnimationFrame(raf);
-  //   }
-  //   requestAnimationFrame(raf);
-  // });
+  useEffect(() => {
+    const lenis = new Lenis();
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
 
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
@@ -230,6 +233,35 @@ function App() {
 
   useEffect(() => {}, [credits]);
   const handleClose = () => setCredits(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show-element");
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    const observeElements = () => {
+      document.querySelectorAll(".elements:not(.show-element)").forEach((el) => {
+        observer.observe(el);
+      });
+    };
+
+    observeElements();
+    const timeout = setTimeout(observeElements, 500);
+    const timeout2 = setTimeout(observeElements, 1000);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(timeout);
+      clearTimeout(timeout2);
+    };
+  }, [location.pathname, isLoading]);
 
   // App.jsx
   useEffect(() => {
