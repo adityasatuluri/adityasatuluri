@@ -92,8 +92,9 @@ function ImageModal({ images, selectedIndex, onClose, onPrev, onNext }) {
   if (selectedIndex === null) return null;
 
   return (
-    <motion.div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md">
-      <div className="absolute top-5 right-5 z-50 bg-[#D90908]/50 cyber-button p-[1px] shadow-[0_0_10px_rgba(217,9,8,0.2)]">
+    <motion.div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/90 backdrop-blur-md">
+      {/* Desktop Controls */}
+      <div className="hidden sm:block absolute top-5 right-5 z-50 bg-[#D90908]/50 cyber-button p-[1px] shadow-[0_0_10px_rgba(217,9,8,0.2)]">
         <button
           onClick={onClose}
           className="text-[#D90908] hover:text-white font-mono font-bold text-sm tracking-widest cyber-button px-4 py-2 hover:bg-[#D90908] transition-colors bg-black"
@@ -102,37 +103,65 @@ function ImageModal({ images, selectedIndex, onClose, onPrev, onNext }) {
         </button>
       </div>
 
-      <div className="absolute left-2 sm:left-5 z-50 bg-[#D90908]/50 cyber-button p-[1px] shadow-[0_0_10px_rgba(217,9,8,0.2)]">
+      <div className="hidden sm:block absolute left-5 z-50 bg-[#D90908]/50 cyber-button p-[1px] shadow-[0_0_10px_rgba(217,9,8,0.2)]">
         <button
           onClick={onPrev}
-          className="text-[#D90908] hover:text-black font-mono font-bold text-sm sm:text-base tracking-widest cyber-button px-3 sm:px-6 py-10 hover:bg-[#D90908] transition-colors bg-black/50"
+          className="text-[#D90908] hover:text-black font-mono font-bold text-base tracking-widest cyber-button px-6 py-10 hover:bg-[#D90908] transition-colors bg-black/50"
         >
           [ PREV ]
         </button>
       </div>
 
-      <div className="cyber-box bg-[#D90908] p-[2px] relative shadow-[0_0_30px_rgba(217,9,8,0.3)] z-40">
+      <div className="cyber-box bg-[#D90908] p-[2px] relative shadow-[0_0_30px_rgba(217,9,8,0.3)] z-40 mb-16 sm:mb-0">
         <div className="bg-black relative h-full w-full" style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%)" }}>
           <motion.img
-            key={selectedIndex} // ensures animation runs on index change
+            key={selectedIndex}
             initial={{ opacity: 0, x: 0, scale: 0.95 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: 0, scale: 0.95 }}
             transition={{ duration: 0.4, ease: easeInOut }}
             src={images[selectedIndex]}
             alt="expanded"
-            className="max-h-[85vh] max-w-[85vw] sm:max-w-[70vw] object-contain"
+            className="max-h-[70vh] sm:max-h-[85vh] max-w-[90vw] sm:max-w-[70vw] object-contain"
           />
         </div>
       </div>
 
-      <div className="absolute right-2 sm:right-5 z-50 bg-[#D90908]/50 cyber-button p-[1px] shadow-[0_0_10px_rgba(217,9,8,0.2)]">
+      <div className="hidden sm:block absolute right-5 z-50 bg-[#D90908]/50 cyber-button p-[1px] shadow-[0_0_10px_rgba(217,9,8,0.2)]">
         <button
           onClick={onNext}
-          className="text-[#D90908] hover:text-black font-mono font-bold text-sm sm:text-base tracking-widest cyber-button px-3 sm:px-6 py-10 hover:bg-[#D90908] transition-colors bg-black/50"
+          className="text-[#D90908] hover:text-black font-mono font-bold text-base tracking-widest cyber-button px-6 py-10 hover:bg-[#D90908] transition-colors bg-black/50"
         >
           [ NEXT ]
         </button>
+      </div>
+
+      {/* Mobile Controls */}
+      <div className="sm:hidden absolute bottom-5 left-1/2 -translate-x-1/2 z-50 flex gap-4 w-auto justify-center">
+        <div className="bg-[#D90908]/50 cyber-button p-[1px] shadow-[0_0_10px_rgba(217,9,8,0.2)]">
+          <button
+            onClick={onPrev}
+            className="text-[#D90908] hover:text-black font-mono font-bold text-xl cyber-button px-6 py-3 hover:bg-[#D90908] transition-colors bg-black/80"
+          >
+            &lt;
+          </button>
+        </div>
+        <div className="bg-[#D90908]/50 cyber-button p-[1px] shadow-[0_0_10px_rgba(217,9,8,0.2)]">
+          <button
+            onClick={onClose}
+            className="text-[#D90908] hover:text-white font-mono font-bold text-xl cyber-button px-6 py-3 hover:bg-[#D90908] transition-colors bg-black/80"
+          >
+            X
+          </button>
+        </div>
+        <div className="bg-[#D90908]/50 cyber-button p-[1px] shadow-[0_0_10px_rgba(217,9,8,0.2)]">
+          <button
+            onClick={onNext}
+            className="text-[#D90908] hover:text-black font-mono font-bold text-xl cyber-button px-6 py-3 hover:bg-[#D90908] transition-colors bg-black/80"
+          >
+            &gt;
+          </button>
+        </div>
       </div>
     </motion.div>
   );

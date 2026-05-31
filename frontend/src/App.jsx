@@ -393,7 +393,7 @@ function App() {
             {!isMobile ? (
               <header
                 id="navbar"
-                className="futuristic-armour w-full uppercase flex items-center justify-between gap-6 px-10 py-4 text-white sticky top-0 z-50 bg-[#000000] custom-border inset-shadow-sm"
+                className="futuristic-armour w-full uppercase flex items-center justify-between gap-6 px-10 py-4 text-white sticky top-0 z-[950] bg-[#000000] custom-border inset-shadow-sm"
               >
                 {/* LOGO */}
                 <Link
@@ -520,7 +520,7 @@ function App() {
             ) : (
               <header
                 id="navbar"
-                className="futuristic-armour w-full flex items-center justify-between gap-6 p-4 text-white sticky top-0 z-[100] bg-[#000000]"
+                className="futuristic-armour w-full flex items-center justify-between gap-6 p-4 text-white sticky top-0 z-[950] bg-[#000000]"
               >
                 <Link
                   to="/#home"
@@ -550,7 +550,7 @@ function App() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -20 }}
                       transition={{ duration: 0.3 }}
-                      className="futuristic-armour fixed inset-0 z-[100] h-[100vh] bg-[#000000] flex flex-col items-center justify-center space-y-8 text-2xl font-bold"
+                      className="futuristic-armour fixed inset-0 z-[960] h-[100vh] bg-[#000000] flex flex-col items-center justify-center space-y-8 text-2xl font-bold"
                       style={{
                         backgroundImage: `url(${WhiteBg})`,
                         backgroundSize: "cover",
@@ -686,7 +686,7 @@ function App() {
                   animate={{ scale: 1, opacity: 1 }}
                   exit={{ scale: 1, opacity: 0 }} // Add exit animation
                   transition={{ duration: 0.3, ease: "easeInOut" }} // Define transition
-                  className="fixed inset-0 z-50 flex items-center justify-center b backdrop-blur-sm" // Modal-like styling
+                  className="fixed inset-0 z-[1000] flex items-center justify-center b backdrop-blur-sm" // Modal-like styling
                 >
                   <Credits visible={credits} onClose={handleClose} />
                 </motion.div>
@@ -700,7 +700,7 @@ function App() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-black/80 backdrop-blur-md p-6"
+                  className="fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-black/80 backdrop-blur-md p-6"
                 >
                   <div className="w-full max-w-5xl h-[85vh] bg-[#0c0c0c] cyber-box p-[2px] shadow-[0_0_30px_rgba(217,9,8,0.3)] flex flex-col relative">
                     <div className="bg-[#D90908]/20 border-b border-[#D90908]/50 px-4 py-3 flex justify-between items-center z-10 shrink-0">
