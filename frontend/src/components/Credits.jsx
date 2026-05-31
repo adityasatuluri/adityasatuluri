@@ -81,7 +81,7 @@ function Credits({ visible, onClose }) {
                   <div className="text-[10px] sm:text-xs text-[#D90908] font-bold tracking-widest">>_ LOG.ENTRY: 03</div>
                   <p className="text-xs sm:text-sm text-gray-400">
                     Artworks by Aditya Satuluri // Copyright &copy; {new Date().getFullYear()} //{" "}
-                    <a href="https://www.instagram.com/dimensionz.fx/" target="_blank" rel="noopener noreferrer" className="text-[#D90908] hover:text-white transition-colors underline decoration-[#D90908]/30 hover:decoration-white">DimensionZ FX</a>
+                    <a href="https://www.instagram.com/artvader04/" target="_blank" rel="noopener noreferrer" className="text-[#D90908] hover:text-white transition-colors underline decoration-[#D90908]/30 hover:decoration-white">DimensionZ FX</a>
                   </p>
                 </div>
               </div>

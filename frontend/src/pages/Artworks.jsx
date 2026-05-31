@@ -202,7 +202,7 @@ export default function Ux() {
               </motion.p>
 
               <motion.a
-                href="https://www.instagram.com/dimensionz.fx/"
+                href="https://www.instagram.com/artvader04/"
                 target="_blank"
                 className="relative z-10 text-lg flex flex-row gap-10 mt-4 text-[#D90908]"
                 initial={{ opacity: 0, filter: "blur(10px)" }}
@@ -248,7 +248,7 @@ export default function Ux() {
             &copy; {new Date().getFullYear()} &nbsp; // &nbsp;
             <motion.a
               className="hover:text-white transition-colors ml-2"
-              href="https://www.instagram.com/dimensionz.fx/"
+              href="https://www.instagram.com/artvader04/"
               target="_blank"
               animate={{ opacity: [1, 1, 0, 1] }} // fade in, fade out, fade in
               transition={{

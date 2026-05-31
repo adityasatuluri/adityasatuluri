@@ -2,7 +2,7 @@ import React, { useEffect, useState, Suspense } from "react";
 import { motion, AnimatePresence, easeInOut } from "motion/react";
 import projectsData from "../assets/projects.json";
 import Footer from "../components/Footer";
-import { RiCloseLargeFill } from "react-icons/ri";
+import { RiCloseLargeFill, RiErrorWarningLine } from "react-icons/ri";
 import { FaFilter } from "react-icons/fa6";
 import bg from "../assets/h.jpg";
 import { MdArrowUpward } from "react-icons/md";
@@ -24,8 +24,14 @@ export default function Soft() {
     new Set(projects.flatMap((p) => p.skills || []))
   ).filter(Boolean);
 
+  // ✅ Extract unique years
+  const years = Array.from(
+    new Set(projects.map((p) => p.year))
+  ).filter(Boolean).sort((a, b) => b - a);
+
   // ✅ Multi-select states
   const [selectedSkills, setSelectedSkills] = useState([]);
+  const [selectedYears, setSelectedYears] = useState([]);
   const location = useLocation();
 
   useEffect(() => {
@@ -68,8 +74,9 @@ export default function Soft() {
   const filteredProjects = [...projects]
     .filter(
       (p) =>
-        selectedSkills.length === 0 ||
-        (p.skills && p.skills.some((s) => selectedSkills.includes(s)))
+        (selectedSkills.length === 0 ||
+          (p.skills && p.skills.some((s) => selectedSkills.includes(s)))) &&
+        (selectedYears.length === 0 || selectedYears.includes(p.year))
     )
     .sort((a, b) => Number(b.year || 0) - Number(a.year || 0));
 
@@ -157,23 +164,56 @@ export default function Soft() {
                     </button>
                   </div>
 
-                  <div className="flex gap-2 flex-wrap p-5">
-                    {skills.map((s) => (
-                      <button
-                        key={s}
-                        className={`px-3 py-1 text-sm font-mono transition-all duration-300 cyber-button ${
-                          selectedSkills.includes(s)
-                            ? "bg-[#D90908] text-black font-bold"
-                            : "bg-black text-[#D90908] border border-[#D90908]/50 hover:border-[#D90908]"
-                        }`}
-                        onClick={() =>
-                          toggleFilter(s, setSelectedSkills)
-                        }
-                      >
-                        {s}
-                      </button>
-                    ))}
+                  <div className="flex flex-col gap-4 p-5">
+                    <div>
+                      <div className="text-[10px] text-[#D90908] mb-2 font-mono">>_ BY_SKILL</div>
+                      <div className="flex gap-2 flex-wrap">
+                        {skills.map((s) => (
+                          <button
+                            key={s}
+                            className={`px-3 py-1 text-sm font-mono transition-all duration-300 cyber-button ${
+                              selectedSkills.includes(s)
+                                ? "bg-[#D90908] text-black font-bold"
+                                : "bg-black text-[#D90908] border border-[#D90908]/50 hover:border-[#D90908]"
+                            }`}
+                            onClick={() =>
+                              toggleFilter(s, setSelectedSkills)
+                            }
+                          >
+                            {s}
+                          </button>
+                        ))}
+                      </div>
                     </div>
+                    <div>
+                      <div className="text-[10px] text-[#D90908] mb-2 font-mono">>_ BY_YEAR</div>
+                      <div className="flex gap-2 flex-wrap">
+                        {years.map((y) => (
+                          <button
+                            key={y}
+                            className={`px-3 py-1 text-sm font-mono transition-all duration-300 cyber-button ${
+                              selectedYears.includes(y)
+                                ? "bg-[#D90908] text-black font-bold"
+                                : "bg-black text-[#D90908] border border-[#D90908]/50 hover:border-[#D90908]"
+                            }`}
+                            onClick={() =>
+                              toggleFilter(y, setSelectedYears)
+                            }
+                          >
+                            {y}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="flex justify-end border-t border-[#D90908]/20 pt-4 mt-2">
+                      <button 
+                        onClick={() => { setSelectedSkills([]); setSelectedYears([]); }}
+                        className="text-xs font-mono text-gray-400 hover:text-[#D90908] transition-colors"
+                      >
+                        [ CLEAR_FILTERS ]
+                      </button>
+                    </div>
+                  </div>
                   </div>
                   </div>
                 </motion.div>
@@ -211,22 +251,55 @@ export default function Soft() {
                       <RiCloseLargeFill size={20} />
                     </button>
                   </div>
-                  <div className="flex gap-3 flex-wrap justify-center p-6">
-                    {skills.map((s) => (
-                      <button
-                        key={s}
-                        className={`px-3 py-1 text-sm font-mono transition-all duration-300 cyber-button ${
-                          selectedSkills.includes(s)
-                            ? "bg-[#D90908] text-black font-bold"
-                            : "bg-black text-[#D90908] border border-[#D90908]/50 hover:border-[#D90908]"
-                        }`}
-                        onClick={() =>
-                          toggleFilter(s, setSelectedSkills)
-                        }
+                  <div className="flex flex-col gap-4 p-6 overflow-y-auto max-h-[60vh]">
+                    <div>
+                      <div className="text-[10px] text-[#D90908] mb-2 font-mono">>_ BY_SKILL</div>
+                      <div className="flex gap-2 flex-wrap justify-center sm:justify-start">
+                        {skills.map((s) => (
+                          <button
+                            key={s}
+                            className={`px-3 py-1 text-sm font-mono transition-all duration-300 cyber-button ${
+                              selectedSkills.includes(s)
+                                ? "bg-[#D90908] text-black font-bold"
+                                : "bg-black text-[#D90908] border border-[#D90908]/50 hover:border-[#D90908]"
+                            }`}
+                            onClick={() =>
+                              toggleFilter(s, setSelectedSkills)
+                            }
+                          >
+                            {s}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-[10px] text-[#D90908] mb-2 font-mono">>_ BY_YEAR</div>
+                      <div className="flex gap-2 flex-wrap justify-center sm:justify-start">
+                        {years.map((y) => (
+                          <button
+                            key={y}
+                            className={`px-3 py-1 text-sm font-mono transition-all duration-300 cyber-button ${
+                              selectedYears.includes(y)
+                                ? "bg-[#D90908] text-black font-bold"
+                                : "bg-black text-[#D90908] border border-[#D90908]/50 hover:border-[#D90908]"
+                            }`}
+                            onClick={() =>
+                              toggleFilter(y, setSelectedYears)
+                            }
+                          >
+                            {y}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="flex justify-center border-t border-[#D90908]/20 pt-4 mt-2">
+                      <button 
+                        onClick={() => { setSelectedSkills([]); setSelectedYears([]); }}
+                        className="text-xs font-mono text-gray-400 hover:text-[#D90908] transition-colors"
                       >
-                        {s}
+                        [ CLEAR_FILTERS ]
                       </button>
-                    ))}
+                    </div>
                   </div>
                     </div>
                   </div>
@@ -237,7 +310,20 @@ export default function Soft() {
         )}
 
         {/* ================= Project Grid ================= */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 w-full px-5 sm:px-5 md:px-10 lg:px-10 gap-[5vh] justify-center items-center">
+        {filteredProjects.length === 0 ? (
+          <div className="flex flex-col items-center justify-center w-full min-h-[50vh] gap-4 text-center px-5">
+            <div className="text-[#D90908] text-6xl sm:text-7xl mb-4"><RiErrorWarningLine /></div>
+            <h3 className="futuristic-armour text-3xl sm:text-4xl text-[#f0f0f0] tracking-widest">NO_DATA_FOUND</h3>
+            <p className="font-mono text-sm sm:text-base text-gray-400 max-w-md">The requested query yielded zero results in the database. Please adjust your filter parameters.</p>
+            <button 
+              onClick={() => { setSelectedSkills([]); setSelectedYears([]); }}
+              className="mt-6 cyber-button px-6 py-3 bg-[#D90908] text-black font-bold font-mono tracking-widest hover:bg-white hover:text-black transition-colors"
+            >
+              [ RESET_QUERY ]
+            </button>
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 w-full px-5 sm:px-5 md:px-10 lg:px-10 gap-[5vh] justify-center items-center">
             {filteredProjects.map((p) => (
               <div
                 key={p.id}
@@ -316,6 +402,7 @@ export default function Soft() {
             </div>
           ))}
         </div>
+        )}
           {/* Mobile Modal */}
           <AnimatePresence>
             {isTouchDevice && selectedProject && (
@@ -356,12 +443,14 @@ export default function Soft() {
 
                     <div className="flex flex-row gap-2 flex-wrap">
                       {selectedProject.skills.map((skill, index) => (
-                        <span
+                        <div
                           key={index}
-                          className="text-xs bg-black text-[#D90908] border border-[#D90908]/50 px-2 py-1 font-mono cyber-button"
+                          className="p-[1px] bg-[#D90908]/50 cyber-button inline-block"
                         >
-                          {skill}
-                        </span>
+                          <span className="block w-full h-full text-xs bg-black text-[#D90908] px-2 py-1 font-mono cyber-button">
+                            {skill}
+                          </span>
+                        </div>
                       ))}
                     </div>
 

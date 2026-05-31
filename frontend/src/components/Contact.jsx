@@ -156,7 +156,7 @@ export default function Contact() {
           {/* Button */}
           <button
             type="submit"
-            className={`cyber-button cyber-border-red cyber-hover-fill w-full h-12 sm:h-14 font-bold text-base sm:text-lg cursor-pointer transition-all duration-500 z-10 flex items-center justify-center
+            className={`cyber-button futuristic-armour cyber-border-red cyber-hover-fill w-full h-12 sm:h-14 font-bold tracking-widest text-base sm:text-lg cursor-pointer transition-all duration-500 z-10 flex items-center justify-center
               ${
                 buttonStatus === "success"
                   ? "bg-[#D90908] text-black border-green-500 animate-pulse"

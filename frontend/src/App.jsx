@@ -13,13 +13,14 @@ import Credits from "./components/Credits.jsx";
 
 // assets
 import cursorSvg from "./assets/cursor.svg";
-import resume from "./assets/documents/Aditya_Resume.pdf";
+import resume from "./assets/documents/Aditya_Satuluri_Resume.pdf";
 import Glitch1 from "./assets/glitchgif.gif";
 import Glitch2 from "./assets/minimalglitch.gif";
 import WhiteBg from "./assets/WhiteBg.webp";
 import LoadingBg from "./assets/loading_bg.webp";
 import logo from "./assets/logo.png";
 import { CgMenuGridO } from "react-icons/cg";
+import { RiCloseLargeFill } from "react-icons/ri";
 
 // songs
 import V from "./assets/sound/init.mp3";
@@ -104,6 +105,7 @@ function App() {
   const [duration, setDuration] = useState(0);
   const [playerIcon, setPlayerIcon] = useState("Pause");
   const [credits, setCredits] = useState(false);
+  const [showResumeModal, setShowResumeModal] = useState(false);
   const [menuItem, setMenuItem] = useState(() => {
     // Load menuItem from localStorage on initial render
     return localStorage.getItem("selectedMenuItem") || "Home";
@@ -490,15 +492,15 @@ function App() {
                   >
                     Contact
                   </Link>
-                  <a
+                  <button
                     className="cyber-nav-button text-black bg-[#D90908] font-bold px-6 py-2 hover:bg-white hover:text-black transition-colors duration-300 cursor-target z-10"
-                    href={resume}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setMenuItem("Resume")}
+                    onClick={() => {
+                      setMenuItem("Resume");
+                      setShowResumeModal(true);
+                    }}
                   >
                     Resume
-                  </a>
+                  </button>
 
                   {/* Credits */}
                   <button
@@ -513,7 +515,7 @@ function App() {
             ) : (
               <header
                 id="navbar"
-                className="futuristic-armour w-full flex items-center justify-between gap-6 p-4 text-white sticky top-0 z-50 bg-[#000000] custom-border inset-shadow-sm"
+                className="futuristic-armour w-full flex items-center justify-between gap-6 p-4 text-white sticky top-0 z-[100] bg-[#000000]"
               >
                 <Link
                   to="/#home"
@@ -541,7 +543,7 @@ function App() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -20 }}
                       transition={{ duration: 0.3 }}
-                      className="futuristic-armour fixed inset-0 h-[100vh] bg-[#000000] flex flex-col items-center justify-center space-y-8 text-2xl font-bold"
+                      className="futuristic-armour fixed inset-0 z-[100] h-[100vh] bg-[#000000] flex flex-col items-center justify-center space-y-8 text-2xl font-bold"
                       style={{
                         backgroundImage: `url(${WhiteBg})`,
                         backgroundSize: "cover",
@@ -680,6 +682,46 @@ function App() {
                   className="fixed inset-0 z-50 flex items-center justify-center b backdrop-blur-sm" // Modal-like styling
                 >
                   <Credits visible={credits} onClose={handleClose} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <AnimatePresence>
+              {showResumeModal && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-black/80 backdrop-blur-md p-6"
+                >
+                  <div className="w-full max-w-5xl h-[85vh] bg-[#0c0c0c] cyber-box p-[2px] shadow-[0_0_30px_rgba(217,9,8,0.3)] flex flex-col relative">
+                    <div className="bg-[#D90908]/20 border-b border-[#D90908]/50 px-4 py-3 flex justify-between items-center z-10 shrink-0">
+                      <h2 className="text-sm font-bold font-mono text-[#D90908]">>_ ADITYA_RESUME.PDF</h2>
+                      <div className="flex gap-4">
+                        <a 
+                          href={resume} 
+                          download="Aditya_Resume.pdf"
+                          className="text-[#D90908] font-mono font-bold text-xs hover:text-white transition-colors flex items-center tracking-widest"
+                        >
+                          [ DOWNLOAD ]
+                        </a>
+                        <button
+                          className="text-white hover:text-red-500 transition-colors cursor-pointer"
+                          onClick={() => setShowResumeModal(false)}
+                        >
+                          <RiCloseLargeFill size={20} />
+                        </button>
+                      </div>
+                    </div>
+                    <div className="flex-1 w-full relative z-0 bg-white">
+                      <iframe 
+                        src={resume} 
+                        className="w-full h-full border-none"
+                        title="Resume"
+                      />
+                    </div>
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>

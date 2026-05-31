@@ -38,7 +38,7 @@ const Artworks = ({ Mobile }) => {
       return () => clearInterval(interval);
     } else {
       console.warn(
-        "Expected 2 images (NEOGAZEDARK.webp, NEOGAZE.webp) not found in /public/artworks/neogaze/"
+        "Expected 2 images (NEOGAZEDARK.webp, NEOGAZE.webp) not found in /public/artworks/neogaze/",
       );
       setArtworkImages(["/public/artworks/neogaze/NEOGAZE.webp"]); // Fallback
     }
@@ -64,8 +64,8 @@ const Artworks = ({ Mobile }) => {
         backgroundAttachment: "fixed",
       }}
     >
-      <div className="bg-black/70 font-bold flex flex-col items-center justify-center gap-6 px-4 sm:px-6 md:px-12 lg:px-0 text-4xl sm:text-5xl lg:text-8xl w-full h-full relative z-10 border-t border-b border-[#D90908]/30">
-        <h1 className="elements text-white text-center leading-tight tracking-widest abnes">
+      <div className="bg-black/70 font-bold flex flex-col items-center justify-center gap-4 sm:gap-6 px-4 sm:px-6 md:px-12 lg:px-0 w-full h-full relative z-10 border-t border-b border-[#D90908]/30">
+        <h1 className="elements text-2xl sm:text-5xl lg:text-8xl text-white text-center leading-tight tracking-wider sm:tracking-widest abnes">
           ARTWORKS
         </h1>
         <Link
@@ -75,7 +75,7 @@ const Artworks = ({ Mobile }) => {
           }}
           onMouseEnter={() => setIsButtonHovered(true)} // Set hover state
           onMouseLeave={() => setIsButtonHovered(false)} // Reset hover state
-          className="elements futuristic-armour cyber-button cyber-border-red cyber-hover-fill bg-black text-lg sm:text-xl px-8 py-3 text-[#D90908] font-bold tracking-widest transition-all duration-500 ease-in-out text-center"
+          className="elements futuristic-armour cyber-button cyber-border-red cyber-hover-fill bg-black text-sm sm:text-xl px-6 sm:px-8 py-2 sm:py-3 text-[#D90908] font-bold tracking-widest transition-all duration-500 ease-in-out text-center"
         >
           EXPLORE_COLLECTION.EXE
         </Link>

@@ -81,12 +81,12 @@ export default function Home({ setMenuItem }) {
 
   const experience = [
     {
-      date: "JUN 2023 - PRESENT",
-      place: "FREELANCE",
-      title: "GRAPHIC DESIGNER",
+      date: "JAN 2025 - PRESENT",
+      place: "TCS, IN",
+      title: "SYSTEMS ENGINEER",
       description:
-        "Created a range of designs including **posters**, **NFTs**, **3D art**, and **animations** using **Adobe Suite**, **Blender**, and **Unreal Engine**.",
-      skills: "Adobe Suite, Blender, Unreal Engine",
+        "Contributing to enterprise-level software solutions.",
+      skills: "Spring Boot, Angular, GEN AI",
     },
     {
       date: "FEB 2025 - MAY 2025",
@@ -99,6 +99,14 @@ export default function Home({ setMenuItem }) {
       ],
 
       skills: "Python, PySide6, Prisma DB, C, Express JS",
+    },
+    {
+      date: "JUN 2023 - JAN 2026",
+      place: "FREELANCE",
+      title: "GRAPHIC DESIGNER",
+      description:
+        "Created a range of designs including **posters**, **NFTs**, **3D art**, and **animations** using **Adobe Suite**, **Blender**, and **Unreal Engine**.",
+      skills: "Adobe Suite, Blender, Unreal Engine",
     },
   ];
 
@@ -276,8 +284,9 @@ export default function Home({ setMenuItem }) {
         smooth
         component={<MdArrowUpward size={30} color="white" />}
         style={{
-          backgroundColor: "red",
-          borderRadius: "50%",
+          backgroundColor: "#D90908",
+          borderRadius: "0",
+          clipPath: "polygon(25% 0, 100% 0, 100% 75%, 75% 100%, 0 100%, 0 25%)",
           padding: "8px",
           display: "flex",
           justifyContent: "center",
@@ -494,11 +503,11 @@ export default function Home({ setMenuItem }) {
         <div
           id="featured-works"
           ref={featuredWorksRef}
-          className="lg:h-30 mg:h-25 sm:h-20 h-20"
+          className="lg:h-64 md:h-48 sm:h-32 h-32"
         ></div>
         <div className="flex flex-col w-full h-full lg:h-full lg:pr-10 lg:pl-10 p-0 m-0 items-center justify-center text-[#f0f0f0] bg-[#030303] text-2xl font-bold">
           <div className="flex flex-col lg:flex-col lg:justify-between justify-between align-middle items-center w-full gap-6">
-            <div className="elements futuristic-armour flex flex-col md:flex-row md:gap-5 lg:gap-5 lg:flex-row md:px-6 sm:px-6 px-6 lg:px-0 text-6xl lg:text-8xl w-full h-full justify-center align-middle items-center lg:items-center tracking-widest">
+            <div className="elements futuristic-armour flex flex-col md:flex-row md:gap-5 lg:gap-5 lg:flex-row md:px-6 sm:px-6 px-6 lg:px-0 text-5xl sm:text-6xl lg:text-8xl w-full h-full justify-center align-middle items-center lg:items-center tracking-widest text-center">
               <div>FEATURED</div> <div>WORK</div>
             </div>
             {/* <a
@@ -524,82 +533,86 @@ export default function Home({ setMenuItem }) {
               </div>
             }
           >
-            <div className="flex flex-col w-full pt-10 px-0 md:px-5 lg:px-0 gap-10 justify-center items-center">
-              {projects.slice(0, 6).map((p, i) => (
+            <>
+              <div className="grid md:grid-cols-2 lg:grid-cols-2 w-full px-5 sm:px-5 md:px-10 lg:px-10 gap-[5vh] justify-center items-center mt-10">
+              {projects.slice(0, 4).map((p, i) => (
                 <div
                   key={p.id}
-                  className="elements w-full bg-[#D90908] relative cyber-box p-[2px] transition-all duration-300 group z-10 min-h-[40vh]"
+                  className="elements h-[40vh] sm:h-[50vh] md:h-[40vh] lg:h-[75vh] w-full bg-[#D90908] cyber-box p-[2px] transition-all duration-300 ease-in-out cursor-pointer relative z-10 shadow-[0_0_15px_rgba(217,9,8,0.1)] group"
+                  onClick={() => {
+                    if (isTouchDevice) setSelectedProject(p);
+                  }}
                 >
-                  <div 
-                    className="flex flex-col lg:flex-row w-full h-full bg-black relative"
-                    style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%)" }}
-                  >
-                    {/* Left: Image */}
-                  <div
-                    className="absolute lg:relative inset-0 w-full lg:w-[45%] h-full lg:h-auto bg-cover bg-center transition-all duration-500 lg:grayscale group-hover:grayscale-0"
-                    style={{ backgroundImage: `url(${p.image})` }}
-                  >
-                    <div className="absolute inset-0 bg-[#D90908]/20 mix-blend-color opacity-0 lg:opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
-                    <div className="absolute inset-0 bg-black/70 lg:hidden" />
-                  </div>
+                  <div className="flex flex-col w-full h-full bg-black relative" style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%)" }}>
+                    {/* Thumbnail */}
+                    <div
+                      className="relative flex items-center justify-center h-[75%] lg:h-[80%] transition-all duration-300 ease-in-out"
+                      style={{
+                        backgroundImage: `url(/${p.image})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    >
+                      {!isTouchDevice && (
+                        <div className="flex flex-col gap-6 w-full h-full bg-black/80 text-[#f0f0f0] transition-all duration-300 backdrop-blur-md items-center justify-center opacity-0 group-hover:opacity-100 p-6 text-center">
+                          <div className="font-bold text-sm sm:text-base lg:text-lg hover-glitch">
+                            {p.description}
+                          </div>
+                          <div className="flex flex-row gap-3 flex-wrap justify-center mt-2">
+                            {p.skills.map((skill, index) => (
+                              <span
+                                key={index}
+                                className="hover-glitch text-[10px] sm:text-xs bg-transparent text-[#D90908] border border-[#D90908] px-2 py-1 font-mono tracking-widest"
+                                style={{ animationDelay: `${index * 0.05}s` }}
+                              >
+                                {skill}
+                              </span>
+                            ))}
+                          </div>
+                          <div className="flex flex-row gap-6 font-bold text-xs sm:text-sm font-mono mt-4">
+                            {p.repo_link && (
+                              <div className="bg-[#D90908] cyber-button p-[1px] shadow-[0_0_10px_rgba(217,9,8,0.2)] hover-glitch" style={{ animationDelay: `0.2s` }}>
+                                <a
+                                  className="block cyber-button px-4 py-2 bg-black text-[#D90908] hover:bg-[#D90908] hover:text-black transition-colors"
+                                  href={p.repo_link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  [ SRC_CODE ]
+                                </a>
+                              </div>
+                            )}
+                            {p.live_link && (
+                              <div className="bg-[#D90908] cyber-button p-[1px] shadow-[0_0_10px_rgba(217,9,8,0.2)] hover-glitch" style={{ animationDelay: `0.3s` }}>
+                                <a
+                                  className="block cyber-button px-4 py-2 bg-black text-[#D90908] hover:bg-[#D90908] hover:text-black transition-colors"
+                                  href={p.live_link[0]}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  [ {p.live_link[1] ? p.live_link[1] : "INIT_PREVIEW"} ]
+                                </a>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    </div>
 
-                  {/* Right: Data Panel */}
-                  <div className="w-full lg:w-[55%] p-6 sm:p-10 flex flex-col justify-between bg-transparent lg:bg-black relative border-none lg:border-l lg:border-t-0 border-[#D90908]/20 z-10">
-                    <div className="flex flex-col gap-4">
-                      {/* Terminal Header */}
-                      <div className="flex justify-between items-center text-xs sm:text-sm font-mono text-[#D90908]/60 pb-2 border-b border-[#D90908]/20">
-                        <span>>_ SYS.DAT_{i + 1} // {p.category.toUpperCase()}</span>
-                        <span className="bg-[#D90908]/20 px-2 text-[#D90908]">{p.year}</span>
+                    {/* Footer Data Readout */}
+                    <div className="flex flex-col justify-center px-4 sm:px-6 bg-[#0c0c0c] h-[25%] lg:h-[20%] border-t border-[#D90908]/30">
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="text-[#D90908] font-mono text-[10px] sm:text-xs font-bold">>_ SYS.DAT_{String(i + 1).padStart(2, '0')} // {p.category.toUpperCase()}</span>
+                        <span className="text-gray-500 font-mono text-[10px] sm:text-xs border border-gray-800 px-2">VER {p.year}</span>
                       </div>
-                      
-                      <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold uppercase text-white group-hover:text-[#D90908] transition-colors duration-300">
+                      <div className="futuristic-armour text-[#f0f0f0] text-xl sm:text-2xl tracking-widest">
                         {p.title}
-                      </h3>
-                      
-                      <p className="text-gray-400 text-sm sm:text-base md:text-lg font-light lg:w-4/5 mt-2">
-                        {p.description}
-                      </p>
-                      
-                      <div className="flex flex-wrap gap-3 mt-4">
-                        {p.skills.map((skill, index) => (
-                          <Link
-                            key={skill}
-                            to={`/projects?skill=${encodeURIComponent(skill)}`}
-                            className="elements cyber-glitch text-xs sm:text-sm bg-transparent text-[#D90908] border border-[#D90908] px-3 py-1 hover:bg-[#D90908] hover:text-black transition-colors font-mono"
-                            style={{ animationDelay: `${index * 0.1}s` }}
-                          >
-                            {skill}
-                          </Link>
-                        ))}
                       </div>
                     </div>
-                    
-                    <div className="flex gap-4 mt-10">
-                      {p.live_link && (
-                        <a
-                          href={p.live_link[0]}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="border border-[#D90908]/50 hover:bg-[#D90908] hover:text-black px-6 py-3 font-bold text-gray-400  hover:border-[#D90908] transition-all flex items-center justify-center"
-                        >
-                          {p.live_link[1] ? p.live_link[1] : "INIT_PREVIEW"}
-                        </a>
-                      )}
-                      {p.repo_link && (
-                        <a
-                          href={p.repo_link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="border border-[#D90908]/50 hover:bg-[#D90908] hover:text-black px-6 py-3 font-bold text-gray-400  hover:border-[#D90908] transition-all flex items-center justify-center"
-                        >
-                          SRC_CODE
-                        </a>
-                      )}
-                    </div>
-                  </div>
                   </div>
                 </div>
               ))}
+            </div>
 
               {/* Mobile Modal */}
               <AnimatePresence>
@@ -678,14 +691,14 @@ export default function Home({ setMenuItem }) {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
+            </>
           </Suspense>
         </div>
 
         {/* Filler Image Night City*/}
         {!isMobile ? (
           <>
-            <div className="lg:h-30 mg:h-25 sm:h-20 h-20"></div>
+            <div className="lg:h-64 md:h-48 sm:h-32 h-32"></div>
             <Suspense
               fallback={
                 <div className="w-full h-full flex items-center justify-center">
@@ -707,7 +720,7 @@ export default function Home({ setMenuItem }) {
           </>
         ) : (
           <>
-            {/* <div className="lg:h-30 mg:h-25 sm:h-20 h-20"></div>
+            {/* <div className="lg:h-64 md:h-48 sm:h-32 h-32"></div>
             <div id="artworks-mobile" ref={ArtworksMobileRef}>
               <Artworks Mobile={isMobile} />
             </div> */}
@@ -716,7 +729,7 @@ export default function Home({ setMenuItem }) {
 
         {/* Skills Section */}
         <div
-          className="lg:h-30 mg:h-25 sm:h-20 h-20"
+          className="lg:h-64 md:h-48 sm:h-32 h-32"
           id="skills"
           ref={SkillsRef}
         ></div>
@@ -724,7 +737,7 @@ export default function Home({ setMenuItem }) {
           <div className="flex flex-col space-y-4 md:w-1/3 lg:items-start md:items-start items-center">
             <div
               ref={skillsTitleRef}
-              className="futuristic-armour text-[14vw] sm:text-5xl md:text-5xl lg:text-7xl font-bold text-white sticky top-20 tracking-widest"
+              className="futuristic-armour text-5xl sm:text-5xl md:text-5xl lg:text-7xl font-bold text-white sticky top-20 tracking-widest"
             >
               SKILLS
             </div>
@@ -765,13 +778,13 @@ export default function Home({ setMenuItem }) {
 
         {/* EXPERIENCE Section */}
         <div
-          className="lg:h-30 mg:h-25 sm:h-20 h-20"
+          className="lg:h-64 md:h-48 sm:h-32 h-32"
           id="career"
           ref={WorkRef}
         ></div>
         <div className="w-full flex flex-col md:flex-row justify-between px-4 sm:px-6 md:px-10 gap-6 md:gap-10 text-lg sm:text-xl jura-font cursor-crosshair bg-black text-[#f0f0f0] mb-20">
           <div className="flex flex-col md:w-1/3 lg:w-1/3 w-full lg:items-start md:items-start items-center">
-            <div className="futuristic-armour text-[14vw] sm:text-5xl md:text-5xl lg:text-7xl font-bold text-white sticky top-20 tracking-widest">
+            <div className="futuristic-armour text-5xl sm:text-5xl md:text-5xl lg:text-7xl font-bold text-white sticky top-20 tracking-widest">
               CAREER
             </div>
           </div>
@@ -825,17 +838,17 @@ export default function Home({ setMenuItem }) {
         </div>
 
         {/* Artworks Section */}
-        <div className="lg:h-30 mg:h-25 sm:h-20 h-20"></div>
+        <div className="lg:h-64 md:h-48 sm:h-32 h-32"></div>
         <div id="artworks" ref={ArtworksRef}>
           <Artworks />
         </div>
 
         {/* Contact Section */}
-        <div className="lg:h-30 mg:h-25 sm:h-20 h-20" ref={ContactRef}></div>
+        <div className="lg:h-64 md:h-48 sm:h-32 h-32" ref={ContactRef}></div>
         <Contact />
         {/* <div className="w-full h-full  flex items-center justify-center text-[#f0f0f0] text-lg sm:text-xl font-bold px-4 sm:px-6 md:px-10">
           <div className="flex flex-col justify-center space-y-6 w-full lg:max-w-[80vw]">
-            <div className="elements flex flex-col items-center w-full text-[14vw] sm:text-5xl md:text-5xl lg:text-8xl leading-tight">
+            <div className="elements flex flex-col items-center text-center w-full text-[10vw] sm:text-5xl md:text-5xl lg:text-8xl leading-tight">
               <h1>LET'S WORK TOGETHER</h1>
             </div>
             <div className="elements w-full flex flex-col gap-4">
@@ -862,7 +875,7 @@ export default function Home({ setMenuItem }) {
         </div> */}
 
         {/* FOOTER */}
-        <div className="lg:h-30 mg:h-25 sm:h-20 h-20"></div>
+        <div className="lg:h-64 md:h-48 sm:h-32 h-32"></div>
         <Footer />
       </div>
     </div>
