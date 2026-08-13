@@ -204,7 +204,7 @@ export default function Ux() {
           <div className="flex flex-col w-full h-full bg-black/90 relative" style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%)" }}>
             {/* Header Data Bar */}
             <div className="bg-[#D90908] text-black font-mono text-xs px-4 py-2 flex justify-between items-center shrink-0">
-              <span className="font-bold">>_ SYS.GALLERY.DAT</span>
+              <span className="font-bold">&gt;_ SYS.GALLERY.DAT</span>
               <span className="font-bold animate-pulse">RENDERING: ONLINE</span>
             </div>
 
@@ -268,7 +268,7 @@ export default function Ux() {
 
       <div className="mt-20">
         <div className="bg-[#D90908] border-y border-black h-12 lg:h-16 uppercase text-black font-mono font-bold flex justify-between items-center px-6 sm:px-12 md:px-20 shadow-[0_0_20px_rgba(217,9,8,0.3)] z-20 relative">
-          <div className="hidden sm:block">>_ SYS.COPYRIGHT // AUTHENTICATED</div>
+          <div className="hidden sm:block">&gt;_ SYS.COPYRIGHT // AUTHENTICATED</div>
           <motion.p
             className="text-xs sm:text-sm lg:text-base flex flex-row tracking-widest items-center"
             initial={{ opacity: 0, filter: "blur(10px)" }}

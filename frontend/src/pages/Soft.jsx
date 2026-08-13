@@ -101,7 +101,7 @@ export default function Soft() {
           <div className="flex flex-col w-full h-full bg-black/90 relative" style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%)" }}>
             {/* Header */}
             <div className="bg-[#D90908] text-black font-mono text-xs px-4 py-2 flex justify-between items-center shrink-0">
-              <span className="font-bold">>_ SYS.ARCHIVE.DAT</span>
+              <span className="font-bold">&gt;_ SYS.ARCHIVE.DAT</span>
               <span className="font-bold animate-pulse">STATUS: ONLINE</span>
             </div>
 
@@ -155,7 +155,7 @@ export default function Soft() {
                   <div className="w-full bg-[#D90908] cyber-box p-[2px] shadow-[0_0_20px_rgba(217,9,8,0.2)]">
                     <div className="w-full h-full bg-black/95 backdrop-blur-lg relative" style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%)" }}>
                       <div className="bg-[#D90908]/10 border-b border-[#D90908]/30 px-4 py-3 flex justify-between items-center relative z-10">
-                    <h2 className="text-sm font-bold font-mono text-[#D90908]">>_ SYS.FILTER</h2>
+                    <h2 className="text-sm font-bold font-mono text-[#D90908]">&gt;_ SYS.FILTER</h2>
                     <button
                       className="text-white hover:text-red-500"
                       onClick={() => setDesktopFilterOpen(false)}
@@ -166,7 +166,7 @@ export default function Soft() {
 
                   <div className="flex flex-col gap-4 p-5">
                     <div>
-                      <div className="text-[10px] text-[#D90908] mb-2 font-mono">>_ BY_SKILL</div>
+                      <div className="text-[10px] text-[#D90908] mb-2 font-mono">&gt;_ BY_SKILL</div>
                       <div className="flex gap-2 flex-wrap">
                         {skills.map((s) => (
                           <button
@@ -186,7 +186,7 @@ export default function Soft() {
                       </div>
                     </div>
                     <div>
-                      <div className="text-[10px] text-[#D90908] mb-2 font-mono">>_ BY_YEAR</div>
+                      <div className="text-[10px] text-[#D90908] mb-2 font-mono">&gt;_ BY_YEAR</div>
                       <div className="flex gap-2 flex-wrap">
                         {years.map((y) => (
                           <button
@@ -243,7 +243,7 @@ export default function Soft() {
                   <div className="w-full bg-[#D90908] cyber-box p-[2px] shadow-[0_0_20px_rgba(217,9,8,0.2)]">
                     <div className="w-full h-full bg-black/95 backdrop-blur-lg relative" style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%)" }}>
                       <div className="bg-[#D90908]/10 border-b border-[#D90908]/30 px-5 py-4 flex justify-between items-center relative z-10">
-                    <h2 className="text-sm font-bold font-mono text-[#D90908]">>_ SYS.FILTER</h2>
+                    <h2 className="text-sm font-bold font-mono text-[#D90908]">&gt;_ SYS.FILTER</h2>
                     <button
                       className="text-white hover:text-red-500"
                       onClick={() => setMobileFilterOpen(false)}
@@ -253,7 +253,7 @@ export default function Soft() {
                   </div>
                   <div className="flex flex-col gap-4 p-6 overflow-y-auto max-h-[60vh]">
                     <div>
-                      <div className="text-[10px] text-[#D90908] mb-2 font-mono">>_ BY_SKILL</div>
+                      <div className="text-[10px] text-[#D90908] mb-2 font-mono">&gt;_ BY_SKILL</div>
                       <div className="flex gap-2 flex-wrap justify-center sm:justify-start">
                         {skills.map((s) => (
                           <button
@@ -273,7 +273,7 @@ export default function Soft() {
                       </div>
                     </div>
                     <div>
-                      <div className="text-[10px] text-[#D90908] mb-2 font-mono">>_ BY_YEAR</div>
+                      <div className="text-[10px] text-[#D90908] mb-2 font-mono">&gt;_ BY_YEAR</div>
                       <div className="flex gap-2 flex-wrap justify-center sm:justify-start">
                         {years.map((y) => (
                           <button
@@ -393,7 +393,7 @@ export default function Soft() {
                 {/* Footer Data Readout */}
                 <div className="flex flex-col justify-center px-4 sm:px-6 bg-[#0c0c0c] h-[25%] lg:h-[20%] border-t border-[#D90908]/30">
                   <div className="flex justify-between items-center mb-1">
-                    <span className="text-[#D90908] font-mono text-[10px] sm:text-xs font-bold">>_ SYS.DAT // {p.category.toUpperCase()}</span>
+                    <span className="text-[#D90908] font-mono text-[10px] sm:text-xs font-bold">&gt;_ SYS.DAT // {p.category.toUpperCase()}</span>
                     <span className="text-gray-500 font-mono text-[10px] sm:text-xs border border-gray-800 px-2">VER {p.year}</span>
                   </div>
                   <div className="futuristic-armour text-[#f0f0f0] text-xl sm:text-2xl tracking-widest">
@@ -426,7 +426,7 @@ export default function Soft() {
                   <div className="w-full bg-[#D90908] cyber-box p-[2px] shadow-[0_0_30px_rgba(217,9,8,0.3)]">
                     <div className="flex flex-col w-full h-full bg-black relative text-[#f0f0f0]" style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%)" }}>
                       <div className="bg-[#D90908]/10 border-b border-[#D90908]/30 px-4 py-2 flex justify-between items-center mb-4 relative z-10">
-                    <h2 className="text-sm font-bold font-mono text-[#D90908]">>_ SYS.DAT // {selectedProject.category.toUpperCase()}</h2>
+                    <h2 className="text-sm font-bold font-mono text-[#D90908]">&gt;_ SYS.DAT // {selectedProject.category.toUpperCase()}</h2>
                     <button
                       className="text-white hover:text-red-500"
                       onClick={() => setSelectedProject(null)}

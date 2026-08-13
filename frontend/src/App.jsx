@@ -6,10 +6,10 @@ import Lenis from "lenis";
 // import usePreventZoom from "./hooks/usePreventZoom.jsx";
 
 import "./App.css";
-import Home from "./pages/Home.jsx";
-import Artworks from "./pages/Artworks.jsx";
-import Soft from "./pages/Soft.jsx";
-import Credits from "./components/Credits.jsx";
+const Home = lazy(() => import("./pages/Home.jsx"));
+const Artworks = lazy(() => import("./pages/Artworks.jsx"));
+const Soft = lazy(() => import("./pages/Soft.jsx"));
+const Credits = lazy(() => import("./components/Credits.jsx"));
 
 // assets
 import cursorSvg from "./assets/cursor.svg";
@@ -704,7 +704,7 @@ function App() {
                 >
                   <div className="w-full max-w-5xl h-[85vh] bg-[#0c0c0c] cyber-box p-[2px] shadow-[0_0_30px_rgba(217,9,8,0.3)] flex flex-col relative">
                     <div className="bg-[#D90908]/20 border-b border-[#D90908]/50 px-4 py-3 flex justify-between items-center z-10 shrink-0">
-                      <h2 className="text-sm font-bold font-mono text-[#D90908]">>_ ADITYA_RESUME.PDF</h2>
+                      <h2 className="text-sm font-bold font-mono text-[#D90908]">&gt;_ ADITYA_RESUME.PDF</h2>
                       <div className="flex gap-4">
                         <a 
                           href={resume} 
@@ -742,15 +742,17 @@ function App() {
                   exit={{ opacity: 0, y: 50 }}
                   transition={{ duration: 0.7 }}
                 >
-                  <Routes location={location} key={location.pathname}>
-                    <Route
-                      path="/"
-                      element={<Home setMenuItem={setMenuItem} />}
-                    />
+                  <Suspense fallback={<div className="h-[80vh] w-full bg-transparent text-[#D90908] flex items-center justify-center font-mono font-bold animate-pulse">&gt;_ LOAD_SYS_MODULE...</div>}>
+                    <Routes location={location} key={location.pathname}>
+                      <Route
+                        path="/"
+                        element={<Home setMenuItem={setMenuItem} />}
+                      />
 
-                    <Route path="/projects" element={<Soft />} />
-                    <Route path="/artworks" element={<Artworks />} />
-                  </Routes>
+                      <Route path="/projects" element={<Soft />} />
+                      <Route path="/artworks" element={<Artworks />} />
+                    </Routes>
+                  </Suspense>
                 </motion.div>
               </AnimatePresence>
             </main>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import CyberText from "./CyberText.jsx";
 
 const web3Key = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
@@ -90,7 +91,7 @@ export default function Contact() {
         >
           {/* Terminal Header */}
           <div className="bg-[#D90908] text-black font-mono text-sm sm:text-base px-4 py-2 flex justify-between items-center shrink-0">
-            <span className="font-bold">>_ INITIATE_CONTACT.EXE</span>
+            <span className="font-bold"><CyberText text=">_ INITIATE_CONTACT.EXE" delay={0.2} /></span>
             <span className="animate-pulse font-bold">_</span>
           </div>
 
@@ -111,7 +112,7 @@ export default function Contact() {
                   </span>
                 </div>
                 <h2 className="text-[#D90908] font-mono text-xl sm:text-2xl tracking-widest text-center">
-                  >_ DATA_TRANSMITTED
+                  &gt;_ DATA_TRANSMITTED
                 </h2>
                 <p className="text-gray-500 font-mono mt-2 text-sm sm:text-base text-center px-4">
                   Connection securely closed.

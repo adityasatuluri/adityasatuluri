@@ -16,7 +16,7 @@ function Credits({ visible, onClose }) {
           
           {/* Terminal Header */}
           <div className="bg-[#D90908]/10 border-b border-[#D90908]/30 px-5 py-3 flex justify-between items-center shrink-0">
-            <span className="font-bold font-mono text-sm text-[#D90908]">>_ SYS.CREDITS.DAT</span>
+            <span className="font-bold font-mono text-sm text-[#D90908]">&gt;_ SYS.CREDITS.DAT</span>
             <button
               onClick={onClose}
               className="text-[#D90908] hover:text-white transition-colors duration-300 font-bold font-mono text-sm"
@@ -41,7 +41,7 @@ function Credits({ visible, onClose }) {
                 />
 
                 <div className="flex flex-col flex-1 justify-center">
-                  <div className="text-[10px] sm:text-xs text-[#D90908] font-bold tracking-widest mb-1">>_ AUDIO.STREAM</div>
+                  <div className="text-[10px] sm:text-xs text-[#D90908] font-bold tracking-widest mb-1">&gt;_ AUDIO.STREAM</div>
                   <p className="text-lg sm:text-xl font-bold uppercase tracking-widest text-white leading-none mb-1">
                     Init
                   </p>
@@ -63,12 +63,12 @@ function Credits({ visible, onClose }) {
               {/* Logs */}
               <div className="flex flex-col gap-6 mt-2">
                 <div className="flex flex-col gap-1 border-l-2 border-[#D90908]/40 pl-4 py-1 hover:border-[#D90908] transition-colors">
-                  <div className="text-[10px] sm:text-xs text-[#D90908] font-bold tracking-widest">>_ LOG.ENTRY: 01</div>
+                  <div className="text-[10px] sm:text-xs text-[#D90908] font-bold tracking-widest">&gt;_ LOG.ENTRY: 01</div>
                   <p className="text-xs sm:text-sm text-gray-400">Screenshots captured from in-game footage of Cyberpunk 2077.</p>
                 </div>
 
                 <div className="flex flex-col gap-1 border-l-2 border-[#D90908]/40 pl-4 py-1 hover:border-[#D90908] transition-colors">
-                  <div className="text-[10px] sm:text-xs text-[#D90908] font-bold tracking-widest">>_ LOG.ENTRY: 02</div>
+                  <div className="text-[10px] sm:text-xs text-[#D90908] font-bold tracking-widest">&gt;_ LOG.ENTRY: 02</div>
                   <p className="text-xs sm:text-sm text-gray-400">
                     Glitch Animations by{" "}
                     <a href="https://pixabay.com/users/ceos_stock-13890949/" target="_blank" rel="noopener noreferrer" className="text-[#D90908] hover:text-white transition-colors underline decoration-[#D90908]/30 hover:decoration-white">Ceos_Stock</a>
@@ -78,7 +78,7 @@ function Credits({ visible, onClose }) {
                 </div>
 
                 <div className="flex flex-col gap-1 border-l-2 border-[#D90908]/40 pl-4 py-1 hover:border-[#D90908] transition-colors">
-                  <div className="text-[10px] sm:text-xs text-[#D90908] font-bold tracking-widest">>_ LOG.ENTRY: 03</div>
+                  <div className="text-[10px] sm:text-xs text-[#D90908] font-bold tracking-widest">&gt;_ LOG.ENTRY: 03</div>
                   <p className="text-xs sm:text-sm text-gray-400">
                     Artworks by Aditya Satuluri // Copyright &copy; {new Date().getFullYear()} //{" "}
                     <a href="https://www.instagram.com/artvader04/" target="_blank" rel="noopener noreferrer" className="text-[#D90908] hover:text-white transition-colors underline decoration-[#D90908]/30 hover:decoration-white">DimensionZ FX</a>

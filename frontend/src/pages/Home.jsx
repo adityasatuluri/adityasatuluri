@@ -29,6 +29,7 @@ import Footer from "../components/Footer.jsx";
 import projectsData from "../assets/projects.json";
 import { MdArrowUpward } from "react-icons/md";
 import ScrollToTop from "react-scroll-to-top";
+import CyberText from "../components/CyberText.jsx";
 import { RiCloseLargeFill } from "react-icons/ri";
 import Artworks from "../components/Artworks.jsx";
 import Contact from "../components/Contact.jsx";
@@ -398,18 +399,14 @@ export default function Home({ setMenuItem }) {
             transition={{ duration: 1, ease: easeInOut }}
             className="mt-10 lg:m-0 text-[#f0f0f0]  abnes font-bold text-shadow-md  leading-tight 
           text-[7vh] sm:text-[7vh] md:text-[8vh] lg:text-[10vw]"
-          >
-            ADITYA
-          </motion.h1>
+          ><CyberText text="ADITYA" delay={0.2} /></motion.h1>
           <motion.h1
             initial={{ opacity: 0, filter: "blur(10px)" }}
             animate={{ opacity: 1, filter: "blur(0px)" }}
             transition={{ duration: 1.5, ease: easeInOut }}
             className="m-0 text-[#f0f0f0] abnes font-bold text-shadow-md  leading-10 md:leading-20 lg:leading-28 
           text-[5vh] sm:text-[7vh] md:text-[6vh] lg:text-[10vw] "
-          >
-            SATULURI
-          </motion.h1>
+          ><CyberText text="SATULURI" delay={0.4} /></motion.h1>
         </div>
 
         <motion.h1
@@ -417,9 +414,7 @@ export default function Home({ setMenuItem }) {
           animate={{ opacity: 1, filter: "blur(0px)" }}
           transition={{ duration: 2, ease: easeInOut }}
           className="select-none relative z-20 mt-5 sm:mt-10 md:mt-15 lg:mt-20 mb-10 p-5 text-white tracking-[.3em] lg:tracking-[.6em] font-normal uppercase leading-tight text-[1.5vh] sm:text-[1.8vh] md:text-[2vh] lg:text-[2vh]"
-        >
-          WEB & AI DEVELOPER _ DESIGNER
-        </motion.h1>
+        ><CyberText text="WEB & AI DEVELOPER _ DESIGNER" delay={0.8} /></motion.h1>
 
         <motion.div
           initial={{ opacity: 0 }}
@@ -470,7 +465,7 @@ export default function Home({ setMenuItem }) {
             >
               {/* Header */}
               <div className="bg-[#D90908] text-black font-mono text-xs px-4 py-2 flex justify-between items-center shrink-0">
-                <span className="font-bold">>_ SYS.OVERVIEW.DAT</span>
+                <span className="font-bold">&gt;_ SYS.OVERVIEW.DAT</span>
                 <span className="font-bold animate-pulse">STATUS: ONLINE</span>
               </div>
 
@@ -602,7 +597,7 @@ export default function Home({ setMenuItem }) {
                     {/* Footer Data Readout */}
                     <div className="flex flex-col justify-center px-4 sm:px-6 bg-[#0c0c0c] h-[25%] lg:h-[20%] border-t border-[#D90908]/30">
                       <div className="flex justify-between items-center mb-1">
-                        <span className="text-[#D90908] font-mono text-[10px] sm:text-xs font-bold">>_ SYS.DAT_{String(i + 1).padStart(2, '0')} // {p.category.toUpperCase()}</span>
+                        <span className="text-[#D90908] font-mono text-[10px] sm:text-xs font-bold">&gt;_ SYS.DAT_{String(i + 1).padStart(2, '0')} // {p.category.toUpperCase()}</span>
                         <span className="text-gray-500 font-mono text-[10px] sm:text-xs border border-gray-800 px-2">VER {p.year}</span>
                       </div>
                       <div className="futuristic-armour text-[#f0f0f0] text-xl sm:text-2xl tracking-widest">
@@ -635,7 +630,7 @@ export default function Home({ setMenuItem }) {
                       <div className="w-full bg-[#D90908] cyber-box p-[2px] shadow-[0_0_30px_rgba(217,9,8,0.3)]">
                         <div className="flex flex-col w-full h-full bg-black relative text-[#f0f0f0]" style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%)" }}>
                           <div className="bg-[#D90908]/10 border-b border-[#D90908]/30 px-4 py-2 flex justify-between items-center mb-4 relative z-10">
-                        <h2 className="text-sm font-bold font-mono text-[#D90908]">>_ SYS.DAT // {selectedProject.category.toUpperCase()}</h2>
+                        <h2 className="text-sm font-bold font-mono text-[#D90908]">&gt;_ SYS.DAT // {selectedProject.category.toUpperCase()}</h2>
                         <button
                           className="text-white hover:text-red-500"
                           onClick={() => setSelectedProject(null)}
@@ -759,7 +754,7 @@ export default function Home({ setMenuItem }) {
               >
                 {/* Panel Header */}
                 <div className="bg-[#D90908]/10 border-b border-[#D90908]/30 text-[#D90908] font-mono text-sm sm:text-base px-4 py-2 flex items-center">
-                  <span className="font-bold">>_ SYS.MOD // {category.toUpperCase()}</span>
+                  <span className="font-bold">&gt;_ SYS.MOD // {category.toUpperCase()}</span>
                 </div>
 
                 {/* Panel Body */}
@@ -812,7 +807,7 @@ export default function Home({ setMenuItem }) {
                   {/* Content Box */}
                   <div className="elements ml-12 sm:ml-16 w-full border border-[#D90908]/30 bg-black p-1 relative">
                     <div className="bg-[#D90908]/10 border-b border-[#D90908]/30 px-4 py-2 flex flex-col sm:flex-row justify-between sm:items-center text-sm sm:text-base font-mono">
-                      <span className="text-[#D90908] font-bold">>_ {exp.date}</span>
+                      <span className="text-[#D90908] font-bold">&gt;_ {exp.date}</span>
                       <span className="text-gray-400">LOC: {exp.place}</span>
                     </div>
 
